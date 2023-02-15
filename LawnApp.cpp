@@ -147,7 +147,7 @@ LawnApp::LawnApp()
 	mDRM = nullptr;
 }
 
-//0x44EDD0¡¢0x44EDF0
+//0x44EDD0ã€0x44EDF0
 LawnApp::~LawnApp()
 {
 	if (mBoard)
@@ -340,22 +340,22 @@ void LawnApp::KillBoard()
 //0x44F410
 bool LawnApp::CanPauseNow()
 {
-	if (mBoard == nullptr)  // ²»ÔÚ¹Ø¿¨ÄÚ
+	if (mBoard == nullptr)  // ä¸åœ¨å…³å¡å†…
 		return false;
 
-	if (mSeedChooserScreen && mSeedChooserScreen->mMouseVisible)  // ´¦ÓÚÑ¡¿¨½çÃæ
+	if (mSeedChooserScreen && mSeedChooserScreen->mMouseVisible)  // å¤„äºé€‰å¡ç•Œé¢
 		return false;
 
-	if (mBoard->mBoardFadeOutCounter >= 0)  // ÍË³ö¹Ø¿¨¹ı³ÌÖĞ
+	if (mBoard->mBoardFadeOutCounter >= 0)  // é€€å‡ºå…³å¡è¿‡ç¨‹ä¸­
 		return false;
 
-	if (mCrazyDaveState != CrazyDaveState::CRAZY_DAVE_OFF)  // ´æÔÚ´÷·ò
+	if (mCrazyDaveState != CrazyDaveState::CRAZY_DAVE_OFF)  // å­˜åœ¨æˆ´å¤«
 		return false;
 
-	if (mGameMode == GameMode::GAMEMODE_CHALLENGE_ZEN_GARDEN || mGameMode == GameMode::GAMEMODE_TREE_OF_WISDOM)  // ´¦ÓÚìø¾³»¨Ô°»òÖÇ»ÛÊ÷
+	if (mGameMode == GameMode::GAMEMODE_CHALLENGE_ZEN_GARDEN || mGameMode == GameMode::GAMEMODE_TREE_OF_WISDOM)  // å¤„äºç¦…å¢ƒèŠ±å›­æˆ–æ™ºæ…§æ ‘
 		return false;
 
-	return GetDialogCount() <= 0;  // ²»´æÔÚ¶Ô»°
+	return GetDialogCount() <= 0;  // ä¸å­˜åœ¨å¯¹è¯
 }
 
 void LawnApp::GotFocus()
@@ -1074,7 +1074,7 @@ void LawnApp::DoConfirmSellDialog(const SexyString& theMessage)
 
 void LawnApp::DoConfirmPurchaseDialog(const SexyString& theMessage)
 {
-	LawnDialog* aComfirmDialog = (LawnDialog*)DoDialog(Dialogs::DIALOG_STORE_PURCHASE, true, _S("ÂòÏÂÕâ¸öÎïÆ·£¿"), theMessage, _S(""), Dialog::BUTTONS_YES_NO);
+	LawnDialog* aComfirmDialog = (LawnDialog*)DoDialog(Dialogs::DIALOG_STORE_PURCHASE, true, _S("ä¹°ä¸‹è¿™ä¸ªç‰©å“ï¼Ÿ"), theMessage, _S(""), Dialog::BUTTONS_YES_NO);
 	aComfirmDialog->mLawnYesButton->mLabel = TodStringTranslate(_S("[DIALOG_BUTTON_YES]"));
 	aComfirmDialog->mLawnNoButton->mLabel = TodStringTranslate(_S("[DIALOG_BUTTON_NO]"));
 }
@@ -1154,6 +1154,7 @@ void LawnApp::ModalOpen()
 
 void LawnApp::ModalClose()
 {
+mBoard->Pause(false);
 }
 
 //0x451800
@@ -1362,8 +1363,8 @@ bool LawnApp::UpdatePlayerProfileForFinishingLevel()
 	{
 		if (mBoard->mLevel == FINAL_LEVEL)
 		{
-			mPlayerInfo->SetLevel(1);  // ´æµµ»Øµ½µÚ 1-1 ¹Ø
-			mPlayerInfo->mFinishedAdventure++;  // Íê³ÉÃ°ÏÕÄ£Ê½ÖÜÄ¿ÊıÔö¼Ó 1 ´Î
+			mPlayerInfo->SetLevel(1);  // å­˜æ¡£å›åˆ°ç¬¬ 1-1 å…³
+			mPlayerInfo->mFinishedAdventure++;  // å®Œæˆå†’é™©æ¨¡å¼å‘¨ç›®æ•°å¢åŠ  1 æ¬¡
 			if (mPlayerInfo->mFinishedAdventure == 1)
 			{
 				mPlayerInfo->mNeedsMessageOnGameSelector = 1;
@@ -1371,7 +1372,7 @@ bool LawnApp::UpdatePlayerProfileForFinishingLevel()
 		}
 		else
 		{
-			mPlayerInfo->SetLevel(mBoard->mLevel + 1);  // ´æµµ½øÈëÏÂÒ»¹Ø
+			mPlayerInfo->SetLevel(mBoard->mLevel + 1);  // å­˜æ¡£è¿›å…¥ä¸‹ä¸€å…³
 		}
 
 		if (!HasFinishedAdventure() && mBoard->mLevel == 34)
@@ -1832,7 +1833,7 @@ void LawnApp::ButtonPress(int theId)
 //0x4531E0
 void LawnApp::ButtonDepress(int theId)
 {
-	if (theId % 10000 >= 2000 && theId % 10000 < 3000)  // °´Å¥±àºÅ theId ¡Ê [2000, 3000) Ê±£¬±íÊ¾°´ÏÂ theId - 2000 ±àºÅµÄ¶Ô»°ÖĞµÄ¡°ÊÇ¡±°´Å¥
+	if (theId % 10000 >= 2000 && theId % 10000 < 3000)  // æŒ‰é’®ç¼–å· theId âˆˆ [2000, 3000) æ—¶ï¼Œè¡¨ç¤ºæŒ‰ä¸‹ theId - 2000 ç¼–å·çš„å¯¹è¯ä¸­çš„â€œæ˜¯â€æŒ‰é’®
 	{
 		switch (theId - 2000)
 		{
@@ -1935,7 +1936,7 @@ void LawnApp::ButtonDepress(int theId)
 		}
 	}
 
-	if (theId % 10000 >= 3000 && theId < 4000)  // °´Å¥±àºÅ theId ¡Ê [3000, 4000) Ê±£¬±íÊ¾°´ÏÂ theId - 3000 ±àºÅµÄ¶Ô»°ÖĞµÄ¡°·ñ¡±°´Å¥
+	if (theId % 10000 >= 3000 && theId < 4000)  // æŒ‰é’®ç¼–å· theId âˆˆ [3000, 4000) æ—¶ï¼Œè¡¨ç¤ºæŒ‰ä¸‹ theId - 3000 ç¼–å·çš„å¯¹è¯ä¸­çš„â€œå¦â€æŒ‰é’®
 	{
 		switch (theId - 3000)
 		{
@@ -2291,14 +2292,14 @@ SeedType LawnApp::GetAwardSeedForLevel(int theLevel)
 {
 	int aArea = (theLevel - 1) / LEVELS_PER_AREA + 1;
 	int aSub = (theLevel - 1) % LEVELS_PER_AREA + 1;
-	int aSeedsHasGot = (aArea - 1) * 8 + aSub;  // Ò»°ãÀ´Ëµ£¬Ã¿´ó¹Ø¿ÉÒÔ»ñµÃ 8 ÖÖÖ²Îï£¬Ã¿Ğ¡¹Ø¿ÉÒÔ»ñµÃ 1 ÖÖÖ²Îï
+	int aSeedsHasGot = (aArea - 1) * 8 + aSub;  // ä¸€èˆ¬æ¥è¯´ï¼Œæ¯å¤§å…³å¯ä»¥è·å¾— 8 ç§æ¤ç‰©ï¼Œæ¯å°å…³å¯ä»¥è·å¾— 1 ç§æ¤ç‰©
 	if (aSub >= 10)
 	{
-		aSeedsHasGot -= 2;  // µ½´ïµÚ 10 Ğ¡¹ØÊ±£¬±¾´ó¹ØÖĞÓĞ 2 Ğ¡¹ØµÄ½±Àø²»ÊÇĞÂÖ²Îï
+		aSeedsHasGot -= 2;  // åˆ°è¾¾ç¬¬ 10 å°å…³æ—¶ï¼Œæœ¬å¤§å…³ä¸­æœ‰ 2 å°å…³çš„å¥–åŠ±ä¸æ˜¯æ–°æ¤ç‰©
 	}
 	else if (aSub >= 5)
 	{
-		aSeedsHasGot -= 1;  // µ½´ïµÚ 5 Ğ¡¹ØÊ±£¬±¾´ó¹ØÖĞÓĞ 1 Ğ¡¹ØµÄ½±Àø²»ÊÇĞÂÖ²Îï
+		aSeedsHasGot -= 1;  // åˆ°è¾¾ç¬¬ 5 å°å…³æ—¶ï¼Œæœ¬å¤§å…³ä¸­æœ‰ 1 å°å…³çš„å¥–åŠ±ä¸æ˜¯æ–°æ¤ç‰©
 	}
 	if (aSeedsHasGot > 40)
 	{
@@ -2327,7 +2328,7 @@ bool LawnApp::HasSeedType(SeedType theSeedType)
 	if (IsTrialStageLocked() && theSeedType >= SeedType::SEED_JALAPENO)
 		return false;
 
-	/*  ÓÅ»¯
+	/*  ä¼˜åŒ–
 	if (theSeedType >= SeedType::SEED_TWINSUNFLOWER && theSeedType <= SeedType::SEED_IMITATER)
 		return mPlayerInfo->mPurchases[theSeedType - SeedType::SEED_GATLINGPEA];
 	*/
