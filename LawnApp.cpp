@@ -1154,7 +1154,10 @@ void LawnApp::ModalOpen()
 
 void LawnApp::ModalClose()
 {
-mBoard->Pause(false);
+	if (mBoard && !NeedPauseGame())
+	{
+	mBoard->Pause(false);
+	}
 }
 
 //0x451800
