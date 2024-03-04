@@ -62,7 +62,7 @@ ChallengeDefinition gChallengeDefs[NUM_CHALLENGE_MODES] = {
 	{ GameMode::GAMEMODE_CHALLENGE_STORMY_NIGHT,               13,  ChallengePage::CHALLENGE_PAGE_LIMBO,       2,  1,  _S("[DARK_STORMY_NIGHT]") },
 	{ GameMode::GAMEMODE_CHALLENGE_BUNGEE_BLITZ,               9,   ChallengePage::CHALLENGE_PAGE_LIMBO,       2,  2,  _S("[BUNGEE_BLITZ]") },
 	{ GameMode::GAMEMODE_CHALLENGE_SQUIRREL,                   10,  ChallengePage::CHALLENGE_PAGE_LIMBO,       2,  3,  _S("Squirrel") },
-	{ GameMode::GAMEMODE_TREE_OF_WISDOM,                       10,  ChallengePage::CHALLENGE_PAGE_LIMBO,       2,  4,  _S("ÖÇ»ÛÊ÷") },
+	{ GameMode::GAMEMODE_TREE_OF_WISDOM,                       10,  ChallengePage::CHALLENGE_PAGE_LIMBO,       2,  4,  _S("Tree Of Wisdom") },
 	{ GameMode::GAMEMODE_SCARY_POTTER_1,                       10,  ChallengePage::CHALLENGE_PAGE_PUZZLE,      0,  0,  _S("[SCARY_POTTER_1]") },
 	{ GameMode::GAMEMODE_SCARY_POTTER_2,                       10,  ChallengePage::CHALLENGE_PAGE_PUZZLE,      0,  1,  _S("[SCARY_POTTER_2]") },
 	{ GameMode::GAMEMODE_SCARY_POTTER_3,                       10,  ChallengePage::CHALLENGE_PAGE_PUZZLE,      0,  2,  _S("[SCARY_POTTER_3]") },
@@ -387,7 +387,7 @@ void ChallengeScreen::DrawButton(Graphics* g, int theChallengeIndex)
 		if (AccomplishmentsNeeded(theChallengeIndex) <= 1)
 		{
 			// ============================================================================================
-			// ¡ø »æÖÆ°´Å¥ÉÏµÄÐ¡ÓÎÏ·Í¼±ê
+			// â–² ç»˜åˆ¶æŒ‰é’®ä¸Šçš„å°æ¸¸æˆå›¾æ ‡
 			// ============================================================================================
 			if (aChallengeButton->mDisabled)
 			{
@@ -418,14 +418,14 @@ void ChallengeScreen::DrawButton(Graphics* g, int theChallengeIndex)
 			}
 
 			// ============================================================================================
-			// ¡ø »æÖÆÐ¡ÓÎÏ·°´Å¥±ß¿ò
+			// â–² ç»˜åˆ¶å°æ¸¸æˆæŒ‰é’®è¾¹æ¡†
 			// ============================================================================================
 			bool aHighLight = aChallengeButton->mIsOver && theChallengeIndex != mUnlockChallengeIndex;
 			g->SetColorizeImages(false);
 			g->DrawImage(aHighLight ? Sexy::IMAGE_CHALLENGE_WINDOW : Sexy::IMAGE_CHALLENGE_WINDOW_HIGHLIGHT, aPosX - 6, aPosY - 2);
 
 			// ============================================================================================
-			// ¡ø »æÖÆÐ¡ÓÎÏ·µÄÃû³Æ
+			// â–² ç»˜åˆ¶å°æ¸¸æˆçš„åç§°
 			// ============================================================================================
 			Color aTextColor = aHighLight ? Color(250, 40, 40) : Color(42, 42, 90);
 			SexyString aName = TodStringTranslate(aDef.mChallengeName);
@@ -441,7 +441,7 @@ void ChallengeScreen::DrawButton(Graphics* g, int theChallengeIndex)
 			}
 			else
 			{
-				// ÏÈ³¢ÊÔÔÚÃû³Æ×Ö·û´®µÄºó°ë¶ÎÈ¡¿Õ¸ñÒÔ½«×Ö·û´®·Ö¸ôÎªÁ½ÐÐ£¬Èôºó°ë¶ÎÖÐÎÞ¿Õ¸ñÔòÔÚÕû¸ö×Ö·û´®ÖÐÑ°ÕÒ¿Õ¸ñ
+				// å…ˆå°è¯•åœ¨åç§°å­—ç¬¦ä¸²çš„åŽåŠæ®µå–ç©ºæ ¼ä»¥å°†å­—ç¬¦ä¸²åˆ†éš”ä¸ºä¸¤è¡Œï¼Œè‹¥åŽåŠæ®µä¸­æ— ç©ºæ ¼åˆ™åœ¨æ•´ä¸ªå­—ç¬¦ä¸²ä¸­å¯»æ‰¾ç©ºæ ¼
 				int aHalfPos = (mPageIndex == CHALLENGE_PAGE_SURVIVAL && !aChallengeButton->mDisabled) ? 7 : (aNameLen / 2 - 1);
 				const SexyChar* aSpacedChar = sexystrchr(aName.c_str() + aHalfPos, _S(' '));
 				if (aSpacedChar == nullptr)
@@ -449,7 +449,7 @@ void ChallengeScreen::DrawButton(Graphics* g, int theChallengeIndex)
 					aSpacedChar = sexystrchr(aName.c_str(), _S(' '));
 				}
 
-				// ·Ö±ð¼ÆËãÈ¡µÃÁ½ÐÐÎÄ±¾µÄ³¤¶È
+				// åˆ†åˆ«è®¡ç®—å–å¾—ä¸¤è¡Œæ–‡æœ¬çš„é•¿åº¦
 				int aLine1Len = aNameLen;
 				int aLine2Len = 0;
 				if (aSpacedChar != nullptr)
@@ -458,7 +458,7 @@ void ChallengeScreen::DrawButton(Graphics* g, int theChallengeIndex)
 					aLine2Len = aNameLen - aLine1Len - 1;
 				}
 
-				// ·Ö±ð»æÖÆÁ½ÐÐÎÄ±¾×Ö·û´®
+				// åˆ†åˆ«ç»˜åˆ¶ä¸¤è¡Œæ–‡æœ¬å­—ç¬¦ä¸²
 				TodDrawString(g, aName.substr(0, aLine1Len), aPosX + 52, aPosY + 88, Sexy::FONT_BRIANNETOD12, aTextColor, DS_ALIGN_CENTER);
 				if (aLine2Len > 0)
 				{
@@ -467,7 +467,7 @@ void ChallengeScreen::DrawButton(Graphics* g, int theChallengeIndex)
 			}
 
 			// ============================================================================================
-			// ¡ø »æÖÆ¹Ø¿¨Ëø¶¨»ò¹Ø¿¨Íê³ÉµÄÌùÍ¼ÒÔ¼°¹Ø¿¨×î¸ß¼ÇÂ¼µÄÎÄ±¾µÈ
+			// â–² ç»˜åˆ¶å…³å¡é”å®šæˆ–å…³å¡å®Œæˆçš„è´´å›¾ä»¥åŠå…³å¡æœ€é«˜è®°å½•çš„æ–‡æœ¬ç­‰
 			// ============================================================================================
 			int aRecord = mApp->mPlayerInfo->mChallengeRecords[theChallengeIndex];
 			if (theChallengeIndex == mUnlockChallengeIndex)
@@ -690,7 +690,7 @@ void ChallengeScreen::UpdateToolTip()
 				mToolTip->mVisible = true;
 				return;
 			} // end if (MoreTrophiesNeeded(aChallengeMode) > 0)
-		} // end ÐèÒªÏÔÊ¾±êÇ©µÄÌõ¼þÅÐ¶Ï
+		} // end éœ€è¦æ˜¾ç¤ºæ ‡ç­¾çš„æ¡ä»¶åˆ¤æ–­
 	}
 
 	mToolTip->mVisible = false;
