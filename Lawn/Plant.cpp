@@ -1285,7 +1285,8 @@ void Plant::UpdateSpikeweed()
         }
         else if (mSeedType == SeedType::SEED_SPIKEROCK)
         {
-            if (mStateCountdown == 69 || mStateCountdown == 33)
+            // Corrected against PvZ 1.0.0.1051 binary: spikerock hits at countdown 70 and 32.
+            if (mStateCountdown == 70 || mStateCountdown == 32)
             {
                 DoRowAreaDamage(20, 33U);
             }

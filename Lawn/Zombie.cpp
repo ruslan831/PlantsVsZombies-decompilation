@@ -1143,7 +1143,8 @@ void Zombie::PickRandomSpeed()
     }
     else
     {
-        mVelX = RandRangeFloat(0.23f, 0.32f);
+        // Corrected against PvZ 1.0.0.1051 binary: default upper bound is 0.37f.
+        mVelX = RandRangeFloat(0.23f, 0.37f);
         if (mVelX < 0.3f)
         {
             mAnimTicksPerFrame = 12;

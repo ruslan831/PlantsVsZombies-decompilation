@@ -62,7 +62,8 @@ void Projectile::ProjectileInitialize(int theX, int theY, int theRenderOrder, in
 	mCobTargetRow = 0;
 	mTargetZombieID = ZombieID::ZOMBIEID_NULL;
 	mOnHighGround = mBoard->mGridSquareType[aGridX][theRow] == GridSquareType::GRIDSQUARE_HIGH_GROUND;
-	if (mBoard->StageHasRoof())
+	// Corrected against PvZ 1.0.0.1051 binary: roof shadow offset only applies before x = 480.
+	if (mBoard->StageHasRoof() && theX < 480)
 	{
 		mShadowY -= 12.0f;
 	}
@@ -212,7 +213,8 @@ Zombie* Projectile::FindCollisionTarget()
 	{
 		if ((aZombie->mZombieType == ZombieType::ZOMBIE_BOSS || aZombie->mRow == mRow) && aZombie->EffectedByDamage((unsigned int)mDamageRangeFlags))
 		{
-			if (aZombie->mZombiePhase == ZombiePhase::PHASE_SNORKEL_WALKING_IN_POOL && mPosZ >= 45.0f)
+			// Corrected against PvZ 1.0.0.1051 binary: snorkels are hittable only above 45.0f.
+			if (aZombie->mZombiePhase == ZombiePhase::PHASE_SNORKEL_WALKING_IN_POOL && mPosZ <= 45.0f)
 			{
 				continue;
 			}
@@ -223,7 +225,8 @@ Zombie* Projectile::FindCollisionTarget()
 			}
 
 			Rect aZombieRect = aZombie->GetZombieRect();
-			if (GetRectOverlap(aProjectileRect, aZombieRect) > 0)
+			// Corrected against PvZ 1.0.0.1051 binary: edge-touching hitboxes are valid.
+			if (GetRectOverlap(aProjectileRect, aZombieRect) >= 0)
 			{
 				if (aBestZombie == nullptr || aZombie->mX < aMinX)
 				{
@@ -267,7 +270,8 @@ void Projectile::CheckForCollision()
 		return;
 	}
 
-	if (mProjectileType == ProjectileType::PROJECTILE_STAR && (mPosY > 600.0f || mPosY < 0.0f))
+	// Corrected against PvZ 1.0.0.1051 binary: star projectiles die above the top edge at y < 40.
+	if (mProjectileType == ProjectileType::PROJECTILE_STAR && (mPosY > 600.0f || mPosY < 40.0f))
 	{
 		Die();
 		return;
@@ -369,7 +373,8 @@ void Projectile::CheckForHighGround()
 //0x46D1F0
 bool Projectile::IsSplashDamage(Zombie* theZombie)
 {
-	if (mProjectileType && theZombie && theZombie->IsFireResistant())
+	// Corrected against PvZ 1.0.0.1051 binary: fire resistance only cancels fireball splash.
+	if (mProjectileType == ProjectileType::PROJECTILE_FIREBALL && theZombie && theZombie->IsFireResistant())
 		return false;
 
 	return 
@@ -456,7 +461,8 @@ void Projectile::DoSplashDamage(Zombie* theZombie)
 
 	int aOriginalDamage = aProjectileDef.mDamage;
 	int aSplashDamage = aProjectileDef.mDamage / 3;
-	int aMaxSplashDamageAmount = aSplashDamage * 7;
+	// Corrected against PvZ 1.0.0.1051 binary: non-fireball cap uses original damage.
+	int aMaxSplashDamageAmount = aOriginalDamage * 7;
 	if (mProjectileType == ProjectileType::PROJECTILE_FIREBALL)
 	{
 		aMaxSplashDamageAmount = aOriginalDamage;

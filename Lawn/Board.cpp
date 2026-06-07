@@ -201,7 +201,7 @@ Board::Board(LawnApp* theApp)
 	}
 }
 
-//0x408670¡¢0x408690
+//0x408670ï¿½ï¿½0x408690
 Board::~Board()
 {
 	delete mAdvice;
@@ -480,8 +480,8 @@ void Board::AddGraveStones(int theGridX, int theCount, MTRand& theLevelRNG)
 {
 	TOD_ASSERT(theCount <= MAX_GRID_SIZE_Y);
 
-	// ÕâÀï¹ÃÇÒ¼ÓÒ»¸öÔ­°æÃ»ÓÐµÄ¡¢¶ÔÓÚ±¾ÁÐÄÜ·ñÉú³ÉÄ¹±®µÄÅÐ¶Ï
-	// Èç¹ûÃ»ÓÐÕâ¸öÅÐ¶Ï£¬µ±±¾ÁÐ²»´æÔÚ×ã¹»¶àµÄ¸ñ×Ó¿ÉÒÔ·ÅÖÃÄ¹±®Ê±£¬ÓÎÏ·»á¿¨ËÀ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¼ï¿½Ò»ï¿½ï¿½Ô­ï¿½ï¿½Ã»ï¿½ÐµÄ¡ï¿½ï¿½ï¿½ï¿½Ú±ï¿½ï¿½ï¿½ï¿½Ü·ï¿½ï¿½ï¿½ï¿½ï¿½Ä¹ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
+	// ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ï£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã¹»ï¿½ï¿½Ä¸ï¿½ï¿½Ó¿ï¿½ï¿½Ô·ï¿½ï¿½ï¿½Ä¹ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ï·ï¿½á¿¨ï¿½ï¿½
 	GridItem* aGridItem = nullptr;
 	//bool aAllowGraveStone[MAX_GRID_SIZE_Y] = { false };
 	int aGridAllowGraveStonesCount = 0;
@@ -504,8 +504,8 @@ void Board::AddGraveStones(int theGridX, int theCount, MTRand& theLevelRNG)
 		//	GridItem* aGraveStone = AddAGraveStone(theGridX, aGridY);
 		//	++i;
 		//}
-		// ÉÏÊöÐ´·¨ËäÈ»Ð§ÂÊ¸ü¸ß£¬µ«µ± AddAGraveStone() º¯Êý±»ÐÞ¸Äºó£¬²»ÄÜ±£Ö¤ aAllowGraveStone ÈÔÈ»ÓÐÐ§
-		// ¹ÊÕâÀïÈÔÈ»²ÉÓÃÈçÏÂµÄÔ­°æµÄÐ´·¨£¬½öÔÚÉÏÃæ¶Ô theCount ½øÐÐÐÞÕý
+		// ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½È»Ð§ï¿½Ê¸ï¿½ï¿½ß£ï¿½ï¿½ï¿½ï¿½ï¿½ AddAGraveStone() ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸Äºó£¬²ï¿½ï¿½Ü±ï¿½Ö¤ aAllowGraveStone ï¿½ï¿½È»ï¿½ï¿½Ð§
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½Ô­ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ theCount ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (CanAddGraveStoneAt(theGridX, aGridY))
 		{
 			GridItem* aGraveStone = AddAGraveStone(theGridX, aGridY);
@@ -573,7 +573,7 @@ void Board::PutInMissingZombies(int theWaveNumber, ZombiePicker* theZombiePicker
 void Board::PickZombieWaves()
 {
 	// ====================================================================================================
-	// ¡ø Éè¶¨¹Ø¿¨×Ü²¨Êý
+	// ï¿½ï¿½ ï¿½è¶¨ï¿½Ø¿ï¿½ï¿½Ü²ï¿½ï¿½ï¿½
 	// ====================================================================================================
 	if (mApp->IsAdventureMode())
 	{
@@ -613,7 +613,7 @@ void Board::PickZombieWaves()
 	}
 
 	// ====================================================================================================
-	// ¡ø Ò»Ð©×¼±¸¹¤×÷
+	// ï¿½ï¿½ Ò»Ð©×¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	// ====================================================================================================
 	ZombiePicker aZombiePicker;
 	ZombiePickerInit(&aZombiePicker);
@@ -621,7 +621,7 @@ void Board::PickZombieWaves()
 	TOD_ASSERT(mNumWaves <= MAX_ZOMBIE_WAVES);
 
 	// ====================================================================================================
-	// ¡ø ±éÀúÃ¿Ò»²¨²¢Ìî³äÃ¿²¨µÄ³ö¹ÖÁÐ±í
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¿Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
 	// ====================================================================================================
 	for (int aWave = 0; aWave < mNumWaves; aWave++)
 	{
@@ -633,7 +633,7 @@ void Board::PickZombieWaves()
 
 		if (mApp->IsBungeeBlitzLevel() && aIsFlagWave)
 		{
-			// ±Ä¼«ÉÁµçÕ½¹Ø¿¨µÄÃ¿´ó²¨¹Ì¶¨Ë¢³ö 5 Ö»±Ä¼«½©Ê¬
+			// ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Õ½ï¿½Ø¿ï¿½ï¿½ï¿½Ã¿ï¿½ó²¨¹Ì¶ï¿½Ë¢ï¿½ï¿½ 5 Ö»ï¿½Ä¼ï¿½ï¿½ï¿½Ê¬
 			for (int _i = 0; _i < 5; _i++)
 				PutZombieInWave(ZombieType::ZOMBIE_BUNGEE, aWave, &aZombiePicker);
 
@@ -642,10 +642,10 @@ void Board::PickZombieWaves()
 		}
 
 		// ------------------------------------------------------------------------------------------------
-		// ¡÷ ¼ÆËã¸Ã²¨µÄ½©Ê¬×ÜµãÊý
+		// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã²ï¿½ï¿½Ä½ï¿½Ê¬ï¿½Üµï¿½ï¿½ï¿½
 		// ------------------------------------------------------------------------------------------------
 		int& aZombiePoints = aZombiePicker.mZombiePoints;
-		// ¸ù¾Ý¹Ø¿¨¼ÆËã±¾²¨µÄ»ù´¡½©Ê¬µãÊý
+		// ï¿½ï¿½ï¿½Ý¹Ø¿ï¿½ï¿½ï¿½ï¿½ã±¾ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½Ê¬ï¿½ï¿½ï¿½ï¿½
 		if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_LAST_STAND)
 		{
 			aZombiePoints = (mChallenge->mSurvivalStage * GetNumWavesPerSurvivalStage() + aWave + 10) * 2 / 5 + 1;
@@ -663,7 +663,7 @@ void Board::PickZombieWaves()
 			aZombiePoints = aWave / 3 + 1;
 		}
 
-		// ÆìÖÄ²¨µÄÌØÊâµ÷Õû
+		// ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (aIsFlagWave)
 		{
 			int aPlainZombiesNum = min(aZombiePoints, 8);
@@ -679,7 +679,7 @@ void Board::PickZombieWaves()
 			}
 		}
 
-		// ²¿·Ö¹Ø¿¨µÄ¶à±¶³ö¹Ö
+		// ï¿½ï¿½ï¿½Ö¹Ø¿ï¿½ï¿½Ä¶à±¶ï¿½ï¿½ï¿½ï¿½
 		if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_COLUMN)
 		{
 			aZombiePoints *= 6;
@@ -702,9 +702,9 @@ void Board::PickZombieWaves()
 		}
 		
 		// ------------------------------------------------------------------------------------------------
-		// ¡÷ Ïò³ö¹ÖÁÐ±íÖÐ¼ÓÈë¹Ì¶¨Ë¢³öµÄ½©Ê¬
+		// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½Ð¼ï¿½ï¿½ï¿½Ì¶ï¿½Ë¢ï¿½ï¿½ï¿½Ä½ï¿½Ê¬
 		// ------------------------------------------------------------------------------------------------
-		// ²¿·ÖÐÂ³öÏÖµÄ½©Ê¬»áÔÚÌØ¶¨²¨¹Ì¶¨Ë¢³ö
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Â³ï¿½ï¿½ÖµÄ½ï¿½Ê¬ï¿½ï¿½ï¿½ï¿½ï¿½Ø¶ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½Ë¢ï¿½ï¿½
 		if (aIntroZombieType != ZombieType::ZOMBIE_INVALID && aIntroZombieType != ZombieType::ZOMBIE_DUCKY_TUBE)
 		{
 			bool aSpawnIntro = false;
@@ -733,20 +733,20 @@ void Board::PickZombieWaves()
 			}
 		}
 
-		// 5-10 ¹Ø¿¨µÄ×îºóÒ»²¨¼ÓÈëÒ»Ö»Ù¤¸ÕÌØ¶û
+		// 5-10 ï¿½Ø¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»Ö»Ù¤ï¿½ï¿½ï¿½Ø¶ï¿½
 		if (mLevel == 50 && aIsFinalWave)
 		{
 			PutZombieInWave(ZombieType::ZOMBIE_GARGANTUAR, aWave, &aZombiePicker);
 		}
-		// Ã°ÏÕÄ£Ê½¹Ø¿¨µÄ×îºóÒ»²¨»á³öÏÖ±¾¹Ø¿¨¿ÉÄÜ³öÏÖµÄËùÓÐ½©Ê¬
+		// Ã°ï¿½ï¿½Ä£Ê½ï¿½Ø¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ï¿½Ø¿ï¿½ï¿½ï¿½ï¿½Ü³ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Ð½ï¿½Ê¬
 		if (mApp->IsAdventureMode() && aIsFinalWave)
 		{
 			PutInMissingZombies(aWave, &aZombiePicker);
 		}
-		// Öù×Ó¹Ø¿¨µÄÌØÊâ³ö¹Ö
+		// ï¿½ï¿½ï¿½Ó¹Ø¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_COLUMN)
 		{
-			// Ã¿´ó²¨µÄµÚ 5 Ð¡²¨£¬¹Ì¶¨³öÏÖ 10 Ö»·öÌÝ½©Ê¬
+			// Ã¿ï¿½ó²¨µÄµï¿½ 5 Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ï¿½ï¿½ï¿½ 10 Ö»ï¿½ï¿½ï¿½Ý½ï¿½Ê¬
 			if (aWave % 10 == 5)
 			{
 				for (int _i = 0; _i < 10; _i++)
@@ -755,7 +755,7 @@ void Board::PickZombieWaves()
 				}
 			}
 
-			// Ã¿´ó²¨µÄµÚ 8 Ð¡²¨£¬¹Ì¶¨³öÏÖ 10 Ö»ÍæÅ¼Ï»½©Ê¬
+			// Ã¿ï¿½ó²¨µÄµï¿½ 8 Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ï¿½ï¿½ï¿½ 10 Ö»ï¿½ï¿½Å¼Ï»ï¿½ï¿½Ê¬
 			if (aWave % 10 == 8)
 			{
 				for (int _i = 0; _i < 10; _i++)
@@ -764,7 +764,7 @@ void Board::PickZombieWaves()
 				}
 			}
 
-			// µÚ 19/29 Ð¡²¨£¬¹Ì¶¨³öÏÖ 3/5 Ö»Ù¤¸ÕÌØ¶û
+			// ï¿½ï¿½ 19/29 Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ï¿½ï¿½ï¿½ 3/5 Ö»Ù¤ï¿½ï¿½ï¿½Ø¶ï¿½
 			if (aWave == 19)
 			{
 				for (int _i = 0; _i < 3; _i++)
@@ -782,7 +782,7 @@ void Board::PickZombieWaves()
 		}
 		
 		// ------------------------------------------------------------------------------------------------
-		// ¡÷ Ê£ÓàµÄ½©Ê¬µãÊýÓÃÓÚÏòÁÐ±íÖÐ²¹³äËæ»ú½©Ê¬
+		// ï¿½ï¿½ Ê£ï¿½ï¿½Ä½ï¿½Ê¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¬
 		// ------------------------------------------------------------------------------------------------
 		while (aZombiePoints > 0 && aZombiePicker.mZombieCount < MAX_ZOMBIES_IN_WAVE)
 		{
@@ -1315,11 +1315,11 @@ Rect Board::GetShovelButtonRect()
 //0x40AF00
 void Board::GetZenButtonRect(GameObjectType theObjectType, Rect& theRect)
 {
-	// ´Ëº¯ÊýÓëÄÚ²â°æµÄ²îÒìÔÚÓÚ£¬ÄÚ²â°æÔÚ´Ëº¯ÊýÖÐÍ¨¹ýÏÂÁÐÓï¾äÏÈÈ¡µÃÁË²ù×Ó°´Å¥¾ØÐÎ£º
+	// ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½ï¿½Ú²ï¿½ï¿½ï¿½Ú´Ëºï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ë²ï¿½ï¿½Ó°ï¿½Å¥ï¿½ï¿½ï¿½Î£ï¿½
 	// Rect aRect = GetShovelButtonRect();
-	// ¶øÔ­°æÐèÒªÔÚº¯Êýµ÷ÓÃÇ°ÏÈ×ÔÐÐÈ¡µÃ²ù×Ó°´Å¥¾ØÐÎ£¬²¢½«¸Ã¾ØÐÎ×÷Îª²ÎÊý´«µÝ¸ø´Ëº¯Êý£¬
-	// Ô­°æÖÐ´Ëº¯ÊýÓÐ½« theRect µÄÒýÓÃ×÷Îª·µ»ØÖµ£¬µ«²¢ÎÞÖ±½ÓÊ¹ÓÃ·µ»ØÖµµÄÇé¿ö¡£
-	// ´Ë´¦ÎªÁË·ÀÖ¹ÎóÓÃ·µ»ØÖµ¶ø³öÏÖÎÊÌâ£¬¹ÊÉ¾³ýÆä·µ»ØÖµ£¬ÈçÐèµ÷ÓÃ¿É°´ÕÕÈçÏÂ·½Ê½£º
+	// ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½Òªï¿½Úºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½Ã²ï¿½ï¿½Ó°ï¿½Å¥ï¿½ï¿½ï¿½Î£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¾ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¸ï¿½ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½
+	// Ô­ï¿½ï¿½ï¿½Ð´Ëºï¿½ï¿½ï¿½ï¿½Ð½ï¿½ theRect ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ï¿½Ê¹ï¿½Ã·ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// ï¿½Ë´ï¿½Îªï¿½Ë·ï¿½Ö¹ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â£¬ï¿½ï¿½É¾ï¿½ï¿½ï¿½ä·µï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿É°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½Ê½ï¿½ï¿½
 	// Rect aButtonRect = GetShovelButtonRect();
 	// GetZenButtonRect(xxx, aButtonRect);
 
@@ -1336,7 +1336,7 @@ void Board::GetZenButtonRect(GameObjectType theObjectType, Rect& theRect)
 	bool usable = true;
 	for (int anObject = GameObjectType::OBJECT_TYPE_WATERING_CAN; anObject <= GameObjectType::OBJECT_TYPE_NEXT_GARDEN; anObject++)
 	{
-		// Ö»ÒªÓÐÒ»¸ö°´Å¥²»¿ÉÓÃ£¬ÔòËùÓÐ¿ÉÓÃ°´Å¥ÅÅÁÐµÄÆðÊ¼ºá×ø±êÎª 30
+		// Ö»Òªï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Å¥ï¿½ï¿½ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¿ï¿½ï¿½Ã°ï¿½Å¥ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª 30
 		if (!CanUseGameObject((GameObjectType)anObject))
 		{
 			usable = false;
@@ -1349,7 +1349,7 @@ void Board::GetZenButtonRect(GameObjectType theObjectType, Rect& theRect)
 
 	for (int anObject = GameObjectType::OBJECT_TYPE_WATERING_CAN; anObject < theObjectType; anObject++)
 	{
-		// Ã¿´æÔÚÒ»¸öÐòºÅÐ¡ÓÚÄ¿±êµÄ¿ÉÓÃ°´Å¥£¬ÔòÄ¿±ê°´Å¥µÄºá×ø±êÔö¼Ó 70
+		// Ã¿ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½Ä¿ï¿½ï¿½Ä¿ï¿½ï¿½Ã°ï¿½Å¥ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ê°´Å¥ï¿½Äºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 70
 		if (CanUseGameObject((GameObjectType)anObject))
 		{
 			theRect.mX += 70;//Sexy::IMAGE_SHOVELBANK->GetWidth();
@@ -1371,13 +1371,13 @@ void Board::InitLevel()
 	{
 		mApp->mMusic->StopAllMusic();
 	}
-	// ¸³Öµµ±Ç°¹Ø¿¨
+	// ï¿½ï¿½Öµï¿½ï¿½Ç°ï¿½Ø¿ï¿½
 	mLevel = mApp->IsAdventureMode() ? mApp->mPlayerInfo->mLevel : 0;
-	// Éè¶¨¹Ø¿¨±³¾°
+	// ï¿½è¶¨ï¿½Ø¿ï¿½ï¿½ï¿½ï¿½ï¿½
 	PickBackground();
-	// Éè¶¨¹Ø¿¨³ö¹Ö
+	// ï¿½è¶¨ï¿½Ø¿ï¿½ï¿½ï¿½ï¿½ï¿½
 	InitZombieWaves();
-	// Éè¶¨¹Ø¿¨³õÊ¼Ñô¹âÊýÁ¿
+	// ï¿½è¶¨ï¿½Ø¿ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (aGameMode == GameMode::GAMEMODE_CHALLENGE_BEGHOULED || aGameMode == GameMode::GAMEMODE_CHALLENGE_BEGHOULED_TWIST ||
 		mApp->IsScaryPotterLevel() || mApp->IsWhackAZombieLevel())
 	{
@@ -1400,9 +1400,9 @@ void Board::InitLevel()
 		mSunMoney = 50;
 	}
 
-	// ³õÊ¼»¯ÐÐÑ¡ÔñÊý×é
+	// ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	memset(mRowPickingArray, 0, sizeof(mRowPickingArray));
-	// ³õÊ¼»¯Ã¿ÐÐµÄ»ù´¡Êý¾Ý
+	// ï¿½ï¿½Ê¼ï¿½ï¿½Ã¿ï¿½ÐµÄ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	for (int aRow = 0; aRow < MAX_GRID_SIZE_Y; aRow++)
 	{
 		mWaveRowGotLawnMowered[aRow] = -100;
@@ -1411,15 +1411,15 @@ void Board::InitLevel()
 		mIceParticleID[aRow] = ParticleSystemID::PARTICLESYSTEMID_NULL;
 		mRowPickingArray[aRow].mItem = aRow;
 	}
-	// ³õÊ¼»¯Ñô¹âµôÂä
+	// ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	mNumSunsFallen = 0;
 	if (!StageIsNight())
 	{
 		mSunCountDown = RandRangeInt(425, 700);
 	}
-	// ³õÊ¼»¯×ÖÄ»²¥·Å¼ÇÂ¼
+	// ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½Å¼ï¿½Â¼
 	memset(mHelpDisplayed, 0, sizeof(mHelpDisplayed));
-	// ³õÊ¼»¯¿¨²Û¼°¿¨ÅÆ
+	// ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½Û¼ï¿½ï¿½ï¿½ï¿½ï¿½
 	mSeedBank->mNumPackets = GetNumSeedsInBank();
 	mSeedBank->UpdateWidth();
 	for (int i = 0; i < SEEDBANK_MAX; i++)
@@ -1430,7 +1430,7 @@ void Board::InitLevel()
 		aPacket->mY = 8;
 		aPacket->mPacketType = SeedType::SEED_NONE;
 	}
-	// Éè¶¨¹Ì¶¨¿¨ÅÆ
+	// ï¿½è¶¨ï¿½Ì¶ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (mApp->IsSlotMachineLevel())
 	{
 		TOD_ASSERT(mSeedBank->mNumPackets == 3);
@@ -1550,13 +1550,13 @@ void Board::InitLevel()
 	else if (!ChooseSeedsOnCurrentLevel() && !HasConveyorBeltSeedBank())
 	{
 		mSeedBank->mNumPackets = GetNumSeedsInBank();
-		// ¿¨²Û´íÎóµÄ¹Ø¿¨£¬ÒÀ´ÎÌî³äËùÓÐ¿¨ÅÆ
+		// ï¿½ï¿½ï¿½Û´ï¿½ï¿½ï¿½Ä¹Ø¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¿ï¿½ï¿½ï¿½
 		for (int i = 0; i < mSeedBank->mNumPackets; i++)
 		{
 			mSeedBank->mSeedPackets[i].SetPacketType((SeedType)i);
 		}
 	}
-	// ½«ËùÓÐ×Ó¿Ø¼þ±ê¼ÇÎªÒÑ±ä¶¯
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿Ø¼ï¿½ï¿½ï¿½ï¿½Îªï¿½Ñ±ä¶¯
 	MarkAllDirty();
 	
 	mPaused = false;
@@ -1566,7 +1566,7 @@ void Board::InitLevel()
 		mFogBlownCountDown = 200;
 		mFogOffset = 1065 - LeftFogColumn() * 80;
 	}
-	// ¹Ø¿¨Íæ·¨Ïà¹ØµÄ³õÊ¼»¯
+	// ï¿½Ø¿ï¿½ï¿½æ·¨ï¿½ï¿½ØµÄ³ï¿½Ê¼ï¿½ï¿½
 	mChallenge->InitLevel();
 }
 
@@ -1635,7 +1635,7 @@ void Board::PlaceRake()
 void Board::InitLawnMowers()
 {
 	GameMode aGameMode = mApp->mGameMode;
-	// ÕâÀïÓÅ»¯Ò»ÏÂÔ­°æµÄ´úÂë£¬ÊÂÏÈÁÐ¾ÙÒ»Ð©²»´´½¨Ð¡ÍÆ³µµÄ¹Ø¿¨
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Å»ï¿½Ò»ï¿½ï¿½Ô­ï¿½ï¿½Ä´ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½ï¿½Ð¾ï¿½Ò»Ð©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½Æ³ï¿½ï¿½Ä¹Ø¿ï¿½
 	if (aGameMode == GameMode::GAMEMODE_CHALLENGE_BEGHOULED || aGameMode == GameMode::GAMEMODE_CHALLENGE_BEGHOULED_TWIST ||
 		aGameMode == GameMode::GAMEMODE_CHALLENGE_ZEN_GARDEN || aGameMode == GameMode::GAMEMODE_TREE_OF_WISDOM ||
 		aGameMode == GameMode::GAMEMODE_CHALLENGE_LAST_STAND || aGameMode == GameMode::GAMEMODE_CHALLENGE_ZOMBIQUARIUM ||
@@ -1645,8 +1645,8 @@ void Board::InitLawnMowers()
 	for (int aRow = 0; aRow < MAX_GRID_SIZE_Y; aRow++)
 	{
 		if ((aGameMode == GameMode::GAMEMODE_CHALLENGE_RESODDED && aRow <= 4) || 
-			(mApp->IsAdventureMode() && mLevel == 35) ||   // ÕâÀïÔ­°æÃ»ÓÐ¶ÔÓÚÐÐµÄÅÐ¶Ï£¬¹ÊÃ°ÏÕÄ£Ê½ 4-5 ¹Ø¿¨ÓÐ 6 ÐÐÐ¡ÍÆ³µ
-			(!mApp->IsScaryPotterLevel() && mPlantRow[aRow] != PlantRowType::PLANTROW_DIRT))  // ³ýÃ°ÏÕÄ£Ê½ 4-5 ¹Ø¿¨ÍâµÄÆÆ¹ÞÕßÄ£Ê½¹Ø¿¨ÎÞÐ¡ÍÆ³µ
+			(mApp->IsAdventureMode() && mLevel == 35) ||   // ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½Ã»ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½Ð¶Ï£ï¿½ï¿½ï¿½Ã°ï¿½ï¿½Ä£Ê½ 4-5 ï¿½Ø¿ï¿½ï¿½ï¿½ 6 ï¿½ï¿½Ð¡ï¿½Æ³ï¿½
+			(!mApp->IsScaryPotterLevel() && mPlantRow[aRow] != PlantRowType::PLANTROW_DIRT))  // ï¿½ï¿½Ã°ï¿½ï¿½Ä£Ê½ 4-5 ï¿½Ø¿ï¿½ï¿½ï¿½ï¿½ï¿½Æ¹ï¿½ï¿½ï¿½Ä£Ê½ï¿½Ø¿ï¿½ï¿½ï¿½Ð¡ï¿½Æ³ï¿½
 		{
 			LawnMower* aLawnMower = mLawnMowers.DataArrayAlloc();
 			aLawnMower->LawnMowerInitialize(aRow);
@@ -2187,7 +2187,7 @@ void Board::GetPlantsOnLawn(int theGridX, int theGridY, PlantsOnLawn* thePlantOn
 			aSeedType = aPlant->mImitaterType;
 		}
 
-		// ¼ì²âÖ²ÎïÊÇ·ñÎ»ÓÚÄ¿±ê¸ñ×ÓÄÚ
+		// ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½Ç·ï¿½Î»ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (aPlant->mRow != theGridY)
 		{
 			continue;
@@ -2211,7 +2211,7 @@ void Board::GetPlantsOnLawn(int theGridX, int theGridY, PlantsOnLawn* thePlantOn
 			continue;
 		}
 
-		// ½«Ö²ÎïÐ´Èë thePlantOnLawn µÄ¼ÇÂ¼
+		// ï¿½ï¿½Ö²ï¿½ï¿½Ð´ï¿½ï¿½ thePlantOnLawn ï¿½Ä¼ï¿½Â¼
 		if (Plant::IsFlying(aPlant->mSeedType))
 		{
 			TOD_ASSERT(!thePlantOnLawn->mFlyingPlant);
@@ -2444,10 +2444,10 @@ ZombieType Board::PickZombieType(int theZombiePoints, int theWaveIndex, ZombiePi
 		const ZombieDefinition& aZombieDef = GetZombieDefinition((ZombieType)aZombieType);
 
 		// ================================================================================================
-		// ¡ø ½«²»·ûºÏ³ö¹ÖÏÞÖÆ»ò³¬³öÊ£ÓàµãÊýµÄ½©Ê¬ÀàÐÍÅÅ³ý
+		// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ»ò³¬³ï¿½Ê£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä½ï¿½Ê¬ï¿½ï¿½ï¿½ï¿½ï¿½Å³ï¿½
 		// ================================================================================================
 		GameMode aGameMode = mApp->mGameMode;
-		// ±Ä¼«½©Ê¬ÔÚÎÞ¾¡Ä£Ê½ÖÐ½öÔÚÆìÖÄ²¨³öÏÖ
+		// ï¿½Ä¼ï¿½ï¿½ï¿½Ê¬ï¿½ï¿½ï¿½Þ¾ï¿½Ä£Ê½ï¿½Ð½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (aZombieType == ZombieType::ZOMBIE_BUNGEE && mApp->IsSurvivalEndless(aGameMode))
 		{
 			if (!IsFlagWave(theWaveIndex))
@@ -2455,11 +2455,11 @@ ZombieType Board::PickZombieType(int theZombiePoints, int theWaveIndex, ZombiePi
 				continue;
 			}
 		}
-		// ½©Ê¬×îÔç³öÏÖµÄ²¨ÊýµÄÏÞÖÆ£¨³ö¹ÖÏÞÖÆ£©
+		// ï¿½ï¿½Ê¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÄ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½
 		else if (aGameMode != GameMode::GAMEMODE_CHALLENGE_POGO_PARTY && aGameMode != GameMode::GAMEMODE_CHALLENGE_BOBSLED_BONANZA && aGameMode != GameMode::GAMEMODE_CHALLENGE_AIR_RAID)
 		{
 			int aFirstAllowedWave = aZombieDef.mFirstAllowedWave;
-			// ÎÞ¾¡Ä£Ê½ÖÐ£¬½©Ê¬×îÔç¿É³öÏÖµÄ²¨ÊýÖð½¥Ç°ÒÆ
+			// ï¿½Þ¾ï¿½Ä£Ê½ï¿½Ð£ï¿½ï¿½ï¿½Ê¬ï¿½ï¿½ï¿½ï¿½É³ï¿½ï¿½ÖµÄ²ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½
 			if (mApp->IsSurvivalEndless(aGameMode))
 			{
 				int aFlags = GetSurvivalFlagsCompleted();
@@ -2473,13 +2473,13 @@ ZombieType Board::PickZombieType(int theZombiePoints, int theWaveIndex, ZombiePi
 		}
 
 		// ================================================================================================
-		// ¡ø Éú´æÄ£Ê½ÖÐ£¬¸ù¾Ýµ±Ç°ÆìÖÄÊýµÈÖØÐÂ¼ÆËã½©Ê¬µÄÈ¨ÖØ
+		// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä£Ê½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½Ýµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ã½©Ê¬ï¿½ï¿½È¨ï¿½ï¿½
 		// ================================================================================================
 		int aPickWeight = aZombieDef.mPickWeight;
 		if (mApp->IsSurvivalMode())
 		{
 			int aFlags = GetSurvivalFlagsCompleted();
-			// Ù¤¸ÕÌØ¶ûºÍÑ©ÇÁ³µ½©Ê¬µÄÃ¿²¨³ö¹ÖÉÏÏÞ
+			// Ù¤ï¿½ï¿½ï¿½Ø¶ï¿½ï¿½ï¿½Ñ©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¬ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			if (aZombieType == ZombieType::ZOMBIE_GARGANTUAR || aZombieType == ZombieType::ZOMBIE_ZAMBONI)
 			{
 				if (theZombiePicker->mZombieTypeCount[aZombieType] >= TodAnimateCurve(10, 50, aFlags, 2, 50, TodCurves::CURVE_LINEAR))
@@ -2487,7 +2487,7 @@ ZombieType Board::PickZombieType(int theZombiePoints, int theWaveIndex, ZombiePi
 					continue;
 				}
 			}
-			// ºìÑÛµÄÆìÖÄ²¨³ö¹ÖÉÏÏÞºÍ·ÇÆìÖÄ²¨³ö¹Ö×ÜºÍÉÏÏÞ
+			// ï¿½ï¿½ï¿½Ûµï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÞºÍ·ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Üºï¿½ï¿½ï¿½ï¿½ï¿½
 			else if (aZombieType == ZombieType::ZOMBIE_REDEYE_GARGANTUAR)
 			{
 				if (IsFlagWave(theWaveIndex))
@@ -2506,7 +2506,7 @@ ZombieType Board::PickZombieType(int theZombiePoints, int theWaveIndex, ZombiePi
 					aPickWeight = 1000;
 				}
 			}
-			// ÆÕÍ¨½©Ê¬ºÍÂ·ÕÏ½©Ê¬µÄÈ¨ÖØË¥¼õ
+			// ï¿½ï¿½Í¨ï¿½ï¿½Ê¬ï¿½ï¿½Â·ï¿½Ï½ï¿½Ê¬ï¿½ï¿½È¨ï¿½ï¿½Ë¥ï¿½ï¿½
 			else if (aZombieType == ZombieType::ZOMBIE_NORMAL)
 			{
 				aPickWeight = TodAnimateCurve(10, 50, aFlags, aPickWeight, aPickWeight / 10, TodCurves::CURVE_LINEAR);
@@ -2521,7 +2521,7 @@ ZombieType Board::PickZombieType(int theZombiePoints, int theWaveIndex, ZombiePi
 		aPickCount++;
 	}
 
-	// ¼ÓÈ¨Ëæ»úµØÈ¡µÃÒ»ÖÖ¿ÉÄÜµÄ½©Ê¬ÀàÐÍ²¢·µ»Ø
+	// ï¿½ï¿½È¨ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Ò»ï¿½Ö¿ï¿½ï¿½ÜµÄ½ï¿½Ê¬ï¿½ï¿½ï¿½Í²ï¿½ï¿½ï¿½ï¿½ï¿½
 	return (ZombieType)TodPickFromWeightedArray(aZombieWeightArray, aPickCount);
 }
 
@@ -2540,15 +2540,15 @@ bool Board::RowCanHaveZombieType(int theRow, ZombieType theZombieType)
 
 	if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_RESODDED && mPlantRow[theRow] == PlantRowType::PLANTROW_DIRT && mCurrentWave < 5)
 	{
-		return false;  // ÎÞ²ÝÆ¤Ö®µØ¹Ø¿¨£¬ÎÞ²ÝÆ¤µÄÐÐÔÚÇ° 5 ²¨²»Ë¢³ö½©Ê¬
+		return false;  // ï¿½Þ²ï¿½Æ¤Ö®ï¿½Ø¹Ø¿ï¿½ï¿½ï¿½ï¿½Þ²ï¿½Æ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç° 5 ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½ï¿½ï¿½ï¿½Ê¬
 	}
 	if (mPlantRow[theRow] == PlantRowType::PLANTROW_POOL && !Zombie::ZombieTypeCanGoInPool(theZombieType))
 	{
-		return false;  // Ë®Â·²»»áË¢³ö²»ÄÜ½øÈëÓ¾³ØµÄ½©Ê¬
+		return false;  // Ë®Â·ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½ï¿½ï¿½ï¿½ï¿½Ü½ï¿½ï¿½ï¿½Ó¾ï¿½ØµÄ½ï¿½Ê¬
 	}
 	if (mPlantRow[theRow] == PlantRowType::PLANTROW_HIGH_GROUND && !Zombie::ZombieTypeCanGoOnHighGround(theZombieType))
 	{
-		return false;  // ¸ßµØ²»»áË¢³ö²»ÄÜ×ßÉÏ¸ßµØµÄ½©Ê¬
+		return false;  // ï¿½ßµØ²ï¿½ï¿½ï¿½Ë¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ßµØµÄ½ï¿½Ê¬
 	}
 
 	int aCurrentWave = mCurrentWave;
@@ -2556,7 +2556,7 @@ bool Board::RowCanHaveZombieType(int theRow, ZombieType theZombieType)
 	{
 		aCurrentWave += mChallenge->mSurvivalStage * GetNumWavesPerSurvivalStage();
 	}
-	// ·ÇË®Â·²»ÄÜË¢³öË®Â·½©Ê¬£»Ç° 5 Ð¡²¨£¬Ë®Ãæ½öË¢³öÇ±Ë®½©Ê¬»òº£ëàÆïÊ¿½©Ê¬
+	// ï¿½ï¿½Ë®Â·ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½ï¿½Ë®Â·ï¿½ï¿½Ê¬ï¿½ï¿½Ç° 5 Ð¡ï¿½ï¿½ï¿½ï¿½Ë®ï¿½ï¿½ï¿½Ë¢ï¿½ï¿½Ç±Ë®ï¿½ï¿½Ê¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½Ê¬
 	if (mPlantRow[theRow] == PlantRowType::PLANTROW_POOL)
 	{
 		if (aCurrentWave < 5 && !IsZombieTypePoolOnly(theZombieType))
@@ -2568,12 +2568,12 @@ bool Board::RowCanHaveZombieType(int theRow, ZombieType theZombieType)
 	{
 		return false;
 	}
-	// Ñ©ÇÁ½©Ê¬Ð¡¶Ó½öÄÜÔÚÓÐ±ùµÀµÄÐÐË¢³ö
+	// Ñ©ï¿½ï¿½ï¿½ï¿½Ê¬Ð¡ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½ï¿½
 	if (theZombieType == ZOMBIE_BOBSLED && !mIceTimer[theRow])
 	{
 		return false;
 	}
-	// ¡°×Ô¹ÅÒ»Â·ÎÞ¾ÞÈË¡±£¨Éú´æÄ£Ê½³ýÍâ£©
+	// ï¿½ï¿½ï¿½Ô¹ï¿½Ò»Â·ï¿½Þ¾ï¿½ï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½ï¿½ï¿½ï¿½â£©
 	if (theRow == 0 && !mApp->IsSurvivalMode())
 	{
 		if (theZombieType == ZombieType::ZOMBIE_GARGANTUAR || theZombieType == ZombieType::ZOMBIE_REDEYE_GARGANTUAR)
@@ -2581,12 +2581,12 @@ bool Board::RowCanHaveZombieType(int theRow, ZombieType theZombieType)
 			return false;
 		}
 	}
-	// ·ÇÎèÍõ½©Ê¬»òµ±Ç°ÎªÓ¾³Ø¹Ø¿¨£¬Ôò¿ÉÒÔË¢³ö¸Ã½©Ê¬
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¬ï¿½ï¿½Ç°ÎªÓ¾ï¿½Ø¹Ø¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½ï¿½ï¿½Ã½ï¿½Ê¬
 	if (theZombieType != ZombieType::ZOMBIE_DANCER || StageHasPool())
 	{
 		return true;
 	}
-	// ÎèÍõ½©Ê¬ÔÚ·ÇÓ¾³Ø¹Ø¿¨ÖÐ£¬Îª±£Ö¤ÄÜÕÙ»½°éÎè½©Ê¬£¬½öÔÚÖÐ¼äÈýÐÐË¢³ö
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¬ï¿½Ú·ï¿½Ó¾ï¿½Ø¹Ø¿ï¿½ï¿½Ð£ï¿½Îªï¿½ï¿½Ö¤ï¿½ï¿½ï¿½Ù»ï¿½ï¿½ï¿½ï¿½è½©Ê¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½ï¿½
 	return RowCanHaveZombies(theRow - 1) && RowCanHaveZombies(theRow + 1);
 }
 
@@ -2594,7 +2594,7 @@ bool Board::RowCanHaveZombieType(int theRow, ZombieType theZombieType)
 int Board::PickRowForNewZombie(ZombieType theZombieType)
 {
 	// ====================================================================================================
-	// ¡ø µ±´æÔÚÕýÔÚÑ°ÕÒÄ¿±ê½©Ê¬µÄ¶¤°Ò£¬ÇÒ½©Ê¬¿ÉÒÔ³öÏÖÔÚ¶¤°ÒËùÔÚÐÐÊ±£¬ÓÅÏÈ³öÏÖÔÚ¶¤°ÒËùÔÚÐÐ
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ°ï¿½ï¿½Ä¿ï¿½ê½©Ê¬ï¿½Ä¶ï¿½ï¿½Ò£ï¿½ï¿½Ò½ï¿½Ê¬ï¿½ï¿½ï¿½Ô³ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½È³ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	// ====================================================================================================
 	GridItem* aRake = GetRake();
 	if (aRake && aRake->mGridItemState == GridItemState::GRIDITEM_STATE_RAKE_ATTRACTING && RowCanHaveZombieType(aRake->mGridY, theZombieType))
@@ -2605,26 +2605,26 @@ int Board::PickRowForNewZombie(ZombieType theZombieType)
 	}
 
 	// ====================================================================================================
-	// ¡ø ±éÀúÃ¿Ò»ÐÐ£¬½«ËùÓÐÄÜÔÊÐí¸Ã½©Ê¬³öÏÖµÄÐÐ¼°Æä¶ÔÓ¦È¨ÖØÐ´ÈëÌôÑ¡Êý×éÖÐ
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¿Ò»ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã½ï¿½Ê¬ï¿½ï¿½ï¿½Öµï¿½ï¿½Ð¼ï¿½ï¿½ï¿½ï¿½Ó¦È¨ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	// ====================================================================================================
 	for (int aRow = 0; aRow < MAX_GRID_SIZE_Y; aRow++)
 	{
-		// Èç¹û±¾ÐÐ²»ÄÜ³öÏÖÄ¿±ê½©Ê¬£¬Ôò½«±¾ÐÐÈ¨ÖØÖÃÁã£¬²¢¼ÌÐøÏÂÒ»ÐÐ
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð²ï¿½ï¿½Ü³ï¿½ï¿½ï¿½Ä¿ï¿½ê½©Ê¬ï¿½ï¿½ï¿½ò½«±ï¿½ï¿½ï¿½È¨ï¿½ï¿½ï¿½ï¿½ï¿½ã£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
 		if (!RowCanHaveZombieType(aRow, theZombieType))
 		{
 			mRowPickingArray[aRow].mWeight = 0;
 		}
-		// ±£»¤´«ËÍÃÅ¹Ø¿¨ÖÐ£¬Ã¿ÐÐµÄ³ö¹Ö¸ÅÂÊÊÜ´«ËÍÃÅÎ»ÖÃÓ°Ïì
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¹Ø¿ï¿½ï¿½Ð£ï¿½Ã¿ï¿½ÐµÄ³ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Ü´ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½Ó°ï¿½ï¿½
 		else if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_PORTAL_COMBAT)
 		{
 			mRowPickingArray[aRow].mWeight = mChallenge->PortalCombatRowSpawnWeight(aRow);
 		}
-		// ÒþÐÎÊ³ÄÔÕß¹Ø¿¨ÖÐ£¬Ç° 3 ²¨µÚÁùÂ·²»³ö¹Ö
+		// ï¿½ï¿½ï¿½ï¿½Ê³ï¿½ï¿½ï¿½ß¹Ø¿ï¿½ï¿½Ð£ï¿½Ç° 3 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		else if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_INVISIGHOUL && mCurrentWave <= 3 && aRow == 5)
 		{
 			mRowPickingArray[aRow].mWeight = 0;
 		}
-		// ¶ª³µ±£»¤
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		else
 		{
 			int aWavesMowered = mCurrentWave - mWaveRowGotLawnMowered[aRow];
@@ -2742,13 +2742,13 @@ bool Board::IsIceAt(int theGridX, int theGridY)
 //0x40E020
 PlantingReason Board::CanPlantAt(int theGridX, int theGridY, SeedType theSeedType)
 {
-	// Ä¿±êÎ»ÖÃ²»ÔÚ³¡µØÄÚ£¬Ôò·µ»Ø¡°²»ÄÜÖÖÔÚÄÇÀï¡±
+	// Ä¿ï¿½ï¿½Î»ï¿½Ã²ï¿½ï¿½Ú³ï¿½ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ò·µ»Ø¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¡±
 	if (theGridX < 0 || theGridX >= MAX_GRID_SIZE_X || theGridY < 0 || theGridY >= MAX_GRID_SIZE_Y)
 	{
 		return PlantingReason::PLANTING_NOT_HERE;
 	}
 
-	// ´Ó¹Ø¿¨Íæ·¨ÉÏ£¬ÅÐ¶ÏÄÜ·ñÖÖÖ²
+	// ï¿½Ó¹Ø¿ï¿½ï¿½æ·¨ï¿½Ï£ï¿½ï¿½Ð¶ï¿½ï¿½Ü·ï¿½ï¿½ï¿½Ö²
 	PlantingReason aReason = mChallenge->CanPlantAt(theGridX, theGridY, theSeedType);
 	if (aReason != PlantingReason::PLANTING_OK || Challenge::IsZombieSeedType(theSeedType))
 	{
@@ -2771,7 +2771,7 @@ PlantingReason Board::CanPlantAt(int theGridX, int theGridY, SeedType theSeedTyp
 		return PlantingReason::PLANTING_OK;
 	}
 
-	// Ä¹±®ÍÌÊÉÕßÖ»ÄÜÖÖÖ²ÔÚÄ¹±®ÉÏ
+	// Ä¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½Ä¹ï¿½ï¿½ï¿½ï¿½
 	bool aHasGrave = GetGraveStoneAt(theGridX, theGridY);
 	if (theSeedType == SeedType::SEED_GRAVEBUSTER)
 	{
@@ -2797,7 +2797,7 @@ PlantingReason Board::CanPlantAt(int theGridX, int theGridY, SeedType theSeedTyp
 
 		return PlantingReason::PLANTING_OK;
 	}
-	// ·ÇÄ¹±®ÍÌÊÉÕßÇÒ·Ç·ÉÐÐÖ²Îï£¬Ôò²»ÄÜÖÖÔÚÄ¹±®ÉÏ
+	// ï¿½ï¿½Ä¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò·Ç·ï¿½ï¿½ï¿½Ö²ï¿½ï£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¹ï¿½ï¿½ï¿½ï¿½
 	if (aHasGrave)
 	{
 		return Plant::IsFlying(theSeedType) ? PlantingReason::PLANTING_OK : PlantingReason::PLANTING_NOT_ON_GRAVE;
@@ -2815,7 +2815,7 @@ PlantingReason Board::CanPlantAt(int theGridX, int theGridY, SeedType theSeedTyp
 		aHasLilypad = aUnderPlant->mSeedType == SeedType::SEED_LILYPAD;
 		aHasFlowerPot = aUnderPlant->mSeedType == SeedType::SEED_FLOWERPOT;
 	}
-	// ²¿·ÖÇé¿öÏÂµÄ¸ñ×ÓÖÐ²»ÄÜÖÖÖ²Ö²Îï
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÂµÄ¸ï¿½ï¿½ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½Ö²Ö²ï¿½ï¿½
 	if (GetCraterAt(theGridX, theGridY))
 	{
 		return PlantingReason::PLANTING_NOT_ON_CRATER;
@@ -2829,7 +2829,7 @@ PlantingReason Board::CanPlantAt(int theGridX, int theGridY, SeedType theSeedTyp
 	{
 		return PlantingReason::PLANTING_NOT_HERE;
 	}
-	// Ë®ÉúÖ²ÎïÖ»ÄÜÖÖÔÚË®ÉÏ
+	// Ë®ï¿½ï¿½Ö²ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë®ï¿½ï¿½
 	Plant* aNormalPlant = aPlantOnLawn.mNormalPlant;
 	if (theSeedType == SeedType::SEED_LILYPAD || theSeedType == SeedType::SEED_TANGLEKELP || theSeedType == SeedType::SEED_SEASHROOM)
 	{
@@ -2844,7 +2844,7 @@ PlantingReason Board::CanPlantAt(int theGridX, int theGridY, SeedType theSeedTyp
 	{
 		return aPlantOnLawn.mFlyingPlant ? PlantingReason::PLANTING_NOT_HERE : PlantingReason::PLANTING_OK;
 	}
-	// µØ´Ì/µØ´ÌÍõÖ»ÄÜÖÖÔÚ¼á¹ÌµÄµØÃæ
+	// ï¿½Ø´ï¿½/ï¿½Ø´ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½Ú¼ï¿½ÌµÄµï¿½ï¿½ï¿½
 	if (theSeedType == SeedType::SEED_SPIKEWEED || theSeedType == SeedType::SEED_SPIKEROCK)
 	{
 		if (aGridSquare == GridSquareType::GRIDSQUARE_POOL || StageHasRoof() || aUnderPlant)
@@ -2852,7 +2852,7 @@ PlantingReason Board::CanPlantAt(int theGridX, int theGridY, SeedType theSeedTyp
 			return PlantingReason::PLANTING_NEEDS_GROUND;
 		}
 	}
-	// ·ÇË®ÉúÖ²Îï²»ÄÜÖÖÔÚË®ÃæÉÏ£¨ÄÏ¹ÏÍ·¿ÉÒÔÖÖÔÚÏãÆÑÉÏ£©
+	// ï¿½ï¿½Ë®ï¿½ï¿½Ö²ï¿½ï²»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë®ï¿½ï¿½ï¿½Ï£ï¿½ï¿½Ï¹ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï£ï¿½
 	Plant* aPumpkinPlant = aPlantOnLawn.mPumpkinPlant;
 	if (aGridSquare == GridSquareType::GRIDSQUARE_POOL && !aHasLilypad && theSeedType != SeedType::SEED_CATTAIL)
 	{
@@ -2861,31 +2861,31 @@ PlantingReason Board::CanPlantAt(int theGridX, int theGridY, SeedType theSeedTyp
 			return PlantingReason::PLANTING_NOT_ON_WATER;
 		}
 	}
-	// »¨ÅèµÄÖÖÖ²Ìõ¼þ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½ï¿½
 	if (theSeedType == SeedType::SEED_FLOWERPOT)
 	{
 		return (aNormalPlant || aUnderPlant || aPumpkinPlant) ? PlantingReason::PLANTING_NOT_HERE : PlantingReason::PLANTING_OK;
 	}
-	// ÎÝ¶¥ÖÖÖ²ÐèÒª»¨Åè
+	// ï¿½Ý¶ï¿½ï¿½ï¿½Ö²ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 	if (StageHasRoof() && !aHasFlowerPot)
 	{
 		return PlantingReason::PLANTING_NEEDS_POT;
 	}
-	// ÄÏ¹ÏÍ·µÄÖÖÖ²Ìõ¼þ
+	// ï¿½Ï¹ï¿½Í·ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½ï¿½
 	bool aAidPurchased = mApp->mPlayerInfo->mPurchases[StoreItem::STORE_ITEM_FIRSTAID] > 0;
 	if (theSeedType == SeedType::SEED_PUMPKINSHELL)
 	{
-		// ²»¿ÉÖÖÖ²ÔÚÓñÃ×¼ÓÅ©ÅÚÉÏ
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½×¼ï¿½Å©ï¿½ï¿½ï¿½ï¿½
 		if (aNormalPlant && aNormalPlant->mSeedType == SeedType::SEED_COBCANNON)
 		{
 			return PlantingReason::PLANTING_NOT_HERE;
 		}
-		// ÎÞÄÏ¹ÏÍ·Ê±£¬¿ÉÒÔÖÖÖ²ÄÏ¹ÏÍ·
+		// ï¿½ï¿½ï¿½Ï¹ï¿½Í·Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½Ï¹ï¿½Í·
 		if (!aPumpkinPlant)
 		{
 			return PlantingReason::PLANTING_OK;
 		}
-		// ÄÏ¹ÏÍ·µÄ¼á¹û°üÔúÊõ
+		// ï¿½Ï¹ï¿½Í·ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (aAidPurchased && aPumpkinPlant->mPlantHealth < aPumpkinPlant->mPlantMaxHealth * 2 / 3 &&
 			aPumpkinPlant->mSeedType == SeedType::SEED_PUMPKINSHELL && aPumpkinPlant->mOnBungeeState != PlantOnBungeeState::GETTING_GRABBED_BY_BUNGEE)
 		{
@@ -2894,7 +2894,7 @@ PlantingReason Board::CanPlantAt(int theGridX, int theGridY, SeedType theSeedTyp
 
 		return PlantingReason::PLANTING_NOT_HERE;
 	}
-	// ÍÁ¶¹µØÀ×Ö»ÄÜÖÖÔÚÂ½µØÉÏ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â½ï¿½ï¿½ï¿½ï¿½
 	if (aHasLilypad && theSeedType == SeedType::SEED_POTATOMINE)
 	{
 		return PlantingReason::PLANTING_ONLY_ON_GROUND;
@@ -2902,7 +2902,7 @@ PlantingReason Board::CanPlantAt(int theGridX, int theGridY, SeedType theSeedTyp
 
 	if (aUnderPlant)
 	{
-		// ÏãÆÑ¶Ôµ×¶ËÖ²ÎïµÄ×Ï¿¨Éý¼¶
+		// ï¿½ï¿½ï¿½Ñ¶Ôµ×¶ï¿½Ö²ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (theSeedType == SeedType::SEED_CATTAIL)
 		{
 			if (aNormalPlant)
@@ -2920,7 +2920,7 @@ PlantingReason Board::CanPlantAt(int theGridX, int theGridY, SeedType theSeedTyp
 		}
 		else
 		{
-			// Ä£·ÂÖÐµÄÄ£·ÂÕß²»¿É×÷Îª»¨Åè»òË¯Á«
+			// Ä£ï¿½ï¿½ï¿½Ðµï¿½Ä£ï¿½ï¿½ï¿½ß²ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ë¯ï¿½ï¿½
 			if (aUnderPlant->mSeedType == SeedType::SEED_IMITATER)
 			{
 				return PlantingReason::PLANTING_NOT_HERE;
@@ -2928,10 +2928,10 @@ PlantingReason Board::CanPlantAt(int theGridX, int theGridY, SeedType theSeedTyp
 		}
 	}
 
-	// Ò»°ã×Ï¿¨Ö²ÎïµÄ¸üµüÅÐ¶Ï
+	// Ò»ï¿½ï¿½ï¿½Ï¿ï¿½Ö²ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
 	if (aNormalPlant)
 	{
-		// ×Ï¿¨Ö²ÎïµÄÉý¼¶
+		// ï¿½Ï¿ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (aNormalPlant->IsUpgradableTo(theSeedType) && aNormalPlant->mOnBungeeState != PlantOnBungeeState::GETTING_GRABBED_BY_BUNGEE)
 		{
 			return PlantingReason::PLANTING_OK;
@@ -2941,7 +2941,7 @@ PlantingReason Board::CanPlantAt(int theGridX, int theGridY, SeedType theSeedTyp
 			return PlantingReason::PLANTING_NEEDS_UPGRADE;
 		}
 
-		// ¼á¹û°üÔúÊõ
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if ((theSeedType == SeedType::SEED_WALLNUT || theSeedType == SeedType::SEED_TALLNUT) && aAidPurchased)
 		{
 			if (aNormalPlant->mPlantHealth < aNormalPlant->mPlantMaxHealth * 2 / 3 &&
@@ -2954,7 +2954,7 @@ PlantingReason Board::CanPlantAt(int theGridX, int theGridY, SeedType theSeedTyp
 		return PlantingReason::PLANTING_NOT_HERE;
 	}
 
-	// Ãâ·ÑÖÖÖ²Ä£Ê½ÏÂ×Ï¿¨µÄ¶îÍâÅÐ¶Ï
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ö²Ä£Ê½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
 	if (!mApp->mEasyPlantingCheat && Plant::IsUpgrade(theSeedType))
 	{
 		return PlantingReason::PLANTING_NEEDS_UPGRADE;
@@ -3090,15 +3090,15 @@ Zombie* Board::ZombieHitTest(int theMouseX, int theMouseY)
 	Zombie* aRecord = nullptr;
 	while (IterateZombies(aZombie))
 	{
-		// ÅÅ³ýÒÑËÀÍöµÄ½©Ê¬
+		// ï¿½Å³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä½ï¿½Ê¬
 		if (aZombie->mDead || aZombie->IsDeadOrDying())
 			continue;
 
-		// ÅÅ³ý¹Ø¿¨ÒýÈë½×¶Î¼°Ñ¡¿¨½çÃæµÄÖ²Îï½©Ê¬
+		// ï¿½Å³ï¿½ï¿½Ø¿ï¿½ï¿½ï¿½ï¿½ï¿½×¶Î¼ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï½©Ê¬
 		if (mApp->mGameScene == GameScenes::SCENE_LEVEL_INTRO && Zombie::IsZombotany(aZombie->mZombieType))
 			continue;
 
-		// ·¶Î§ÅÐ¶¨
+		// ï¿½ï¿½Î§ï¿½Ð¶ï¿½
 		if (aZombie->GetZombieRect().Contains(theMouseX, theMouseY))
 		{
 			if (aRecord == nullptr || aZombie->mY > aRecord->mY)
@@ -3187,7 +3187,7 @@ void Board::UpdateMousePosition()
 	int aMouseX = mApp->mWidgetManager->mLastMouseX - mX;
 	int aMouseY = mApp->mWidgetManager->mLastMouseY - mY;
 
-	// ÆÆ¹ÞÕß¹Ø¿¨ÖÐ£¬¼ì²â²¢¸ßÁÁÊó±êÐü¸¡µÄ¹Þ×Ó
+	// ï¿½Æ¹ï¿½ï¿½ß¹Ø¿ï¿½ï¿½Ð£ï¿½ï¿½ï¿½â²¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¹ï¿½ï¿½ï¿½
 	if (mApp->IsScaryPotterLevel())
 	{
 		GridItem* aGridItem = nullptr;
@@ -3209,7 +3209,7 @@ void Board::UpdateMousePosition()
 		}
 	}
 
-	// ìø¾³»¨Ô°£¬Éè¶¨ÎÏÅ£µÄ¸ßÁÁÓë·ñ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô°ï¿½ï¿½ï¿½è¶¨ï¿½ï¿½Å£ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_ZEN_GARDEN)
 	{
 		GridItem* aStinky = mApp->mZenGarden->GetStinky();
@@ -3221,7 +3221,7 @@ void Board::UpdateMousePosition()
 		}
 	}
 
-	// ÊÖ³Ö²ù×Ó»ò»¨Ô°¹¤¾ßÊ±£¬Áî×÷ÓÃµÄÖ²Îï¸ßÁÁ
+	// ï¿½Ö³Ö²ï¿½ï¿½Ó»ï¿½Ô°ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (mCursorObject->mCursorType == CursorType::CURSOR_TYPE_SHOVEL || 
 		mCursorObject->mCursorType == CursorType::CURSOR_TYPE_WATERING_CAN || 
 		mCursorObject->mCursorType == CursorType::CURSOR_TYPE_FERTILIZER ||
@@ -3236,7 +3236,7 @@ void Board::UpdateMousePosition()
 		return;
 	}
 
-	// ¿§·È¶¹¼°¼á¹û°üÔúÊõ
+	// ï¿½ï¿½ï¿½È¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (aCursorSeedType == SeedType::SEED_INSTANT_COFFEE)
 	{
 		int aGridX = PlantingPixelToGridX(mApp->mWidgetManager->mLastMouseX, mApp->mWidgetManager->mLastMouseY, aCursorSeedType);
@@ -3660,7 +3660,7 @@ void Board::MouseDownCobcannonFire(int x, int y, int theClickCount)
 	{
 		if (mCobCannonCursorDelayCounter > 0 && Distance2D(x, y, mCobCannonMouseX, mCobCannonMouseY) < 100.0f)
 		{
-			return;  // Îóµã¼ì²â£ºµã»÷¼ÓÅ©ÅÚºóµÄ 30cs ÄÚ£¬µã»÷µÄÎ»ÖÃºÍ×¼ÐÄÎ»ÖÃÖ®¼äµÄ¾àÀëÐ¡ÓÚ 100 Ê±£¬½«±»ÅÐ¶¨ÎªÎóµã
+			return;  // ï¿½ï¿½ï¿½ï¿½â£ºï¿½ï¿½ï¿½ï¿½ï¿½Å©ï¿½Úºï¿½ï¿½ 30cs ï¿½Ú£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ãºï¿½×¼ï¿½ï¿½Î»ï¿½ï¿½Ö®ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ 100 Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½Îªï¿½ï¿½ï¿½
 		}
 
 		if (mCursorObject->mCursorType != CursorType::CURSOR_TYPE_PLANT_FROM_DUPLICATOR)
@@ -3678,7 +3678,7 @@ void Board::MouseDownCobcannonFire(int x, int y, int theClickCount)
 //0x40FD30
 void Board::MouseDownWithPlant(int x, int y, int theClickCount)
 {
-	// ÓÒ»÷Êó±ê£º·ÅÏÂ¿¨ÅÆ
+	// ï¿½Ò»ï¿½ï¿½ï¿½ê£ºï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½
 	if (theClickCount < 0)
 	{
 		RefreshSeedPacketFromCursor();
@@ -3686,7 +3686,7 @@ void Board::MouseDownWithPlant(int x, int y, int theClickCount)
 		return;
 	}
 
-	// ÎÒÊÇ½©Ê¬Ä£Ê½ÖÐ£¬½»ÓÉ Challenge ´¦Àí
+	// ï¿½ï¿½ï¿½Ç½ï¿½Ê¬Ä£Ê½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ Challenge ï¿½ï¿½ï¿½ï¿½
 	if (mApp->IsIZombieLevel())
 	{
 		mChallenge->IZombieMouseDownWithZombie(x, y, theClickCount);
@@ -3697,7 +3697,7 @@ void Board::MouseDownWithPlant(int x, int y, int theClickCount)
 	int aGridX = PlantingPixelToGridX(x, y, aPlantingSeedType);
 	int aGridY = PlantingPixelToGridY(x, y, aPlantingSeedType);
 
-	// ²»ÔÚ³¡µØÄÚµÄµã»÷£º·ÅÏÂ¿¨ÅÆ
+	// ï¿½ï¿½ï¿½Ú³ï¿½ï¿½ï¿½ï¿½ÚµÄµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½
 	if (aGridX < 0 || aGridX >= MAX_GRID_SIZE_X || aGridY < 0 || aGridY > MAX_GRID_SIZE_Y)
 	{
 		RefreshSeedPacketFromCursor();
@@ -3708,7 +3708,7 @@ void Board::MouseDownWithPlant(int x, int y, int theClickCount)
 	PlantingReason aReason = CanPlantAt(aGridX, aGridY, aPlantingSeedType);
 	if (aReason != PlantingReason::PLANTING_OK)
 	{
-		// ¸ù¾Ý²»Í¬µÄÖÖÖ²Ô­Òò²¥·ÅÏàÓ¦µÄÌáÊ¾×ÖÄ»
+		// ï¿½ï¿½ï¿½Ý²ï¿½Í¬ï¿½ï¿½ï¿½ï¿½Ö²Ô­ï¿½ò²¥·ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Ä»
 		if (aReason == PlantingReason::PLANTING_ONLY_ON_GRAVES)
 		{
 			DisplayAdvice(_S("[ADVICE_GRAVEBUSTERS_ON_GRAVES]"), MessageStyle::MESSAGE_STYLE_HINT_FAST, AdviceType::ADVICE_PLANT_GRAVEBUSTERS_ON_GRAVES);
@@ -3835,18 +3835,18 @@ void Board::MouseDownWithPlant(int x, int y, int theClickCount)
 			DisplayAdvice(_S("[ADVICE_PLANTING_NEED_SLEEPING]"), MessageStyle::MESSAGE_STYLE_HINT_FAST, AdviceType::ADVICE_PLANTING_NEED_SLEEPING);
 		}
 
-		// ÌØ¶¨Çé¿öÏÂ£¬·ÅÏÂÔ­ÓÐÊÖ³ÖµÄÖ²Îï
+		// ï¿½Ø¶ï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½Ö³Öµï¿½Ö²ï¿½ï¿½
 		if (mCursorObject->mCursorType == CursorType::CURSOR_TYPE_PLANT_FROM_GLOVE || mApp->IsWhackAZombieLevel())
 		{
 			RefreshSeedPacketFromCursor();
 			mApp->PlayFoley(FoleyType::FOLEY_DROP);
 		}
-		// ²»¿ÉÖÖÖ²µÄÇé¿öÖÁ´Ë½áÊø£¬Ö±½ÓÌø×ªÖÁ·µ»Ø
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		return;
 	}
 	
-	/* ÒÔÏÂÎªÖ²ÎïÀàÐÍ¿ÉÒÔÖÖÖ²µÄÇé¿ö */
-	// Çå³ýÖÖÖ²Ïà¹ØµÄÌáÊ¾×ÖÄ»
+	/* ï¿½ï¿½ï¿½ï¿½ÎªÖ²ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½ */
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½Øµï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Ä»
 	ClearAdvice(AdviceType::ADVICE_PLANTING_NEED_SLEEPING);
 	ClearAdvice(AdviceType::ADVICE_CANT_PLANT_THERE);
 	ClearAdvice(AdviceType::ADVICE_PLANTING_NEEDS_GROUND);
@@ -3871,7 +3871,7 @@ void Board::MouseDownWithPlant(int x, int y, int theClickCount)
 	ClearAdvice(AdviceType::ADVICE_PLANT_POTATOE_MINE_ON_LILY);
 	ClearAdvice(AdviceType::ADVICE_SURVIVE_FLAGS);
 
-	// ÎÞÃâ·ÑÖÖÖ²¡¢·Ç´«ËÍ´ø¹Ø¿¨µÄ¿¨²ÛÖ²Îï£¬ÅÐ¶ÏÑô¹âÊÇ·ñ³ä×ã£º³ä×ãÔò¿Û³ýÑô¹â£¬²»×ãÔòÍË³ö
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½Ç´ï¿½ï¿½Í´ï¿½ï¿½Ø¿ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½Ö²ï¿½ï£¬ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ã£ºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û³ï¿½ï¿½ï¿½ï¿½â£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½
 	if (!mApp->mEasyPlantingCheat && mCursorObject->mCursorType == CursorType::CURSOR_TYPE_PLANT_FROM_BANK && !HasConveyorBeltSeedBank())
 	{
 		if (!TakeSunMoney(GetCurrentPlantCost(aPlantingSeedType, SeedType::SEED_NONE)))
@@ -3880,7 +3880,7 @@ void Board::MouseDownWithPlant(int x, int y, int theClickCount)
 		}
 	}
 	
-	// Éý¼¶ÖÖÖ²»ò¼á¹û°üÔúÊõµÈÇé¿öÊ±£¬ÏÈ½«Ô­Ö²ÎïÏú»Ù
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½È½ï¿½Ô­Ö²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	bool aIsAwake = false;
 	int aWakeUpCounter = 0;
 	PlantsOnLawn aPlantOnLawn;
@@ -3964,7 +3964,7 @@ void Board::MouseDownWithPlant(int x, int y, int theClickCount)
 		TOD_ASSERT();
 	}
 	
-	// Öù×Ó¹Ø¿¨ÖÐ£¬Ò»ÁÐÖÖÖ²
+	// ï¿½ï¿½ï¿½Ó¹Ø¿ï¿½ï¿½Ð£ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ö²
 	if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_COLUMN)
 	{
 		for (int aRow = 0; aRow < MAX_GRID_SIZE_Y; aRow++)
@@ -3992,7 +3992,7 @@ void Board::MouseDownWithPlant(int x, int y, int theClickCount)
 		}
 	}
 
-	// ÉèÖÃ½Ì³Ì×´Ì¬Ïà¹Ø
+	// ï¿½ï¿½ï¿½Ã½Ì³ï¿½×´Ì¬ï¿½ï¿½ï¿½
 	if (mTutorialState == TutorialState::TUTORIAL_LEVEL_1_PLANT_PEASHOOTER)
 	{
 		SetTutorialState(mPlants.mSize >= 2 ? TutorialState::TUTORIAL_LEVEL_1_COMPLETED : TutorialState::TUTORIAL_LEVEL_1_REFRESH_PEASHOOTER);
@@ -4043,13 +4043,13 @@ void Board::MouseDownWithPlant(int x, int y, int theClickCount)
 		}
 	}
 
-	// ±£ÁäÇò¹Ø¿¨£¬²¥·Å±£ÁäÇò¹ö¶¯µÄÒôÐ§
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§
 	if (mApp->IsWallnutBowlingLevel())
 	{
 		mApp->PlaySample(Sexy::SOUND_BOWLING);
 	}
 
-	// ÖØÖÃÊó±ê
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	ClearCursor();
 }
 
@@ -4199,7 +4199,7 @@ bool Board::MouseHitTestPlant(int x, int y, HitResult* theHitResult)
 		}
 	}
 
-	// Ö²Îï²»´æÔÚ£¬»òÕßÊÖ³ÖÇÉ¿ËÁ¦µ«Ö²Îï²»ÐèÒªÇÉ¿ËÁ¦Ê±£¬·µ»Ø¡°·ñ¡±
+	// Ö²ï¿½ï²»ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö³ï¿½ï¿½É¿ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï²»ï¿½ï¿½Òªï¿½É¿ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ø¡ï¿½ï¿½ï¿½
 	if (aPlant == nullptr)
 	{
 		return false;
@@ -5049,7 +5049,7 @@ void Board::SpawnZombieWave()
 			{
 				for (int i = 0; i < MAX_ZOMBIE_FOLLOWERS; i++)
 				{
-					AddZombie(ZombieType::ZOMBIE_NORMAL, mCurrentWave);  // Éú³É 4 Ö»ÆÕÍ¨½©Ê¬ÒÔ´úÌæÑ©ÇÁ½©Ê¬Ð¡¶Ó
+					AddZombie(ZombieType::ZOMBIE_NORMAL, mCurrentWave);  // ï¿½ï¿½ï¿½ï¿½ 4 Ö»ï¿½ï¿½Í¨ï¿½ï¿½Ê¬ï¿½Ô´ï¿½ï¿½ï¿½Ñ©ï¿½ï¿½ï¿½ï¿½Ê¬Ð¡ï¿½ï¿½
 				}
 			}
 			else
@@ -5215,7 +5215,7 @@ void Board::ZombiesWon(Zombie* theZombie)
 	else
 	{
 		mApp->mGameScene = GameScenes::SCENE_ZOMBIES_WON;
-		if (theZombie)  // Ô­°æ´Ë´¦Ã»ÓÐ¶Ô theZombie ½øÐÐ¿ÕÖ¸ÕëÅÐ¶Ï£¬µ«¼ÓÉÏÅÐ¶Ïºó±ãÔÊÐíÈÆ¹ý½©Ê¬¶øÖ±½Óµ÷ÓÃÓÎÏ·Ê§°Ü
+		if (theZombie)  // Ô­ï¿½ï¿½Ë´ï¿½Ã»ï¿½Ð¶ï¿½ theZombie ï¿½ï¿½ï¿½Ð¿ï¿½Ö¸ï¿½ï¿½ï¿½Ð¶Ï£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ïºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¹ï¿½ï¿½ï¿½Ê¬ï¿½ï¿½Ö±ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½Ï·Ê§ï¿½ï¿½
 		{
 			theZombie->WalkIntoHouse();
 		}
@@ -5561,52 +5561,52 @@ void Board::UpdateProgressMeter()
 	}
 	else if (mCurrentWave != 0)
 	{
-		// ¸üÐÂÆìÖÄÉýÆðµ¹¼ÆÊ±
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ðµ¹¼ï¿½Ê±
 		if (mFlagRaiseCounter > 0)
 			mFlagRaiseCounter--;
 
-		int aTotalWidth = 150;  // ¿ÉÓÃÓÚÆ½¾ù·ÖÅä¸øÃ¿Ò»Ð¡²¨µÄ½ø¶ÈÌõ×Ü³¤¶È
-		int aNumWavesPerFlag = GetNumWavesPerFlag();  // ±¾¹Ø¿¨ÖÐÃ¿ÏàÁÚÁ½¸öÆìÖÄ²¨Ö®Ç°µÄÐ¡²¨ÊýÁ¿
-		bool aHasFlags = ProgressMeterHasFlags();  // ½ø¶ÈÌõ±ê×¢ÆìÖÄÊ±£¬ÆìÖÄ²¨Õ¼ÓÃ¸ü³¤µÄ½ø¶ÈÌõ
+		int aTotalWidth = 150;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿Ò»Ð¡ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü³ï¿½ï¿½ï¿½
+		int aNumWavesPerFlag = GetNumWavesPerFlag();  // ï¿½ï¿½ï¿½Ø¿ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½Ö®Ç°ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		bool aHasFlags = ProgressMeterHasFlags();  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½Õ¼ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (aHasFlags)
 		{
-			aTotalWidth -= 12 * mNumWaves / aNumWavesPerFlag;  // ´ÓÃ¿¸öÆìÖÄ²¨·Ö¸î³ö 12 µ¥Î»µÄ³¤¶È
+			aTotalWidth -= 12 * mNumWaves / aNumWavesPerFlag;  // ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½Ö¸ï¿½ï¿½ 12 ï¿½ï¿½Î»ï¿½Ä³ï¿½ï¿½ï¿½
 		}
 
-		int aWaveLength = aTotalWidth / (mNumWaves - 1);  // Ã¿Ò»Ð¡²¨Õ¼ÓÃµÄ½ø¶ÈÌõ³¤¶È
-		int aCurrentWaveLength = (mCurrentWave - 1) * aTotalWidth / (mNumWaves - 1);  // µ±Ç°²¨¿ªÊ¼Ê±µÄ½ø¶ÈÌõ³¤¶È
-		int aNextWaveLength = mCurrentWave * aTotalWidth / (mNumWaves - 1);  // ÏÂÒ»²¨¿ªÊ¼Ê±µÄ½ø¶ÈÌõ³¤¶È
+		int aWaveLength = aTotalWidth / (mNumWaves - 1);  // Ã¿Ò»Ð¡ï¿½ï¿½Õ¼ï¿½ÃµÄ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		int aCurrentWaveLength = (mCurrentWave - 1) * aTotalWidth / (mNumWaves - 1);  // ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Ê¼Ê±ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		int aNextWaveLength = mCurrentWave * aTotalWidth / (mNumWaves - 1);  // ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ê¼Ê±ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (aHasFlags)
 		{
-			int anExtraLength = mCurrentWave / aNumWavesPerFlag * 12;  // ¹é»¹ÒÑË¢ÐÂµÄÆìÖÄ²¨·Ö¸îµÄ³¤¶È
+			int anExtraLength = mCurrentWave / aNumWavesPerFlag * 12;  // ï¿½é»¹ï¿½ï¿½Ë¢ï¿½Âµï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½Ö¸ï¿½Ä³ï¿½ï¿½ï¿½
 			aCurrentWaveLength += anExtraLength;
 			aNextWaveLength += anExtraLength;
 		}
 
-		// ¸ù¾Ýµ¹¼ÆÊ±³õ²½¼ÆËãµ±Ç°²¨ÒÑ¾­¹ýµÄ±ÈÀý
+		// ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ãµ±Ç°ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½
 		float aFraction = (mZombieCountDownStart - mZombieCountDown) / (float)mZombieCountDownStart;
 		if (mZombieHealthToNextWave != -1)
 		{
-			// È¡µÃ±¾²¨½©Ê¬µÄµ±Ç°ÑªÁ¿
+			// È¡ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½Ê¬ï¿½Äµï¿½Ç°Ñªï¿½ï¿½
 			int aHealthCurrent = TotalZombiesHealthInWave(mCurrentWave - 1);
-			// È¡µÃ£¨±¾²¨¿ªÊ¼Ê±µÄ½©Ê¬×ÜÑªÁ¿ - ÏÂÒ»²¨Ë¢ÐÂÊ±µÄ½©Ê¬×ÜÑªÁ¿£©£¬¼´£º±¾²¨Ë¢ÐÂÐèÒª¶Ô½©Ê¬Ôì³ÉµÄÉËº¦
-			int aDamageTarget = mZombieHealthWaveStart - mZombieHealthToNextWave;  //¿ªÊ¼Ê±µÄÑªÁ¿ - Ë¢ÐÂÊ±µÄÑªÁ¿
+			// È¡ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼Ê±ï¿½Ä½ï¿½Ê¬ï¿½ï¿½Ñªï¿½ï¿½ - ï¿½ï¿½Ò»ï¿½ï¿½Ë¢ï¿½ï¿½Ê±ï¿½Ä½ï¿½Ê¬ï¿½ï¿½Ñªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½ï¿½ï¿½ï¿½Òªï¿½Ô½ï¿½Ê¬ï¿½ï¿½Éµï¿½ï¿½Ëºï¿½
+			int aDamageTarget = mZombieHealthWaveStart - mZombieHealthToNextWave;  //ï¿½ï¿½Ê¼Ê±ï¿½ï¿½Ñªï¿½ï¿½ - Ë¢ï¿½ï¿½Ê±ï¿½ï¿½Ñªï¿½ï¿½
 			if (aDamageTarget < 1)
 			{
-				aDamageTarget = 1;  // ÐèÒªµÄÉËº¦ÖÁÉÙÎª 1
+				aDamageTarget = 1;  // ï¿½ï¿½Òªï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½Îª 1
 			}
-			// ÔÙ´ÎÒÔË¢ÐÂÑªÁ¿¼ÆËãÒ»´Îµ±Ç°²¨ÒÑ¾­¹ýµÄ±ÈÀý
-			// ÑªÁ¿±ÈÀý = [Ä¿±êÉËº¦ - (µ±Ç°ÑªÁ¿ - Ë¢ÐÂÑªÁ¿)] / Ä¿±êÉËº¦ = (Ä¿±êÉËº¦ - ÈÔÐèÔì³ÉµÄÉËº¦) / Ä¿±êÉËº¦ = µ±Ç°ÉËº¦ / Ä¿±êÉËº¦
+			// ï¿½Ù´ï¿½ï¿½ï¿½Ë¢ï¿½ï¿½Ñªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½Îµï¿½Ç°ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½
+			// Ñªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = [Ä¿ï¿½ï¿½ï¿½Ëºï¿½ - (ï¿½ï¿½Ç°Ñªï¿½ï¿½ - Ë¢ï¿½ï¿½Ñªï¿½ï¿½)] / Ä¿ï¿½ï¿½ï¿½Ëºï¿½ = (Ä¿ï¿½ï¿½ï¿½Ëºï¿½ - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Éµï¿½ï¿½Ëºï¿½) / Ä¿ï¿½ï¿½ï¿½Ëºï¿½ = ï¿½ï¿½Ç°ï¿½Ëºï¿½ / Ä¿ï¿½ï¿½ï¿½Ëºï¿½
 			float aHealthFraction = (aDamageTarget - aHealthCurrent + mZombieHealthToNextWave) / (float)aDamageTarget;
-			// ×îÖÕ±ÈÀýÈ¡ÉÏÊö¶þÕßµÄ½Ï´óÖµ
+			// ï¿½ï¿½ï¿½Õ±ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ßµÄ½Ï´ï¿½Öµ
 			aFraction = max(aHealthFraction, aFraction);
 		}
 
-		// ¼ÆËãµ±Ç°Ó¦µ±µÄ½ø¶ÈÌõ³¤¶È£¬²¢½«³¤¶ÈµÄ·¶Î§ÏÞ¶¨ÔÚ [1, 150] Ö®¼ä
+		// ï¿½ï¿½ï¿½ãµ±Ç°Ó¦ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÈµÄ·ï¿½Î§ï¿½Þ¶ï¿½ï¿½ï¿½ [1, 150] Ö®ï¿½ï¿½
 		int aLength = ClampInt(aCurrentWaveLength + FloatRoundToInt((aNextWaveLength - aCurrentWaveLength) * aFraction), 1, 150);
-		// È¡µÃµ±Ç°Êµ¼ÊÓëÀíÂÛµÄ½ø¶ÈÌõ³¤¶ÈÖ®²î
+		// È¡ï¿½Ãµï¿½Ç°Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÛµÄ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½
 		int aDelta = aLength - mProgressMeterWidth;
-		// µ±²îÖµ²»³¬¹ýÒ»²¨µÄ³¤¶ÈÊ±£¬Ã¿ 20cs µ÷ÕûÒ»´Î³¤¶È£»·ñÔò£¬Ã¿ 5cs µ÷ÕûÒ»´Î³¤¶È
+		// ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ã¿ 20cs ï¿½ï¿½ï¿½ï¿½Ò»ï¿½Î³ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ 5cs ï¿½ï¿½ï¿½ï¿½Ò»ï¿½Î³ï¿½ï¿½ï¿½
 		if ((aDelta > aWaveLength && (mMainCounter % 5 == 0)) || (aDelta > 0 && (mMainCounter % 20 == 0)))
 		{
 			mProgressMeterWidth++;
@@ -5651,7 +5651,7 @@ void Board::UpdateTutorial()
 		}
 	}
 
-	// Ã°ÏÕÄ£Ê½³õÆÚ¹Ø¿¨£¬¼ì²âµ½ÏòÈÕ¿ûÊýÁ¿Ð¡ÓÚ 3 Ê±£¬½øÈë¡°¸ü¶àÏòÈÕ¿û¡±µÄ½Ì³Ì
+	// Ã°ï¿½ï¿½Ä£Ê½ï¿½ï¿½ï¿½Ú¹Ø¿ï¿½ï¿½ï¿½ï¿½ï¿½âµ½ï¿½ï¿½ï¿½Õ¿ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ 3 Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ë¡°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¿ï¿½ï¿½ï¿½ï¿½Ä½Ì³ï¿½
 	if (mApp->IsFirstTimeAdventureMode() && mLevel >= 3 && mLevel != 5 && mLevel <= 7 && mTutorialState == TutorialState::TUTORIAL_OFF &&
 		mCurrentWave >= 5 && !gShownMoreSunTutorial && mSeedBank->mSeedPackets[1].CanPickUp() && CountPlantByType(SeedType::SEED_SUNFLOWER) < 3)
 	{
@@ -6671,7 +6671,7 @@ void Board::DrawProgressMeter(Graphics* g)
 		return;
 
 	// ====================================================================================================
-	// ¡ø »æÖÆ½ø¶ÈÌõ½ø¶È²¿·ÖµÄÌùÍ¼
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È²ï¿½ï¿½Öµï¿½ï¿½ï¿½Í¼
 	// ====================================================================================================
 	g->DrawImageCel(Sexy::IMAGE_FLAGMETER, 600, 575, 0);
 	int aCelWidth = Sexy::IMAGE_FLAGMETER->GetCelWidth();
@@ -6682,7 +6682,7 @@ void Board::DrawProgressMeter(Graphics* g)
 	g->DrawImage(Sexy::IMAGE_FLAGMETER, aDstRect, aSrcRect);
 	
 	// ====================================================================================================
-	// ¡ø ¸ù¾Ý²»Í¬¹Ø¿¨£¬»æÖÆ½ø¶ÈÌõÉÏµÄÎÄ×Ö»òÆìÖÄ
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½Ý²ï¿½Í¬ï¿½Ø¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½
 	// ====================================================================================================
 	int aPosX = aCelWidth / 2 + 600;
 	Color aColor(224, 187, 98);
@@ -6717,10 +6717,10 @@ void Board::DrawProgressMeter(Graphics* g)
 	{
 		int aNumWavesPerFlag = GetNumWavesPerFlag();
 		int aNumFlagWaves = mNumWaves / aNumWavesPerFlag;
-		int aFlagsPosEnd = 590 + aCelWidth;  // ÆìÖÄÇøÓòµÄÓÒ½çºá×ø±ê
+		int aFlagsPosEnd = 590 + aCelWidth;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		for (int aFlagWave = 1; aFlagWave <= aNumFlagWaves; aFlagWave++)
 		{
-			// È¡µÃÆìÖÄÉýÆðÊ±µÄ¸ß¶ÈÆ«ÒÆ
+			// È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½Ä¸ß¶ï¿½Æ«ï¿½ï¿½
 			int aHeight = 0;
 			int aTotalWavesAtFlag = aFlagWave * aNumWavesPerFlag;
 			if (aTotalWavesAtFlag < mCurrentWave)
@@ -6731,21 +6731,21 @@ void Board::DrawProgressMeter(Graphics* g)
 			{
 				aHeight = TodAnimateCurve(100, 0, mFlagRaiseCounter, 0, 14, TodCurves::CURVE_LINEAR);
 			}
-			// ¼ÆËãÆìÖÄµÄºá×ø±ê
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÄµÄºï¿½ï¿½ï¿½ï¿½ï¿½
 			int aPosX = TodAnimateCurve(0, mNumWaves, aTotalWavesAtFlag, aFlagsPosEnd, 606, TodCurves::CURVE_LINEAR);
-			// »æÖÆÆì¸Ë
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			g->DrawImageCel(Sexy::IMAGE_FLAGMETERPARTS, aPosX, 571, 1, 0);
-			// »æÖÆÆìÖÄ
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			g->DrawImageCel(Sexy::IMAGE_FLAGMETERPARTS, aPosX, 572 - aHeight, 2, 0);
 		}
 	}
 
 	// ====================================================================================================
-	// ¡ø »æÖÆ½ø¶ÈÌõµÄ¶îÍâ²¿·Ö
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½â²¿ï¿½ï¿½
 	// ====================================================================================================
-	// »æÖÆ¡°¹Ø¿¨½ø³Ì¡±µÄÐ¡ÅÆ×Ó
+	// ï¿½ï¿½ï¿½Æ¡ï¿½ï¿½Ø¿ï¿½ï¿½ï¿½ï¿½Ì¡ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½
 	g->DrawImage(Sexy::IMAGE_FLAGMETERLEVELPROGRESS, 638, 589);
-	// ÅÐ¶ÏÊÇ·ñÐèÒª»æÖÆ½ø¶ÈÌõµ±Ç°Î»ÖÃ´¦µÄÐ¡½©Ê¬Í·£¬²»ÐèÒªÔòÖ±½Ó·µ»Ø
+	// ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°Î»ï¿½Ã´ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½Ê¬Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Ö±ï¿½Ó·ï¿½ï¿½ï¿½
 	if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_BEGHOULED || 
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_BEGHOULED_TWIST ||
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_ZOMBIQUARIUM || 
@@ -6754,7 +6754,7 @@ void Board::DrawProgressMeter(Graphics* g)
 		mApp->IsIZombieLevel() || 
 		mApp->IsFinalBossLevel())
 		return;
-	// »æÖÆ½©Ê¬Í·
+	// ï¿½ï¿½ï¿½Æ½ï¿½Ê¬Í·
 	int aHeadProgress = TodAnimateCurve(0, 150, mProgressMeterWidth, 0, 135, CURVE_LINEAR);
 	g->DrawImageCel(Sexy::IMAGE_FLAGMETERPARTS, aCelWidth - aHeadProgress + 580, 572, 0, 0);
 }
@@ -6791,7 +6791,7 @@ void Board::DrawHouseDoorTop(Graphics* g)
 void Board::DrawLevel(Graphics* g)
 {
 	// ====================================================================================================
-	// ¡ø »ñÈ¡ÍêÕûµÄ¹Ø¿¨Ãû³ÆµÄ×Ö·û´®
+	// ï¿½ï¿½ ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ä¹Ø¿ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½Ö·ï¿½ï¿½ï¿½
 	// ====================================================================================================
 	SexyString aLevelStr;
 	if (mApp->IsAdventureMode())
@@ -6827,7 +6827,7 @@ void Board::DrawLevel(Graphics* g)
 	}
 	
 	// ====================================================================================================
-	// ¡ø ÕýÊ½¿ªÊ¼»æÖÆ¹Ø¿¨Ãû³Æ×Ö·û´®
+	// ï¿½ï¿½ ï¿½ï¿½Ê½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Æ¹Ø¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
 	// ====================================================================================================
 	int aPosX = 780;
 	int aPosY = 595;
@@ -6907,7 +6907,7 @@ void Board::DrawZenButtons(Graphics* g)
 			g->DrawImage(Sexy::IMAGE_SHOVELBANK, aButtonRect.mX, aButtonRect.mY + aOffsetY);
 			if ((int)mCursorObject->mCursorType == (int)CursorType::CURSOR_TYPE_WATERING_CAN + (int)aTool - 6)
 			{
-				continue;  // Èç¹û¹¤¾ßÕýÔÚ±»ÊÖ³Ö£¬ÔòÌø¹ý»æÖÆ
+				continue;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú±ï¿½ï¿½Ö³Ö£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			}
 
 			if (aTool == GameObjectType::OBJECT_TYPE_WATERING_CAN)
@@ -7525,19 +7525,19 @@ void Board::DrawFog(Graphics* g)
 			if (aFadeAmount == 0)
 				continue;
 
-			// È¡µÃ¸ñ×ÓÄÚµÄÎíµÄÐÎ×´£¨µÚ 6 ÐÐµÄÎíµÄÐÎ×´²ÉÓÃÓëµÚ 0 ÐÐÏàÍ¬£©
-			// { sub eax,edx } ÏòÇ° [y / 6] ÁÐ£¬µ« y ³¬³öÉÏÏÞ y - 5 ÐÐ£¬¹ÊÏàµ±ÓÚÁÐ²»±ä£¬ÐÐ = y % 6£»
+			// È¡ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´ï¿½ï¿½ï¿½ï¿½ 6 ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0 ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½
+			// { sub eax,edx } ï¿½ï¿½Ç° [y / 6] ï¿½Ð£ï¿½ï¿½ï¿½ y ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ y - 5 ï¿½Ð£ï¿½ï¿½ï¿½ï¿½àµ±ï¿½ï¿½ï¿½Ð²ï¿½ï¿½ä£¬ï¿½ï¿½ = y % 6ï¿½ï¿½
 			int aCelLook = mGridCelLook[x][y % MAX_GRID_SIZE_Y];
 			int aCelCol = aCelLook % 8;
-			// ±¾¸ñÅ¨Îíºá×ø±ê = ÁÐ * 80 + Å¨ÎíÆ«ÒÆ - 15£¬×Ý×ø±ê = ÐÐ * 85 + 20
+			// ï¿½ï¿½ï¿½ï¿½Å¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = ï¿½ï¿½ * 80 + Å¨ï¿½ï¿½Æ«ï¿½ï¿½ - 15ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = ï¿½ï¿½ * 85 + 20
 			float aPosX = x * 80 + mFogOffset - 15;
 			float aPosY = y * 85 + 20;
-			// ¿ªÊ¼¼ÆËãÖÜÆÚ±ä»¯µÄÑÕÉ«£¬aTime Îª¸ù¾ÝÖ÷¼ÆÊ±¼ÆËãµÄÊ±¼ä
+			// ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú±ä»¯ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½aTime Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 			float aTime = mMainCounter * PI * 2;
-			// ÓëÐÐ¡¢ÁÐÓÐ¹ØµÄ³õÊ¼ÏàÎ»
+			// ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½Ð¹ØµÄ³ï¿½Ê¼ï¿½ï¿½Î»
 			float aPhaseX = 6 * PI * x / MAX_GRID_SIZE_X;
 			float aPhaseY = 6 * PI * y / (MAX_GRID_SIZE_Y + 1);
-			// ¸ù¾Ý³õÏàºÍÊ±¼ä¼ÆËãµ±Ç°ÏàÎ»
+			// ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ãµ±Ç°ï¿½ï¿½Î»
 			float aMotion = 13 + 4 * sin(aTime / 900 + aPhaseY) + 8 * sin(aTime / 500 + aPhaseX);
 
 			int aColorVariant = 255 - aCelLook * 1.5 - aMotion * 1.5;
@@ -7876,7 +7876,7 @@ static void TodCrash()
 	TOD_ASSERT(false, "Crash%s", "!!!!");
 }
 
-//0x41B950£¨Ô­°æÖÐ·ÏÆú£©
+//0x41B950ï¿½ï¿½Ô­ï¿½ï¿½ï¿½Ð·ï¿½ï¿½ï¿½ï¿½ï¿½
 void Board::KeyChar(SexyChar theChar)
 {
 	if (!mApp->mDebugKeysEnabled)
@@ -9194,10 +9194,10 @@ int GetRectOverlap(const Rect& rect1, const Rect& rect2)
 //0x41C850
 bool GetCircleRectOverlap(int theCircleX, int theCircleY, int theRadius, const Rect& theRect)
 {
-	int dx = 0;  // Ô²ÐÄÓë¾ØÐÎ½Ï½üÒ»Ìõ×Ý±ßµÄºáÏò¾àÀë
-	int dy = 0;  // Ô²ÐÄÓë¾ØÐÎ½Ï½üÒ»Ìõºá±ßµÄ×ÝÏò¾àÀë
-	bool xOut = false;  // Ô²ÐÄºá×ø±êÊÇ·ñ²»ÔÚ¾ØÐÎ·¶Î§ÄÚ
-	bool yOut = false;  // Ô²ÐÄ×Ý×ø±êÊÇ·ñ²»ÔÚ¾ØÐÎ·¶Î§ÄÚ
+	int dx = 0;  // Ô²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î½Ï½ï¿½Ò»ï¿½ï¿½ï¿½Ý±ßµÄºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int dy = 0;  // Ô²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î½Ï½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ßµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	bool xOut = false;  // Ô²ï¿½Äºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ú¾ï¿½ï¿½Î·ï¿½Î§ï¿½ï¿½
+	bool yOut = false;  // Ô²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ú¾ï¿½ï¿½Î·ï¿½Î§ï¿½ï¿½
 
 	if (theCircleX < theRect.mX)
 	{
@@ -9220,7 +9220,7 @@ bool GetCircleRectOverlap(int theCircleX, int theCircleY, int theRadius, const R
 		dy = theCircleY - theRect.mY - theRect.mHeight;
 	}
 
-	if (!xOut && !yOut)  // Èç¹ûÔ²ÐÄÔÚ¾ØÐÎÄÚ
+	if (!xOut && !yOut)  // ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½Ú¾ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		return true;
 	}
