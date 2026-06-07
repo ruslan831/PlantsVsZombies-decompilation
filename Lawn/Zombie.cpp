@@ -6374,7 +6374,8 @@ Zombie* Zombie::FindZombieTarget()
         {
             Rect aZombieRect = aZombie->GetZombieRect();
             int aOverlap = GetRectOverlap(aAttackRect, aZombieRect);
-            if (aOverlap >= 20 || (aOverlap > 0 && aZombie->mIsEating))
+            // Corrected against PvZ 1.0.0.1051 binary: eating targets also match at edge overlap 0.
+            if (aOverlap >= 20 || (aOverlap >= 0 && aZombie->mIsEating))
             {
                 return aZombie;
             }

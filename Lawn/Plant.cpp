@@ -865,8 +865,9 @@ bool Plant::FindStarFruitTarget()
             }
             else
             {
+                // Corrected against PvZ 1.0.0.1051 binary: diggers widen the target rect instead of shifting x.
                 if (aZombie->mZombieType == ZombieType::ZOMBIE_DIGGER)
-                    aZombieRect.mX += 10;
+                    aZombieRect.mWidth += 10;
 
                 float aProjectileTime = Distance2D(aCenterStarX, aCenterStarY, aZombieRect.mX + aZombieRect.mWidth / 2, aZombieRect.mY + aZombieRect.mHeight / 2) / 3.33f;
                 int aZombieHitX = aZombie->ZombieTargetLeadX(aProjectileTime) - aZombieRect.mWidth / 2;
@@ -1502,7 +1503,8 @@ void Plant::UpdateSquash()
         {
             PlayBodyReanim("anim_jumpup", ReanimLoopType::REANIM_PLAY_ONCE_AND_HOLD, 20, 24.0f);
             mState = PlantState::STATE_SQUASH_PRE_LAUNCH;
-            mStateCountdown = 30;
+            // Corrected against PvZ 1.0.0.1051 binary: pre-launch countdown is 45 frames.
+            mStateCountdown = 45;
         }
     }
     else if (mState == PlantState::STATE_SQUASH_PRE_LAUNCH)

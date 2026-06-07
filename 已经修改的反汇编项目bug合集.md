@@ -62,6 +62,27 @@
 - 修正：地刺王伤害帧改为 `70` 和 `32`。
 - 修改文件：`Lawn/Plant.cpp`
 
+## 9. `Plant::UpdateSquash` 倭瓜预跳倒计时
+
+- 原错误：`STATE_SQUASH_LOOK -> STATE_SQUASH_PRE_LAUNCH` 转换时写成 `mStateCountdown = 30`。
+- 二进制依据：`Plant::UpdateSquash` `0x4609d0` 中 `0x460ae7` 写状态 `0x4` 后，`0x460aee c7 46 54 2d 00 00 00` 将倒计时写为 `0x2d`，即 45。
+- 修正：倭瓜预跳倒计时改为 `45`。
+- 修改文件：`Lawn/Plant.cpp`
+
+## 10. `Plant::FindStarFruitTarget` 杨桃矿工矩形修正字段
+
+- 原错误：矿工僵尸特殊处理写成 `aZombieRect.mX += 10`。
+- 二进制依据：`Plant::FindStarFruitTarget` `0x45f470` 中 `0x45f52a` 检查矿工僵尸后，`0x45f52f add DWORD PTR [esp+0x38],0xa` 修改的是矩形宽度字段；同函数 `0x45f511-0x45f51b` 使用 `[esp+0x30] + [esp+0x38]` 作为 `x + width`。
+- 修正：改为 `aZombieRect.mWidth += 10`。
+- 修改文件：`Lawn/Plant.cpp`
+
+## 11. `Zombie::FindZombieTarget` 催眠僵尸攻击啃食目标贴边条件
+
+- 原错误：啃食目标分支写成 `aOverlap > 0`，排除了 overlap 为 0 的贴边情况。
+- 二进制依据：`Zombie::FindZombieTarget` `0x52e840` 中 `0x52e8e0 cmp eax,0x14; jge accept` 后，`0x52e8e5 test eax,eax; jl skip`，只在 overlap `< 0` 时跳过啃食分支。
+- 修正：改为 `aOverlap >= 20 || (aOverlap >= 0 && aZombie->mIsEating)`。
+- 修改文件：`Lawn/Zombie.cpp`
+
 ## 附：已复核但无需修改的行为
 
 - `Plant::Squish` `0x462b80`：源码中樱桃、辣椒、醒着的毁灭菇/寒冰菇、已就绪土豆雷走 `DoSpecial()`，睡眠植物和普通植物进入压扁状态；与二进制一致。
