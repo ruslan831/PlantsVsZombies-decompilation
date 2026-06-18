@@ -2403,7 +2403,7 @@ ZombieType Board::GetIntroducedZombieType()
 }
 
 //0x40D770
-ZombieType Board::PickGraveRisingZombieType(int theZombiePoints)
+ZombieType Board::PickGraveRisingZombieType()
 {
 	TodWeightedArray aZombieWeightArray[(int)ZombieType::NUM_ZOMBIE_TYPES];
 	int aCount = 2;
@@ -4859,7 +4859,7 @@ void Board::SpawnZombiesFromPool()
 		TodWeightedGridArray* aGrid = TodPickFromWeightedGridArray(aGridArray, aGridArrayCount);
 		aGrid->mWeight = 0;
 
-		ZombieType aZombieType = PickGraveRisingZombieType(aZombiePoints);
+		ZombieType aZombieType = PickGraveRisingZombieType();
 		Zombie* aZombie = AddZombieInRow(aZombieType, aGrid->mY, mCurrentWave);
 		if (aZombie == nullptr)
 		{
@@ -4941,7 +4941,7 @@ void Board::SpawnZombiesFromSky()
 
 	for (int i = 0; i < aCount; i++)
 	{
-		ZombieType aZombieType = PickGraveRisingZombieType(aZombiePoints);
+		ZombieType aZombieType = PickGraveRisingZombieType();
 		BungeeDropZombie(&aBungeeDropGrid, aZombieType);
 		aZombiePoints -= GetZombieDefinition(aZombieType).mZombieValue;
 		if (aZombiePoints < 1)
@@ -4980,7 +4980,7 @@ void Board::SpawnZombiesFromGraves()
 			continue;
 		}
 		
-		ZombieType aZombieType = PickGraveRisingZombieType(aZombiePoints);
+		ZombieType aZombieType = PickGraveRisingZombieType();
 		Zombie* aZombie = AddZombie(aZombieType, mCurrentWave);
 		if (aZombie == nullptr)
 		{
@@ -4989,7 +4989,7 @@ void Board::SpawnZombiesFromGraves()
 
 		aZombie->RiseFromGrave(aGridItem->mGridX, aGridItem->mGridY);
 		aZombiePoints -= GetZombieDefinition(aZombieType).mZombieValue;
-		if (aZombieType < 1)
+		if (aZombiePoints < 1)
 		{
 			aZombiePoints = 1;
 		}
@@ -5061,7 +5061,7 @@ void Board::SpawnZombieWave()
 
 	if (mCurrentWave == mNumWaves - 1 && !mApp->IsContinuousChallenge())
 	{
-		mRiseFromGraveCounter = 210;
+		mRiseFromGraveCounter = 200;
 	}
 	if (IsFlagWave(mCurrentWave))
 	{

@@ -2757,7 +2757,7 @@ void Challenge::WhackAZombiePlaceGraves(int theGraveCount)
 				continue;
 
 			TodWeightedGridArray* aPick = &aPicks[aPickCount++];
-			aPick->mWeight = mBoard->GetTopPlantAt(aCol, aRow, TOPPLANT_ANY) ? 100000 : 1;
+			aPick->mWeight = mBoard->GetTopPlantAt(aCol, aRow, TOPPLANT_ANY) ? 1 : 100000;
 			aPick->mX = aCol;
 			aPick->mY = aRow;
 		}
@@ -2920,6 +2920,7 @@ int Challenge::UpdateZombieSpawning()
 	if (mApp->IsWhackAZombieLevel())
 	{
 		WhackAZombieSpawning();
+		return true;
 	}
 	else return
 		mApp->IsFinalBossLevel() ||
@@ -2965,7 +2966,7 @@ void Challenge::GraveDangerSpawnRandomGrave()
 		{
 			if (mBoard->CanAddGraveStoneAt(aCol, aRow))
 			{
-				aPicks[aPickCount].mWeight = mBoard->GetTopPlantAt(aCol, aRow, TOPPLANT_ANY) ? 100000 : 1;
+				aPicks[aPickCount].mWeight = mBoard->GetTopPlantAt(aCol, aRow, TOPPLANT_ANY) ? 1 : 100000;
 				aPicks[aPickCount].mX = aCol;
 				aPicks[aPickCount].mY = aRow;
 				aPickCount++;
@@ -3015,7 +3016,8 @@ void Challenge::SpawnZombieWave()
 	if (mApp->IsSurvivalMode() && mBoard->mBackground == BACKGROUND_2_NIGHT && mBoard->mCurrentWave == mBoard->mNumWaves - 1)
 	{
 		int aNumGraves = mBoard->GetGraveStonesCount();
-		if ((mApp->IsSurvivalNormal(mApp->mGameMode) && aNumGraves < 8) || aNumGraves < 12)
+		int aGraveLimit = mApp->IsSurvivalNormal(mApp->mGameMode) ? 8 : 12;
+		if (aNumGraves < aGraveLimit)
 		{
 			GraveDangerSpawnRandomGrave();
 		}
