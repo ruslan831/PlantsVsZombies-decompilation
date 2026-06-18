@@ -4,7 +4,7 @@
 
 用途：记录本反编译项目中已按 PvZ 1.0.0.1051 原版二进制重新校正的源码错误。后续使用本项目作为 PE / rsvz 行为参考时，遇到这些函数应以本文件和源码中的 `Corrected against PvZ 1.0.0.1051 binary` 注释为准。
 
-原版二进制路径：`C:\Users\123\Desktop\Plants_Vs_Zombies_V1.0.0\Plants_Vs_Zombies_V1.0.0.1051_EN\PlantsVsZombies.exe`
+原版二进制：`PlantsVsZombies.exe`，Plants vs. Zombies 1.0.0.1051 EN。
 
 ## 1. `Zombie::PickRandomSpeed` 普通僵尸速度上限
 
