@@ -100,7 +100,7 @@
 - 二进制依据：`Challenge::GraveDangerSpawnRandomGrave` `0x4266c0` 在 `0x426796` 对有植物格写 `1`，在 `0x4267a2` 对空格写 `0x186a0`；`Challenge::WhackAZombiePlaceGraves` `0x425da0` 在 `0x425e7d` 对有植物格写 `1`，在 `0x425e89` 对空格写 `0x186a0`。
 - 修正：两处均改为 `GetTopPlantAt(...) ? 1 : 100000`。
 - 修改文件：`Lawn/Challenge.cpp`
-- 修改提交号：待提交
+- 修改提交号：`b8f25428fb5a16b2d1a1d3c37c39799c38154e86`
 
 ## 13. `Challenge::SpawnZombieWave` 生存夜晚最终波新增墓碑上限
 
@@ -108,7 +108,7 @@
 - 二进制依据：`Challenge::SpawnZombieWave` `0x426850` 中 `0x42696c-0x426977` 对生存简单比较 `aNumGraves < 8`，`0x426979-0x42697c` 对其他生存模式比较 `aNumGraves < 12`，只有小于对应上限才在 `0x42697e-0x42697f` 调用 `GraveDangerSpawnRandomGrave()`。
 - 修正：按模式先选择上限，生存简单为 `8`，其他生存模式为 `12`。
 - 修改文件：`Lawn/Challenge.cpp`
-- 修改提交号：待提交
+- 修改提交号：`b8f25428fb5a16b2d1a1d3c37c39799c38154e86`
 
 ## 14. `Challenge::UpdateZombieSpawning` 打地鼠分支缺少返回值
 
@@ -116,7 +116,7 @@
 - 二进制依据：`Challenge::UpdateZombieSpawning` `0x426580` 在 `0x4265a6-0x4265a7` 调用 `WhackAZombieSpawning` `0x425ff0` 后，`0x4265ac-0x4265ae` 执行 `mov al, 1; ret`。
 - 修正：打地鼠分支调用 `WhackAZombieSpawning()` 后 `return true`。
 - 修改文件：`Lawn/Challenge.cpp`
-- 修改提交号：待提交
+- 修改提交号：`b8f25428fb5a16b2d1a1d3c37c39799c38154e86`
 
 ## 15. `Board::SpawnZombieWave` 最终波伏兵倒计时常量
 
@@ -124,7 +124,7 @@
 - 二进制依据：`Board::SpawnZombieWave` `0x412ee0` 中 `0x413094` 的机器码 `c7 87 74 55 00 00 c8 00 00 00` 向 `Board + 0x5574` 写入 `0xc8`，即 `200`。
 - 修正：改为 `mRiseFromGraveCounter = 200`。
 - 修改文件：`Lawn/Board.cpp`
-- 修改提交号：待提交
+- 修改提交号：`b8f25428fb5a16b2d1a1d3c37c39799c38154e86`
 
 ## 16. `Board::SpawnZombiesFromGraves` 点数下限判断变量
 
@@ -132,7 +132,7 @@
 - 二进制依据：`Board::SpawnZombiesFromGraves` `0x412ce0` 中 `0x412e03` 扣减点数后，`0x412e06-0x412e0d` 比较减法后的剩余点数与 `1`，`0x412e0f-0x412e16` 才把局部剩余点数写回 `1`。
 - 修正：改为 `if (aZombiePoints < 1) aZombiePoints = 1;`。
 - 修改文件：`Lawn/Board.cpp`
-- 修改提交号：待提交
+- 修改提交号：`b8f25428fb5a16b2d1a1d3c37c39799c38154e86`
 
 ## 17. `Board::PickGraveRisingZombieType` 伪参数
 
@@ -140,7 +140,7 @@
 - 二进制依据：`Board::PickGraveRisingZombieType` `0x40d770` 不读取栈参数或寄存器点数；`SpawnZombiesFromPool` `0x4128f0` 在 `0x412a1a-0x412a23` 仅把 `edx` 设为 board 指针后调用 `0x40d770`，没有传点数；屋顶空降和墓碑起尸调用点同样是无参数 picker 语义。
 - 修正：移除 `PickGraveRisingZombieType` 的参数，并同步更新泳池伏兵、屋顶空降和墓碑起尸调用点。调用点保留本地扣点 / clamp 计算，但不再把它表达成 picker 输入。
 - 修改文件：`Lawn/Board.h`、`Lawn/Board.cpp`
-- 修改提交号：待提交
+- 修改提交号：`b8f25428fb5a16b2d1a1d3c37c39799c38154e86`
 
 ## 18. `Zombie::StopZombieSound` 舞王 / 伴舞音乐停止条件
 
@@ -148,7 +148,7 @@
 - 二进制依据：`Zombie::StopZombieSound` `0x530850` 中 `0x5308c5-0x5308d0` 如果找到类型为 `0x8` 或 `0x9` 的有效僵尸，则直接跳到 `0x5308fb`，跳过 `StopFoley`；只有遍历耗尽后才落到 `0x5308eb-0x5308f6` 调用 `StopFoley(FOLEY_DANCER)`。
 - 修正：默认需要停止声音，遍历到任一有效舞王 / 伴舞时取消停止。
 - 修改文件：`Lawn/Zombie.cpp`
-- 修改提交号：待提交
+- 修改提交号：`b8f25428fb5a16b2d1a1d3c37c39799c38154e86`
 
 ## 附：已复核但无需修改的行为
 
