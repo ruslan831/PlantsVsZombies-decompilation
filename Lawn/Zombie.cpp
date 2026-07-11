@@ -1095,7 +1095,8 @@ void Zombie::BungeeDropZombie(Zombie* theDroppedZombie, int theGridX, int theGri
 //0x524A70
 void Zombie::PickRandomSpeed()
 {
-    if (mZombiePhase == ZombiePhase::PHASE_DOLPHIN_WALKING_IN_POOL)
+    // Corrected against PvZ 1.0.0.1051 binary: phase 0x3B is snorkel walking in pool.
+    if (mZombiePhase == ZombiePhase::PHASE_SNORKEL_WALKING_IN_POOL)
     {
         mVelX = 0.3f;
     }
@@ -4702,11 +4703,11 @@ void Zombie::UpdateYuckyFace()
 
         if (aCanGoDown && !aCanGoUp)
         {
-            SetRow(mRow - 1);
+            SetRow(mRow + 1);
         }
         else if (!aCanGoDown && aCanGoUp)
         {
-            SetRow(mRow + 1);
+            SetRow(mRow - 1);
         }
         else if (aCanGoDown && aCanGoUp)
         {
@@ -8229,7 +8230,7 @@ bool Zombie::IsZombotany(ZombieType theZombieType)
         theZombieType == ZombieType::ZOMBIE_SQUASH_HEAD;
 }
 
-//0x5320B0
+//0x532060
 bool Zombie::ZombieTypeCanGoInPool(ZombieType theZombieType)
 {
     return 
@@ -8237,6 +8238,7 @@ bool Zombie::ZombieTypeCanGoInPool(ZombieType theZombieType)
         theZombieType == ZombieType::ZOMBIE_TRAFFIC_CONE || 
         theZombieType == ZombieType::ZOMBIE_PAIL || 
         theZombieType == ZombieType::ZOMBIE_FLAG || 
+        theZombieType == ZombieType::ZOMBIE_BALLOON ||
         theZombieType == ZombieType::ZOMBIE_SNORKEL || 
         theZombieType == ZombieType::ZOMBIE_DOLPHIN_RIDER || 
         theZombieType == ZombieType::ZOMBIE_PEA_HEAD || 

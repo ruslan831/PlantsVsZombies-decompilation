@@ -738,7 +738,7 @@ bool Plant::FindTargetAndFire(int theRow, PlantWeapon thePlantWeapon)
         aHeadReanim->mAnimRate = 35.0f;
         aHeadReanim->SetFramesForLayer("anim_shooting");
 
-        mShootingCounter = 33;
+        mShootingCounter = 35;
         if (mSeedType == SeedType::SEED_REPEATER || mSeedType == SeedType::SEED_SPLITPEA || mSeedType == SeedType::SEED_LEFTPEATER)
         {
             aHeadReanim->mAnimRate = 45.0f;
@@ -1620,7 +1620,7 @@ void Plant::UpdateBlover()
         aBodyReanim->mLoopType = ReanimLoopType::REANIM_LOOP;
     }
 
-    if (mState != PlantState::STATE_DOINGSPECIAL && mStateCountdown == 0)
+    if (mState != PlantState::STATE_DOINGSPECIAL && mDoSpecialCountdown == 0)
     {
         DoSpecial();
     }
@@ -4309,7 +4309,7 @@ void Plant::BlowAwayFliers(int theX, int theRow)
         if (!aZombie->IsDeadOrDying())
         {
             Rect aZombieRect = aZombie->GetZombieRect();
-            if (aZombie->IsFlying())
+            if (aZombie->mZombiePhase == ZombiePhase::PHASE_BALLOON_FLYING)
             {
                 aZombie->mBlowingAway = true;
             }

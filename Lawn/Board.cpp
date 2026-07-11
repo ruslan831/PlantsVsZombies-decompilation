@@ -2212,7 +2212,7 @@ void Board::GetPlantsOnLawn(int theGridX, int theGridY, PlantsOnLawn* thePlantOn
 		}
 
 		// ��ֲ��д�� thePlantOnLawn �ļ�¼
-		if (Plant::IsFlying(aPlant->mSeedType))
+		if (Plant::IsFlying(aSeedType))
 		{
 			TOD_ASSERT(!thePlantOnLawn->mFlyingPlant);
 			thePlantOnLawn->mFlyingPlant = aPlant;
