@@ -1,6 +1,6 @@
 # 已经修改的反汇编项目 bug 合集
 
-记录时间：2026-06-18
+记录时间：2026-06-18；最近更新：2026-07-11
 
 用途：记录本反编译项目中已按 PvZ 1.0.0.1051 原版二进制重新校正的源码错误。后续使用本项目作为 PE / rsvz 行为参考时，遇到这些函数应以本文件和源码中的 `Corrected against PvZ 1.0.0.1051 binary` 注释为准。
 
@@ -149,6 +149,87 @@
 - 修正：默认需要停止声音，遍历到任一有效舞王 / 伴舞时取消停止。
 - 修改文件：`Lawn/Zombie.cpp`
 - 修改提交号：`b8f25428fb5a16b2d1a1d3c37c39799c38154e86`
+
+## 19. `Zombie::PickRandomSpeed` 潜水僵尸二次入水速度相位
+
+- 原错误：开头 `0.3f` 固定速度分支写成 `mZombiePhase == PHASE_DOLPHIN_WALKING_IN_POOL`，误把海豚水中行走相位当成该分支条件。
+- 二进制依据：`Zombie::PickRandomSpeed` `0x524a70` 中 `0x524a77` 比较 `edx` 与 `0x3b`，匹配后 `0x524a7c` 加载 `0.3f` 写入 `mVelX`；`ConstEnums.h` 中 `0x3b = PHASE_SNORKEL_WALKING_IN_POOL`，`0x37 = PHASE_DOLPHIN_WALKING_IN_POOL`。
+- 修正：该分支改为 `mZombiePhase == ZombiePhase::PHASE_SNORKEL_WALKING_IN_POOL`。
+- 修改文件：`Lawn/Zombie.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`fd3bed59bd57c90fa3fb3717bb7e8bf885564c32`
+
+## 20. `Zombie::ZombieTypeCanGoInPool` 水路合法类型漏气球
+
+- 原错误：水路合法类型列表漏掉 `ZOMBIE_BALLOON`。
+- 二进制依据：`Zombie::ZombieTypeCanGoInPool` `0x532060` 中 `0x532073 cmp eax,0x10`、`0x532076 je 0x53209e`，类型 `0x10` 返回 true；`ConstEnums.h` 中 `0x10 = ZOMBIE_BALLOON`。
+- 修正：`ZombieTypeCanGoInPool()` 增加 `theZombieType == ZombieType::ZOMBIE_BALLOON`，并把函数地址注释修正为 `0x532060`。
+- 修改文件：`Lawn/Zombie.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`fd3bed59bd57c90fa3fb3717bb7e8bf885564c32`
+
+## 21. `Plant::FindTargetAndFire` 普通头部射击计数
+
+- 原错误：普通 `anim_shooting` 头部射击分支把 `mShootingCounter` 写成 `33`，比原版提前 2cs。
+- 二进制依据：`Plant::FindTargetAndFire` `0x45ef10` 中 `0x45f045` 向 `Plant + 0x90` 写入 `0x23`，即 35；重复射手、裂荚、左射和机枪分支随后再覆盖为 26 或 100。
+- 修正：普通头部射击计数改为 `35`，保留各特殊植物的后续覆盖。
+- 修改文件：`Lawn/Plant.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`fd3bed59bd57c90fa3fb3717bb7e8bf885564c32`
+
+## 22. `Plant::BlowAwayFliers` 错误包含气球下落相位
+
+- 原错误：三叶草直接调用 `Zombie::IsFlying()`；该函数按其通用语义同时包含 `PHASE_BALLOON_FLYING` 和 `PHASE_BALLOON_POPPING`，导致已经破球下落的僵尸也会被吹走。
+- 二进制依据：`Plant::BlowAwayFliers` `0x4665b0` 在 `0x4665fe-0x46660b` 接受 `0x49` 并显式排除 `0x4a`，只有 `0x46660d` 才写 `mBlowingAway = 1`。独立的 `Zombie::IsFlying@0x534680` 同时包含两相位，因此不能全局收窄该函数。
+- 修正：只在 `mZombiePhase == PHASE_BALLOON_FLYING` 时设置 `mBlowingAway`。
+- 修改文件：`Lawn/Plant.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`fd3bed59bd57c90fa3fb3717bb7e8bf885564c32`
+
+## 23. `Challenge::IZombiePlaceZombie` 蹦极行列参数混用
+
+- 原错误：蹦极分支先按 `theGridY` 创建僵尸，随后却调用 `SetRow(theGridX)`，把列号写入行号。
+- 二进制依据：`Challenge::IZombiePlaceZombie` `0x42a0f0` 中 `0x42a125` 把 col 写入 `mTargetCol`，`0x42a12b` 把 row 写入 `mRow`；位置 y 与 render order 也都使用 row。
+- 修正：蹦极分支改为 `SetRow(theGridY)`。
+- 修改文件：`Lawn/Challenge.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`fd3bed59bd57c90fa3fb3717bb7e8bf885564c32`
+
+## 24. `Board::GetPlantsOnLawn` 模仿者 flying 层类型
+
+- 原错误：函数已将模仿者替换成目标 `aSeedType`，但 flying 层判断又重新使用 `aPlant->mSeedType`，使尚未变身的模仿咖啡豆落入 normal 层。
+- 二进制依据：`Board::GetPlantsOnLawn` `0x40d2a0` 在 `0x40d307-0x40d317` 用 `mImitaterType` 覆盖 EDI，随后 `0x40d350` 继续用 EDI 比较 `0x23 = SEED_INSTANT_COFFEE`；没有重新读取实际类型。
+- 修正：flying 层判断改为 `Plant::IsFlying(aSeedType)`，与其余分层统一使用有效类型。
+- 修改文件：`Lawn/Board.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`fd3bed59bd57c90fa3fb3717bb7e8bf885564c32`
+
+## 25. `Plant::UpdateBlover` 倒计时字段
+
+- 原错误：三叶草在非 `STATE_DOINGSPECIAL` 状态下检查 `mStateCountdown == 0`，但等待生效使用的是 `mDoSpecialCountdown`。
+- 二进制依据：`Plant::UpdateBlover` `0x460f00` 在 `0x460f44` 比较 `[Plant + 0x50]`；字段布局中 `+0x50 = mDoSpecialCountdown`，`+0x54 = mStateCountdown`。
+- 修正：触发条件改为 `mDoSpecialCountdown == 0`。
+- 修改文件：`Lawn/Plant.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`fd3bed59bd57c90fa3fb3717bb7e8bf885564c32`
+
+## 26. `Zombie::UpdateYuckyFace` 单向换行方向
+
+- 原错误：仅下方可走时写 `row - 1`，仅上方可走时写 `row + 1`；顶行和底行会尝试进入非法行。
+- 二进制依据：`Zombie::UpdateYuckyFace` `0x52b6a0` 在 `0x52b826` 生成 `row - 1`，并在仅上方可走的 `0x52b8c7` 写入；`0x52b876` 生成 `row + 1`，并在仅下方可走的 `0x52b8e8` 写入。
+- 修正：仅下方可走时使用 `row + 1`，仅上方可走时使用 `row - 1`；双向合法时的随机分支保持不变。
+- 修改文件：`Lawn/Zombie.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`fd3bed59bd57c90fa3fb3717bb7e8bf885564c32`
+
+## 27. `Challenge::UpdateZombieSpawning` 返回类型
+
+- 原错误：源码声明和定义使用 `int`，但原版只在 AL 中返回真假；把它表达为 32 位返回值会读取未定义的高位。
+- 二进制依据：`Challenge::UpdateZombieSpawning` `0x426580` 在 `0x4265ac` 用 `mov al,1` 返回 true，在 `0x426617` 用 `xor al,al` 返回 false；唯一原版调用点 `0x413df5` 使用 `test al,al`。
+- 修正：声明和定义的返回类型统一改为 `bool`；现有调用点本来就只用于布尔条件。
+- 修改文件：`Lawn/Challenge.h`、`Lawn/Challenge.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`fd3bed59bd57c90fa3fb3717bb7e8bf885564c32`
 
 ## 附：已复核但无需修改的行为
 
