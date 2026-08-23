@@ -231,6 +231,15 @@
 - 回归校验：`tools/verify_binary_corrections.ps1`
 - 修改提交号：`fd3bed59bd57c90fa3fb3717bb7e8bf885564c32`
 
+## 28. `Plant::UpdateSquash` 下落曲线枚举
+
+- 原错误：窝瓜 `STATE_SQUASH_FALLING` 分支把 10cs 下落写成 `TodCurves::CURVE_EASE_IN_OUT`；这会让反编译源码中的下落位置明显晚于原版，而上升段才使用该缓入缓出曲线。
+- 二进制依据：`Plant::UpdateSquash@0x4609D0` 的上升分支在 `0x460BE2` 向 `TodAnimateCurve@0x511C40` 传 `push 0x4`（`CURVE_EASE_IN_OUT`）；下落分支在 `0x460C6C` 明确传 `push 0x1`（`CURVE_LINEAR`），并于 `0x460C7A` 调用同一函数。
+- 修正：下落分支改为 `TodCurves::CURVE_LINEAR`；PE 模拟器原有线性插值无需修改。
+- 修改文件：`Lawn/Plant.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1` 新增源码契约及 `0x460C6C push 1` / `0x460C7A call 0x511C40` 固定地址校验。
+- 修改提交号：`8214a34ecd7533c5f0872828aca0550beab1eb51`
+
 ## 附：已复核但无需修改的行为
 
 - `Plant::Squish` `0x462b80`：源码中樱桃、辣椒、醒着的毁灭菇/寒冰菇、已就绪土豆雷走 `DoSpecial()`，睡眠植物和普通植物进入压扁状态；与二进制一致。
