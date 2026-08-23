@@ -1541,7 +1541,7 @@ void Plant::UpdateSquash()
         }
         else if (mState == PlantState::STATE_SQUASH_FALLING)
         {
-            mY = TodAnimateCurve(10, 0, mStateCountdown, aDestY - 120, aDestY, TodCurves::CURVE_EASE_IN_OUT);
+            mY = TodAnimateCurve(10, 0, mStateCountdown, aDestY - 120, aDestY, TodCurves::CURVE_LINEAR);
 
             if (mStateCountdown == 5)
             {

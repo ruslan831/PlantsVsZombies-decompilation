@@ -117,6 +117,10 @@ $shoot = Get-Snippet $PlantSource "bool Plant::FindTargetAndFire" 6500
 Assert-Matches $shoot "mShootingCounter\s*=\s*35;.*mShootingCounter\s*=\s*26;.*mShootingCounter\s*=\s*100;" `
     "FindTargetAndFire must keep the original 35/26/100 shooting counters"
 
+$squash = Get-Snippet $PlantSource "void Plant::UpdateSquash()" 5000
+Assert-Contains $squash "mY = TodAnimateCurve(10, 0, mStateCountdown, aDestY - 120, aDestY, TodCurves::CURVE_LINEAR);" `
+    "UpdateSquash falling must use the linear curve"
+
 $blow = Get-Snippet $PlantSource "void Plant::BlowAwayFliers" 1700
 Assert-Matches $blow "if\s*\(\s*aZombie->mZombiePhase\s*==\s*ZombiePhase::PHASE_BALLOON_FLYING\s*\)\s*\{" `
     "BlowAwayFliers must accept only the balloon flying phase"
@@ -180,6 +184,10 @@ Assert-Matches $dump "532073:.*cmp\s+eax,0x10" "Pool eligibility binary must inc
 $dump = Get-Disassembly "0x45f030" "0x45f060"
 Assert-Matches $dump "45f045:.*\[esi\+0x90\],0x23" "FindTargetAndFire binary must write shooting counter 35"
 
+$dump = Get-Disassembly "0x460c60" "0x460c90"
+Assert-Matches $dump "460c6c:.*push\s+0x1.*460c7a:.*call\s+0x511c40" `
+    "UpdateSquash falling binary must pass CURVE_LINEAR to TodAnimateCurve"
+
 $dump = Get-Disassembly "0x4665f0" "0x466620"
 Assert-Matches $dump "4665fe:.*cmp\s+eax,0x49" "BlowAwayFliers binary must accept phase 0x49"
 Assert-Matches $dump "466608:.*cmp\s+eax,0x4a.*46660b:.*je\s+0x466614" `
@@ -211,4 +219,4 @@ $dump = Get-Disassembly "0x413de0" "0x413e05"
 Assert-Matches $dump "413df0:.*call\s+0x426580.*413df5:.*test\s+al,al" `
     "UpdateZombieSpawning caller must consume only AL"
 
-Write-Host "OK: 9 source corrections match PvZ 1.0.0.1051 source contracts and objdump."
+Write-Host "OK: 10 source corrections match PvZ 1.0.0.1051 source contracts and objdump."
