@@ -95,12 +95,21 @@ function Get-Disassembly {
     return $dump
 }
 
+function Get-HexDump {
+    param([string]$Start, [string]$Stop)
+
+    $dump = & $script:ObjdumpPath -s "--start-address=$Start" "--stop-address=$Stop" $script:PvzExePath 2>&1 | Out-String
+    Assert-True ($LASTEXITCODE -eq 0) "objdump failed for $Start..$Stop"
+    return $dump
+}
+
 $RepoRoot = Split-Path -Parent $PSScriptRoot
 $PlantSource = Get-Content -LiteralPath (Join-Path $RepoRoot "Lawn\Plant.cpp") -Raw -Encoding Default
 $BoardSource = Get-Content -LiteralPath (Join-Path $RepoRoot "Lawn\Board.cpp") -Raw -Encoding Default
 $ChallengeSource = Get-Content -LiteralPath (Join-Path $RepoRoot "Lawn\Challenge.cpp") -Raw -Encoding Default
 $ChallengeHeader = Get-Content -LiteralPath (Join-Path $RepoRoot "Lawn\Challenge.h") -Raw -Encoding Default
 $ZombieSource = Get-Content -LiteralPath (Join-Path $RepoRoot "Lawn\Zombie.cpp") -Raw -Encoding Default
+$AwardSource = Get-Content -LiteralPath (Join-Path $RepoRoot "Lawn\Widget\AwardScreen.cpp") -Raw -Encoding Default
 $ConstEnums = Get-Content -LiteralPath (Join-Path $RepoRoot "ConstEnums.h") -Raw -Encoding Default
 
 $pickSpeed = Get-Snippet $ZombieSource "void Zombie::PickRandomSpeed()" 1000
@@ -156,6 +165,10 @@ Assert-Contains $ChallengeSource "bool Challenge::UpdateZombieSpawning()" `
     "UpdateZombieSpawning definition must return bool"
 Assert-Contains $ChallengeHeader "bool                   UpdateZombieSpawning();" `
     "UpdateZombieSpawning declaration must return bool"
+
+$award = Get-Snippet $AwardSource "void AwardScreen::Draw(Graphics* g)" 14000
+Assert-Contains $award "TodDrawImageCelCenterScaledF(g, Sexy::IMAGE_SUNFLOWER_TROPHY, 325, 65, 1, 0.6f, 0.6f);" `
+    "AwardScreen gold trophy must use the original position and scale"
 
 Assert-True ((Get-EnumValue $ConstEnums "ZombiePhase" "PHASE_DOLPHIN_WALKING_IN_POOL") -eq 0x37) `
     "Expected dolphin walking phase 0x37"
@@ -219,4 +232,14 @@ $dump = Get-Disassembly "0x413de0" "0x413e05"
 Assert-Matches $dump "413df0:.*call\s+0x426580.*413df5:.*test\s+al,al" `
     "UpdateZombieSpawning caller must consume only AL"
 
-Write-Host "OK: 10 source corrections match PvZ 1.0.0.1051 source contracts and objdump."
+$dump = Get-Disassembly "0x406ac0" "0x406ade"
+Assert-Matches $dump "406ac7:.*fld\s+DWORD PTR ds:0x679610.*406ad7:.*push\s+0x1" `
+    "AwardScreen binary must use gold trophy cel 1 and scale constant 0x679610"
+Assert-Matches (Get-HexDump "0x679610" "0x679614") "679610\s+9a99193f" `
+    "AwardScreen gold trophy scale constant must be 0.6f"
+Assert-Matches (Get-HexDump "0x679778" "0x67977c") "679778\s+00008242" `
+    "AwardScreen gold trophy y constant must be 65.0f"
+Assert-Matches (Get-HexDump "0x67a070" "0x67a074") "67a070\s+0080a243" `
+    "AwardScreen gold trophy x constant must be 325.0f"
+
+Write-Host "OK: 11 source corrections match PvZ 1.0.0.1051 source contracts and objdump."
