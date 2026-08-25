@@ -533,7 +533,9 @@ bool Board::IsFlagWave(int theWaveNumber)
 //0x4090F0
 void ZombiePickerInitForWave(ZombiePicker* theZombiePicker)
 {
-	memset(theZombiePicker, 0, sizeof(ZombiePicker));
+	theZombiePicker->mZombieCount = 0;
+	theZombiePicker->mZombiePoints = 0;
+	memset(theZombiePicker->mZombieTypeCount, 0, sizeof(theZombiePicker->mZombieTypeCount));
 }
 
 //0x409170
@@ -1546,6 +1548,11 @@ void Board::InitLevel()
 		mSeedBank->mSeedPackets[0].SetPacketType(SeedType::SEED_POTATOMINE);
 		mSeedBank->mSeedPackets[1].SetPacketType(SeedType::SEED_GRAVEBUSTER);
 		mSeedBank->mSeedPackets[2].SetPacketType(mApp->IsAdventureMode() ? SeedType::SEED_CHERRYBOMB : SeedType::SEED_ICESHROOM);
+	}
+	else if (aGameMode == GameMode::GAMEMODE_CHALLENGE_ZOMBIQUARIUM)
+	{
+		mSeedBank->mSeedPackets[0].SetPacketType(SeedType::SEED_ZOMBIQUARIUM_SNORKLE);
+		mSeedBank->mSeedPackets[1].SetPacketType(SeedType::SEED_ZOMBIQUARIUM_TROPHY);
 	}
 	else if (!ChooseSeedsOnCurrentLevel() && !HasConveyorBeltSeedBank())
 	{
@@ -4671,6 +4678,8 @@ bool Board::CanInteractWithBoardButtons()
 {
 	if (mPaused || mApp->GetDialogCount() > 0)
 		return false;
+	if (mBoardFadeOutCounter >= 0)
+		return false;
 
 	if (mCursorObject->mCursorType != CursorType::CURSOR_TYPE_NORMAL && 
 		mCursorObject->mCursorType != CursorType::CURSOR_TYPE_HAMMER &&
@@ -5352,7 +5361,7 @@ void Board::NextWaveComing()
 	{
 		mApp->PlaySample(Sexy::SOUND_AWOOGA);
 	}
-	else if ((mApp->IsWhackAZombieLevel() && mCurrentWave == mNumWaves - 1) || IsFlagWave(mCurrentWave))
+	else if (mApp->IsWhackAZombieLevel() ? (mCurrentWave == mNumWaves - 1) : IsFlagWave(mCurrentWave))
 	{
 		mApp->PlaySample(Sexy::SOUND_SIREN);
 	}
@@ -5484,7 +5493,7 @@ void Board::UpdateZombieSpawning()
 			mZombieHealthToNextWave = 0;
 			mZombieCountDown = ZOMBIE_COUNTDOWN_BEFORE_REPICK + 1;
 		}
-		else if (IsFlagWave(mCurrentWave) && (mApp->IsWallnutBowlingLevel() || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_LAST_STAND))
+		else if (IsFlagWave(mCurrentWave) && !(mApp->IsWallnutBowlingLevel() || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_LAST_STAND))
 		{
 			mZombieHealthToNextWave = 0;
 			mZombieCountDown = ZOMBIE_COUNTDOWN_BEFORE_FLAG;

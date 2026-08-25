@@ -694,7 +694,7 @@ void Zombie::ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Z
         aBodyReanim->mFrameBasePose = 0;
         TodScaleRotateTransformMatrix(aAttachEffect->mOffset, 37.0f, 0.0f, 0.2f, -0.8f, 0.8f);
 
-        mHelmType = HelmType::HELMTYPE_WALLNUT;
+        mHelmType = HelmType::HELMTYPE_TALLNUT;
         mHelmHealth = 2200;
         mVariant = false;
         mPosX += 30.0f;
@@ -2394,6 +2394,7 @@ void Zombie::UpdateZombieJalapenoHead()
             }
         }
 #endif
+        DieNoLoot();
     }
 }
 

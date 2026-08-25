@@ -109,6 +109,13 @@ $BoardSource = Get-Content -LiteralPath (Join-Path $RepoRoot "Lawn\Board.cpp") -
 $ChallengeSource = Get-Content -LiteralPath (Join-Path $RepoRoot "Lawn\Challenge.cpp") -Raw -Encoding Default
 $ChallengeHeader = Get-Content -LiteralPath (Join-Path $RepoRoot "Lawn\Challenge.h") -Raw -Encoding Default
 $ZombieSource = Get-Content -LiteralPath (Join-Path $RepoRoot "Lawn\Zombie.cpp") -Raw -Encoding Default
+$CoinSource = Get-Content -LiteralPath (Join-Path $RepoRoot "Lawn\Coin.cpp") -Raw -Encoding Default
+$CutSceneSource = Get-Content -LiteralPath (Join-Path $RepoRoot "Lawn\CutScene.cpp") -Raw -Encoding Default
+$ZenGardenSource = Get-Content -LiteralPath (Join-Path $RepoRoot "Lawn\ZenGarden.cpp") -Raw -Encoding Default
+$SeedChooserSource = Get-Content -LiteralPath (Join-Path $RepoRoot "Lawn\Widget\SeedChooserScreen.cpp") -Raw -Encoding Default
+$StoreScreenSource = Get-Content -LiteralPath (Join-Path $RepoRoot "Lawn\Widget\StoreScreen.cpp") -Raw -Encoding Default
+$GameSelectorSource = Get-Content -LiteralPath (Join-Path $RepoRoot "Lawn\Widget\GameSelector.cpp") -Raw -Encoding Default
+$LawnAppSource = Get-Content -LiteralPath (Join-Path $RepoRoot "LawnApp.cpp") -Raw -Encoding Default
 $AwardSource = Get-Content -LiteralPath (Join-Path $RepoRoot "Lawn\Widget\AwardScreen.cpp") -Raw -Encoding Default
 $ConstEnums = Get-Content -LiteralPath (Join-Path $RepoRoot "ConstEnums.h") -Raw -Encoding Default
 
@@ -169,6 +176,150 @@ Assert-Contains $ChallengeHeader "bool                   UpdateZombieSpawning();
 $award = Get-Snippet $AwardSource "void AwardScreen::Draw(Graphics* g)" 14000
 Assert-Contains $award "TodDrawImageCelCenterScaledF(g, Sexy::IMAGE_SUNFLOWER_TROPHY, 325, 65, 1, 0.6f, 0.6f);" `
     "AwardScreen gold trophy must use the original position and scale"
+
+$slotMachine = Get-Snippet $ChallengeSource "void Challenge::UpdateSlotMachine()" 8500
+Assert-Contains $slotMachine "for (int i = 0; i < 3; i++)" `
+    "Slot machine plant triples must award three seed packets"
+
+$pickerForWave = Get-Snippet $BoardSource "void ZombiePickerInitForWave" 450
+Assert-Contains $pickerForWave "memset(theZombiePicker->mZombieTypeCount, 0, sizeof(theZombiePicker->mZombieTypeCount));" `
+    "Per-wave zombie picker initialization must preserve all-wave counts"
+Assert-True (-not $pickerForWave.Contains("sizeof(ZombiePicker)")) `
+    "Per-wave zombie picker initialization must not clear the whole picker"
+
+$scaryPotter = Get-Snippet $LawnAppSource "bool LawnApp::IsScaryPotterLevel()" 450
+Assert-Contains $scaryPotter "GAMEMODE_SCARY_POTTER_ENDLESS" `
+    "Scary Potter detection must include endless mode"
+
+$shovelWallnuts = Get-Snippet $ChallengeSource "void Challenge::ShovelAddWallnuts()" 500
+Assert-Contains $shovelWallnuts "aRow < MAX_GRID_SIZE_Y - 1" `
+    "Shovel challenge must plant wall-nuts in five rows"
+
+$nextWave = Get-Snippet $BoardSource "void Board::NextWaveComing()" 1500
+Assert-Contains $nextWave "mApp->IsWhackAZombieLevel() ? (mCurrentWave == mNumWaves - 1) : IsFlagWave(mCurrentWave)" `
+    "Whack-a-zombie siren logic must be exclusive from ordinary flag-wave logic"
+
+$openGardenSpot = Get-Snippet $ZenGardenSource "void ZenGarden::FindOpenZenGardenSpot" 1800
+Assert-Contains $openGardenSpot "goto nextSpot;" `
+    "Occupied Zen Garden cells must be skipped as whole candidates"
+
+$jalapenoHead = Get-Snippet $ZombieSource "void Zombie::UpdateZombieJalapenoHead()" 2600
+Assert-Matches $jalapenoHead "#endif\s*DieNoLoot\(\);" `
+    "Jalapeno-head zombies must die after exploding"
+
+$potterPopulate = Get-Snippet $ChallengeSource "void Challenge::ScaryPotterPopulate()" 11000
+Assert-Contains $potterPopulate "ScaryPotterPlacePot(SCARYPOT_ZOMBIE, ZOMBIE_FOOTBALL, SEED_NONE, 2" `
+    "Scary Potter level 6 must contain two football zombies"
+Assert-Contains $potterPopulate "ScaryPotterPlacePot(SCARYPOT_ZOMBIE, ZOMBIE_JACK_IN_THE_BOX, SEED_NONE, 1" `
+    "Scary Potter level 6 must contain one jack-in-the-box zombie"
+
+$feedingTool = Get-Snippet $ZenGardenSource "void ZenGarden::MouseDownWithFeedingTool" 7500
+Assert-Contains $feedingTool "aZenTool->mGridItemState = GridItemState::GRIDITEM_STATE_ZEN_TOOL_WATERING_CAN;" `
+    "The ordinary watering can must use the ordinary tool state"
+
+$collectCoin = Get-Snippet $CoinSource "void Coin::Collect()" 10500
+Assert-Matches $collectCoin "COIN_AWARD_MONEY_BAG\).*?FanOutCoins\(CoinType::COIN_GOLD, 2\);" `
+    "Scary Potter money bags must fan out two gold coins"
+
+$puzzleComplete = Get-Snippet $ChallengeSource "void Challenge::PuzzlePhaseComplete" 2700
+Assert-Contains $puzzleComplete "COIN_AWARD_CHOCOLATE : COIN_AWARD_MONEY_BAG" `
+    "Puzzle phase rewards must use award chocolate"
+
+$spawning = Get-Snippet $BoardSource "void Board::UpdateZombieSpawning()" 6500
+Assert-Contains $spawning "IsFlagWave(mCurrentWave) && !(mApp->IsWallnutBowlingLevel()" `
+    "Flag-wave delay must exclude Wall-nut Bowling and Last Stand"
+
+$davePicks = Get-Snippet $SeedChooserSource "void SeedChooserScreen::CrazyDavePickSeeds()" 4300
+Assert-Contains $davePicks "if (aRecFlags ||" `
+    "Crazy Dave seed selection must reject not-recommended seeds"
+
+$plantFire = Get-Snippet $PlantSource "void Plant::Fire(" 6000
+Assert-Contains $plantFire "aOriginX = mX - aOffsetX + 27;" `
+    "Leftpeater firing must mirror the animated head offset"
+
+$initLevel = Get-Snippet $BoardSource "void Board::InitLevel()" 10000
+Assert-Matches $initLevel "GAMEMODE_CHALLENGE_ZOMBIQUARIUM.*?SEED_ZOMBIQUARIUM_SNORKLE.*?SEED_ZOMBIQUARIUM_TROPHY" `
+    "Zombiquarium must initialize snorkel and trophy packets"
+
+$twistMatch = Get-Snippet $ChallengeSource "int Challenge::BeghouledTwistMoveCausesMatch" 1900
+Assert-Matches $twistMatch "\[theGridX \+ 1\]\[theGridY\] = aSeed1;.*?\[theGridX \+ 1\]\[theGridY \+ 1\] = aSeed2;.*?\[theGridX\]\[theGridY \+ 1\] = aSeed4;.*?\[theGridX\]\[theGridY\] = aSeed3;" `
+    "Beghouled Twist match prediction must rotate the four cells clockwise"
+
+$dragUpdate = Get-Snippet $ChallengeSource "void Challenge::BeghouledDragUpdate" 1900
+Assert-Contains $dragUpdate "if (abs(aDeltaX) > abs(aDeltaY))" `
+    "Beghouled drag direction must compare absolute axis distances"
+
+$zombieAtePlant = Get-Snippet $ChallengeSource "void Challenge::ZombieAtePlant" 900
+Assert-Matches $zombieAtePlant "mNumPackets = 5;.*?SEED_BEGHOULED_BUTTON_CRATER" `
+    "Beghouled crater packet unlock must expose the fifth packet"
+
+$canPlantAt = Get-Snippet $ChallengeSource "PlantingReason Challenge::CanPlantAt" 6000
+Assert-Contains $canPlantAt "if (theSeedType == SEED_ZOMBIE_BUNGEE)" `
+    "I, Zombie bungee placement must compare the seed enum"
+
+$zombiquarium = Get-Snippet $ChallengeSource "void Challenge::ZombiquariumUpdate()" 4200
+Assert-Matches $zombiquarium "TUTORIAL_ZOMBIQUARIUM_CLICK_TROPHY.*?mTutorialState = TUTORIAL_ZOMBIQUARIUM_BOUGHT_SNORKEL;" `
+    "Unaffordable Zombiquarium trophy clicks must return to the bought-snorkel tutorial state"
+
+$upgradePackets = Get-Snippet $ChallengeSource "void Challenge::BeghouledPacketClicked" 6200
+Assert-True (([regex]::Matches($upgradePackets, "theSeedPacket->SetActivate\(false\);")).Count -ge 3) `
+    "Each Beghouled plant upgrade must deactivate its packet"
+
+$squirrelStart = Get-Snippet $ChallengeSource "void Challenge::SquirrelStart()" 1500
+Assert-Contains $squirrelStart "RandRangeInt(100, 500)" `
+    "Squirrel initial waits must range from 100 through 500"
+$squirrelChew = Get-Snippet $ChallengeSource "void Challenge::SquirrelChew" 700
+Assert-Contains $squirrelChew "RandRangeInt(100, 500)" `
+    "Squirrel chewing waits must range from 100 through 500"
+$squirrelFound = Get-Snippet $ChallengeSource "void Challenge::SquirrelFound" 3600
+Assert-Matches $squirrelFound "aGrid->mX != theSquirrel->mGridX.*?RUNNING_LEFT.*?RUNNING_RIGHT.*?RUNNING_UP.*?RUNNING_DOWN.*?mGridItemCounter = 50;" `
+    "Squirrel movement must select all four directions and run for 50 centiseconds"
+
+$tallnutHead = Get-Snippet $ZombieSource "case ZombieType::ZOMBIE_TALLNUT_HEAD" 1300
+Assert-Contains $tallnutHead "mHelmType = HelmType::HELMTYPE_TALLNUT;" `
+    "Tall-nut-head zombies must use tall-nut damage art"
+
+$advanceDave = Get-Snippet $CutSceneSource "void CutScene::AdvanceCrazyDaveDialog" 9000
+Assert-Contains $advanceDave "mPurchases[(int)StoreItem::STORE_ITEM_TREE_FOOD] = PURCHASE_COUNT_OFFSET + 5;" `
+    "Tree of Wisdom introduction must grant tree food in the correct store slot"
+Assert-Contains $advanceDave "aNumPackets + 7" `
+    "Packet-upgrade dialog must display the total slot count"
+Assert-Contains $advanceDave "GetMoneyString(aCost)" `
+    "Packet-upgrade dialog must display the upgrade price"
+Assert-Matches $advanceDave "else if \(aMessageIndex == 1553\).*?CrazyDaveTalkIndex\(1560\);" `
+    "The second packet-upgrade purchase must continue from message 1553"
+
+$soldOut = Get-Snippet $StoreScreenSource "bool StoreScreen::IsItemSoldOut" 1500
+Assert-Contains $soldOut "mPurchases[STORE_ITEM_TREE_FOOD] - PURCHASE_COUNT_OFFSET >= 10" `
+    "Tree food must be sold out at ten units"
+
+$selectorUpdate = Get-Snippet $GameSelectorSource "void GameSelector::Update()" 8500
+Assert-Contains $selectorUpdate "mLevel == 1 && !mApp->SaveFileExists()" `
+    "Only a new level-one profile without a save must enter the intro"
+
+$seedAvailable = Get-Snippet $LawnAppSource "bool LawnApp::SeedTypeAvailable" 500
+Assert-Matches $seedAvailable "SEED_GATLINGPEA \?.*?STORE_ITEM_PLANT_GATLINGPEA\] > 0 : HasSeedType\(theSeedType\)" `
+    "Gatling pea availability must depend only on its purchase record"
+
+$showShovel = Get-Snippet $CutSceneSource "void CutScene::ShowShovel()" 1200
+Assert-Contains $showShovel "GAMEMODE_TREE_OF_WISDOM" `
+    "Tree of Wisdom must suppress the shovel"
+
+$boardButtons = Get-Snippet $BoardSource "bool Board::CanInteractWithBoardButtons()" 1000
+Assert-Contains $boardButtons "if (mBoardFadeOutCounter >= 0)" `
+    "Board buttons must be disabled during fade-out"
+
+$upsellUpdate = Get-Snippet $CutSceneSource "void CutScene::UpdateUpsell()" 1800
+Assert-Matches $upsellUpdate "CrazyDaveTalkIndex\(mCrazyDaveDialogStart\);\s*mCrazyDaveLastTalkIndex = mCrazyDaveDialogStart;" `
+    "Upsell must remember the first Crazy Dave message"
+
+$clearUpsell = Get-Snippet $CutSceneSource "void CutScene::ClearUpsellBoard()" 1800
+Assert-Matches $clearUpsell "mReanimationType != ReanimationType::REANIM_CRAZY_DAVE.*?ReanimationDie\(\);" `
+    "Clearing an upsell board must preserve Crazy Dave reanimations"
+
+$dancerUpdate = Get-Snippet $ZombieSource "void Zombie::UpdateZombieDancer()" 1600
+Assert-Matches $dancerUpdate "mSummonCounter--;\s*if \(mSummonCounter == 0\)" `
+    "Dancer summon checks must run when the decremented counter reaches zero"
 
 Assert-True ((Get-EnumValue $ConstEnums "ZombiePhase" "PHASE_DOLPHIN_WALKING_IN_POOL") -eq 0x37) `
     "Expected dolphin walking phase 0x37"
@@ -242,4 +393,4 @@ Assert-Matches (Get-HexDump "0x679778" "0x67977c") "679778\s+00008242" `
 Assert-Matches (Get-HexDump "0x67a070" "0x67a074") "67a070\s+0080a243" `
     "AwardScreen gold trophy x constant must be 325.0f"
 
-Write-Host "OK: 11 source corrections match PvZ 1.0.0.1051 source contracts and objdump."
+Write-Host "OK: 44 source contracts match PvZ 1.0.0.1051 source and objdump evidence."

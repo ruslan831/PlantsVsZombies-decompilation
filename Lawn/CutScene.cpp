@@ -1359,6 +1359,7 @@ void CutScene::ShowShovel()
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_BEGHOULED_TWIST ||
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_ZEN_GARDEN || 
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_ZOMBIQUARIUM || 
+		mApp->mGameMode == GameMode::GAMEMODE_TREE_OF_WISDOM ||
 		mApp->IsIZombieLevel())
 		return;
 
@@ -1592,7 +1593,7 @@ void CutScene::AdvanceCrazyDaveDialog(bool theJustSkipping)
 	// “这是你的智慧树，我会给你一些肥料让你开始的”
 	if (mApp->mCrazyDaveMessageIndex == 3200)
 	{
-		mApp->mPlayerInfo->mPurchases[29] = PURCHASE_COUNT_OFFSET + 5;
+		mApp->mPlayerInfo->mPurchases[(int)StoreItem::STORE_ITEM_TREE_FOOD] = PURCHASE_COUNT_OFFSET + 5;
 		mBoard->mMenuButton->mBtnNoDraw = false;
 		mBoard->mStoreButton->mBtnNoDraw = false;
 	}
@@ -1647,8 +1648,8 @@ void CutScene::AdvanceCrazyDaveDialog(bool theJustSkipping)
 	{
 		int aCost = StoreScreen::GetItemCost(StoreItem::STORE_ITEM_PACKET_UPGRADE);
 		int aNumPackets = mApp->mPlayerInfo->mPurchases[(int)StoreItem::STORE_ITEM_PACKET_UPGRADE];
-		SexyString aBodyString = TodReplaceNumberString(_S("[UPGRADE_DIALOG_BODY]"), _S("{SLOTS}"), aNumPackets + 1);
-		SexyString aAmountString = mApp->GetMoneyString(mApp->mPlayerInfo->mCoins);
+		SexyString aBodyString = TodReplaceNumberString(_S("[UPGRADE_DIALOG_BODY]"), _S("{SLOTS}"), aNumPackets + 7);
+		SexyString aAmountString = mApp->GetMoneyString(aCost);
 		// 创建询问是否升级卡槽格数的对话
 		Dialog* aDialog = mApp->DoDialog(Dialogs::DIALOG_PURCHASE_PACKET_SLOT, true, aAmountString, aBodyString, _S(""), Dialog::BUTTONS_YES_NO);
 		aDialog->mX += 120;
@@ -1667,7 +1668,7 @@ void CutScene::AdvanceCrazyDaveDialog(bool theJustSkipping)
 			{
 				mApp->CrazyDaveTalkIndex(1510);
 			}
-			else if (aMessageIndex == 1533)
+			else if (aMessageIndex == 1553)
 			{
 				mApp->CrazyDaveTalkIndex(1560);
 			}
@@ -1814,7 +1815,10 @@ void CutScene::ClearUpsellBoard()
 	Reanimation* aReanim = nullptr;
 	while (mBoard->IterateReanimations(aReanim))
 	{
-		aReanim->ReanimationDie();
+		if (aReanim->mReanimationType != ReanimationType::REANIM_CRAZY_DAVE)
+		{
+			aReanim->ReanimationDie();
+		}
 	}
 	mBoard->mPoolSparklyParticleID = ParticleSystemID::PARTICLESYSTEMID_NULL;
 
@@ -2130,6 +2134,7 @@ void CutScene::UpdateUpsell()
 	if (mCrazyDaveLastTalkIndex == -1)
 	{
 		mApp->CrazyDaveTalkIndex(mCrazyDaveDialogStart);
+		mCrazyDaveLastTalkIndex = mCrazyDaveDialogStart;
 		mCrazyDaveCountDown = ParseTalkTimeFromMessage();
 		return;
 	}

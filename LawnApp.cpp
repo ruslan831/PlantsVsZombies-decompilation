@@ -2166,7 +2166,7 @@ bool LawnApp::IsLittleTroubleLevel()
 //0x4538F0
 bool LawnApp::IsScaryPotterLevel()
 {
-	if (mGameMode >= GameMode::GAMEMODE_SCARY_POTTER_1 && mGameMode <= GameMode::GAMEMODE_SCARY_POTTER_9)
+	if (mGameMode >= GameMode::GAMEMODE_SCARY_POTTER_1 && mGameMode <= GameMode::GAMEMODE_SCARY_POTTER_ENDLESS)
 		return true;
 
 	return IsAdventureMode() && mPlayerInfo->mLevel == 35;
@@ -2374,7 +2374,8 @@ bool LawnApp::HasSeedType(SeedType theSeedType)
 
 bool LawnApp::SeedTypeAvailable(SeedType theSeedType)
 {
-	return (theSeedType == SeedType::SEED_GATLINGPEA && mPlayerInfo->mPurchases[StoreItem::STORE_ITEM_PLANT_GATLINGPEA]) || HasSeedType(theSeedType);
+	return theSeedType == SeedType::SEED_GATLINGPEA ?
+		mPlayerInfo->mPurchases[StoreItem::STORE_ITEM_PLANT_GATLINGPEA] > 0 : HasSeedType(theSeedType);
 }
 
 //0x453C30
