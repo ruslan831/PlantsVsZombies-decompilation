@@ -249,8 +249,379 @@
 - 回归校验：`tools/verify_binary_corrections.ps1` 新增源码契约、绘制分支和上述三个固定地址常量校验。
 - 修改提交号：`d7c16584b508aaa46e11758c9a1ffa745ca15a61`
 
+## 30. `Challenge::UpdateSlotMachine` 普通三连奖励数量
+
+- 原错误：普通植物三连分支循环 20 次生成可用植物卡包。
+- 二进制依据：`Challenge::UpdateSlotMachine@0x423800` 的该分支从 `esi = 0`
+  开始，每轮加 `0x3c`，到 `cmp esi, 0xb4` 时退出，恰好执行 3 轮。
+- 实际游戏行为：错误源码会掉落 20 个相同卡包；原版只掉落 3 个。
+- 修正：该分支循环上限改为 3；阳光三连的 20 次循环保持不变。
+- 修改文件：`Lawn/Challenge.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`8b8d8a7d332654abea1cedd99c1e91064a043eb1`
+
+## 31. `ZombiePickerInitForWave` 跨波次僵尸计数
+
+- 原错误：整结构 `memset` 同时清除了 `mAllWavesZombieTypeCount`。
+- 二进制依据：`ZombiePickerInitForWave@0x4090F0` 只清零偏移 `0x00`—`0x88`；
+  完整初始化函数才继续清零从 `0x8c` 开始的跨波次数组。
+- 实际游戏行为：错误源码每波都会忘记此前各类僵尸的累计数量，改变随机波次
+  的类型限制和构成。
+- 修正：只清本波数量、点数和 `mZombieTypeCount`。
+- 修改文件：`Lawn/Board.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`8b8d8a7d332654abea1cedd99c1e91064a043eb1`
+
+## 32. `LawnApp::IsScaryPotterLevel` 砸罐子无尽上界
+
+- 原错误：模式区间上界写成 `GAMEMODE_SCARY_POTTER_9`。
+- 二进制依据：`LawnApp::IsScaryPotterLevel@0x4538F0` 接受枚举区间
+  `0x33`—`0x3c`，其中 `0x3c` 是砸罐子无尽。
+- 实际游戏行为：错误源码不会把无尽识别为砸罐子关卡，相关初始化、推进、
+  奖励和交互会选择错误分支。
+- 修正：上界改为 `GAMEMODE_SCARY_POTTER_ENDLESS`。
+- 修改文件：`LawnApp.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`8b8d8a7d332654abea1cedd99c1e91064a043eb1`
+
+## 33. `Challenge::ShovelAddWallnuts` 行数
+
+- 原错误：遍历内部六行，额外在不可见第六行种 9 株坚果。
+- 二进制依据：`Challenge::ShovelAddWallnuts@0x428510` 的内层行循环在
+  `cmp esi, 0x5` 后回跳，只处理行号 0—4；列循环处理 0—8。
+- 实际游戏行为：错误源码会污染“你能把它挖出来吗？”和隐藏松鼠关的植物
+  数量及不可见行状态。
+- 修正：行上界改为 `MAX_GRID_SIZE_Y - 1`。
+- 修改文件：`Lawn/Challenge.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`8b8d8a7d332654abea1cedd99c1e91064a043eb1`
+
+## 34. `Board::NextWaveComing` 打僵尸警报条件
+
+- 原错误：打僵尸模式的最终波判断与通用旗帜波判断用“或”连接。
+- 二进制依据：`Board::NextWaveComing@0x413C00` 对打僵尸只检查最终波；只有
+  非打僵尸模式才调用 `IsFlagWave`。
+- 实际游戏行为：错误源码会在打僵尸的中途旗帜波额外播放最终波警报。
+- 修正：恢复“打僵尸 ? 最终波 : 旗帜波”的互斥条件。
+- 修改文件：`Lawn/Board.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`8b8d8a7d332654abea1cedd99c1e91064a043eb1`
+
+## 35. `ZenGarden::FindOpenZenGardenSpot` 占用格跳过层级
+
+- 原错误：坐标匹配时只 `continue` 内层盆栽遍历，之后仍把占用格加入候选。
+- 二进制依据：`ZenGarden::FindOpenZenGardenSpot@0x51D7B0` 命中花园和坐标后
+  直接跳到增加 Y 的外层位置；只有遍历完未命中才写入候选。
+- 实际游戏行为：新盆栽可能与已有盆栽重叠在同一花园坐标。
+- 修正：发现占用时跳到下一个候选格。
+- 修改文件：`Lawn/ZenGarden.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`8b8d8a7d332654abea1cedd99c1e91064a043eb1`
+
+## 36. `Zombie::UpdateZombieJalapenoHead` 引爆后死亡
+
+- 原错误：辣椒头僵尸完成整行爆炸后没有调用死亡函数。
+- 二进制依据：原版在 `Zombie::UpdateZombieJalapenoHead@0x5275C0` 的
+  `0x52773E` 调用 `Zombie::DieNoLoot@0x530510` 后才返回。
+- 实际游戏行为：错误源码中的僵尸引爆后仍存活并继续更新；原版立即无掉落
+  死亡。
+- 修正：爆炸分支末尾调用 `DieNoLoot()`，不受社区修复宏影响。
+- 修改文件：`Lawn/Zombie.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`8b8d8a7d332654abea1cedd99c1e91064a043eb1`
+
+## 37. 砸罐子第 6 关橄榄球与小丑数量
+
+- 原错误：两类僵尸都请求放入 6 个。
+- 二进制依据：`Challenge::ScaryPotterPopulate@0x4286F0` 的第 6 关分支分别
+  向两次放罐调用传入数量 2 和 1。
+- 实际游戏行为：错误请求比原版多 4 个橄榄球和 5 个小丑，并可能耗尽候选格
+  导致崩溃。
+- 修正：数量改为 2 个橄榄球、1 个小丑。
+- 修改文件：`Lawn/Challenge.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`8b8d8a7d332654abea1cedd99c1e91064a043eb1`
+
+## 38. 普通水壶工具状态
+
+- 原错误：普通水壶分支写入金水壶状态。
+- 二进制依据：`ZenGarden::MouseDownWithFeedingTool@0x51EB70` 的金水壶路径
+  写 `0x12`，普通水壶路径在 `0x51EF30` 写 `0x0e`。
+- 实际游戏行为：错误源码让普通水壶也按金水壶逻辑浇灌范围内多株植物。
+- 修正：普通分支写入 `GRIDITEM_STATE_ZEN_TOOL_WATERING_CAN`。
+- 修改文件：`Lawn/ZenGarden.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`8b8d8a7d332654abea1cedd99c1e91064a043eb1`
+
+## 39. 砸罐子钱袋散币数量
+
+- 原错误：奖杯和钱袋共用 5 枚金币的 fan-out 分支。
+- 二进制依据：`Coin::Collect@0x432060` 对 `COIN_AWARD_MONEY_BAG` 在
+  `0x4322EC` 传入数量 2；奖杯分支传入 5。
+- 实际游戏行为：每个钱袋比原版多给 3 枚金币，即多 30 金币面值。
+- 修正：拆分钱袋分支为 2 枚金币，奖杯保留 5 枚。
+- 修改文件：`Lawn/Coin.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`8b8d8a7d332654abea1cedd99c1e91064a043eb1`
+
+## 40. 解谜阶段巧克力奖励类型
+
+- 原错误：奖励阶段使用普通 `COIN_CHOCOLATE`。
+- 二进制依据：`Challenge::PuzzlePhaseComplete@0x429980` 在可掉巧克力时生成
+  枚举 `0x18 = COIN_AWARD_CHOCOLATE`，否则生成钱袋 `0x12`。
+- 实际游戏行为：普通巧克力会走错展示、收集和奖励处理流程。
+- 修正：使用 `COIN_AWARD_CHOCOLATE`。
+- 修改文件：`Lawn/Challenge.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`8b8d8a7d332654abea1cedd99c1e91064a043eb1`
+
+## 41. `Board::UpdateZombieSpawning` 旗帜波倒计时条件
+
+- 原错误：只在坚果保龄球或 Last Stand 的旗帜波设置额外倒计时。
+- 二进制依据：原版 `@0x413D00` 在 `0x414057` 检查特殊模式标志，标志非零时
+  跳过 `ZOMBIE_COUNTDOWN_BEFORE_FLAG`；只有普通模式写入该值。
+- 实际游戏行为：普通关旗帜波缺少间隔，两个特殊模式反而获得额外间隔。
+- 修正：给“坚果保龄球或 Last Stand”并集加取反。
+- 修改文件：`Lawn/Board.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`8b8d8a7d332654abea1cedd99c1e91064a043eb1`
+
+## 42. 疯狂戴夫自动选卡的“不推荐”标志
+
+- 原错误：计算 `SeedNotRecommendedToPick` 后没有使用其返回值。
+- 二进制依据：`SeedChooserScreen::CrazyDavePickSeeds@0x483F70` 保存该标志，
+  并在 `0x48400B` 检查；非零时把对应植物权重设为 0。
+- 实际游戏行为：戴夫可能随机选到当前场地或僵尸配置明确不推荐的植物。
+- 修正：把 `aRecFlags` 并入禁选条件。
+- 修改文件：`Lawn/Widget/SeedChooserScreen.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`8b8d8a7d332654abea1cedd99c1e91064a043eb1`
+
+## 43. 左向双发射手发射点镜像公式
+
+- 原错误：使用 `mX + aOffsetX + 27`，没有镜像头部动画偏移。
+- 二进制依据：`Plant::Fire@0x466E00` 的 `0x4670D8`—`0x4670E6` 执行
+  `mX - aOffsetX + 27`。
+- 实际游戏行为：动画帧偏移变化时，豌豆出生点会向错误方向移动并脱离炮口。
+- 修正：公式恢复为 `mX - aOffsetX + 27`，不使用仅在特定帧等价的常量近似。
+- 修改文件：`Lawn/Plant.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`8b8d8a7d332654abea1cedd99c1e91064a043eb1`
+
+## 44. 僵尸水族馆初始卡包
+
+- 原错误：`Board::InitLevel` 缺少僵尸水族馆专用初始化分支。
+- 二进制依据：原版 `@0x40A8E0` 在 `0x40B317` 识别模式 `0x17`，依次给第 0、
+  1 格设置 `SEED_ZOMBIQUARIUM_SNORKLE` 和 `SEED_ZOMBIQUARIUM_TROPHY`。
+- 实际游戏行为：错误源码没有潜水僵尸与奖杯两个专用卡包，关卡无法按官方
+  规则游玩。
+- 修正：恢复两个卡包及其顺序。
+- 修改文件：`Lawn/Board.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`8b8d8a7d332654abea1cedd99c1e91064a043eb1`
+
+## 45. 宝石迷阵扭转成消预判轮换关系
+
+- 原错误：2×2 临时棋盘的四格赋值不对应实际顺时针扭转。
+- 二进制依据：`BeghouledTwistMoveCausesMatch@0x420190` 形成旧值关系
+  `B=A、D=B、C=D、A=C`。
+- 实际游戏行为：错误预判会拒绝能成消的扭转或允许不能成消的扭转，并影响
+  可行步搜索和提示。
+- 修正：按上述 A/B/C/D 关系恢复临时轮换。
+- 修改文件：`Lawn/Challenge.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`8b8d8a7d332654abea1cedd99c1e91064a043eb1`
+
+## 46. 宝石迷阵拖动主方向
+
+- 原错误：直接比较带符号的 X、Y 位移。
+- 二进制依据：`Challenge::BeghouledDragUpdate@0x420760` 先分别取两轴绝对值，
+  再比较其大小；符号只用于决定具体方向。
+- 实际游戏行为：向左或向上斜拖时可能交换较短轴方向的相邻植物。
+- 修正：主轴判断改为 `abs(aDeltaX) > abs(aDeltaY)`。
+- 修改文件：`Lawn/Challenge.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`8b8d8a7d332654abea1cedd99c1e91064a043eb1`
+
+## 47. 宝石迷阵除坑卡包数量
+
+- 原错误：设置第 5 格除坑卡后没有把 `mNumPackets` 从 4 更新为 5。
+- 二进制依据：`Challenge::ZombieAtePlant@0x424590` 在设置第 5 格后于
+  `0x424607` 明确写入 `SeedBank::mNumPackets = 5`。
+- 实际游戏行为：卡包对象已初始化，但种子栏仍只显示四格，玩家无法正常使用
+  除坑卡。
+- 修正：设置卡包前同步把数量改为 5。
+- 修改文件：`Lawn/Challenge.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`8b8d8a7d332654abea1cedd99c1e91064a043eb1`
+
+## 48. I, Zombie 蹦极种子枚举
+
+- 原错误：`Challenge::CanPlantAt` 把传入的种子类型同 `ZOMBIE_BUNGEE` 比较。
+- 二进制依据：原版 `@0x425550` 在 `0x4255E1` 比较
+  `0x42 = SEED_ZOMBIE_BUNGEE`，不是僵尸类型枚举 `0x14`。
+- 实际游戏行为：错误源码不能识别蹦极僵尸卡，从而绕过或错用专有落点限制。
+- 修正：比较 `SEED_ZOMBIE_BUNGEE`。
+- 修改文件：`Lawn/Challenge.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`8b8d8a7d332654abea1cedd99c1e91064a043eb1`
+
+## 49. 僵尸水族馆奖杯教学回退状态
+
+- 原错误：玩家买不起奖杯时从“点击奖杯”状态回退到 `TUTORIAL_OFF`。
+- 二进制依据：`Challenge::ZombiquariumUpdate@0x4280A0` 在该分支的
+  `0x42846E`—`0x42848F` 写入 `0x14 = TUTORIAL_ZOMBIQUARIUM_BOUGHT_SNORKEL`。
+- 实际游戏行为：错误源码会彻底结束教学，玩家不再得到后续奖杯购买引导。
+- 修正：资金不足时回退到“已购买潜水僵尸”阶段；较早的潜水僵尸教学关闭
+  分支保持 `TUTORIAL_OFF`。
+- 修改文件：`Lawn/Challenge.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`8b8d8a7d332654abea1cedd99c1e91064a043eb1`
+
+## 50. 宝石迷阵一次性升级卡包停用
+
+- 原错误：购买重复射手、忧郁菇或高坚果升级后仍保持卡包激活。
+- 二进制依据：`Challenge::BeghouledPacketClicked@0x427A60` 在三个成功分支
+  分别于 `0x427B03`、`0x427B78`、`0x427BF4` 清除激活状态。
+- 实际游戏行为：已买完的升级仍可再次点击并可能继续扣除阳光而不产生效果。
+- 修正：三个成功购买分支末尾均调用 `SetActivate(false)`。
+- 修改文件：`Lawn/Challenge.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`8b8d8a7d332654abea1cedd99c1e91064a043eb1`
+
+## 51. 隐藏松鼠关卡等待与移动
+
+- 原错误：等待时间写成 100—400；方向三元式使竖直目标也落入右移分支，且
+  没有设置移动计数。
+- 二进制依据：`SquirrelStart@0x42BB10` 和 `SquirrelChew@0x42BCB0` 生成
+  100—500；`SquirrelFound@0x42BE10` 先区分 X，X 相等再区分 Y，并写计数 50。
+- 实际游戏行为：松鼠最长少等待 100cs，竖直移动还可能选错方向或卡住。
+- 修正：三处等待上界改为 500，按坐标恢复四向判断，并设置 50cs 移动计数。
+- 修改文件：`Lawn/Challenge.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`8b8d8a7d332654abea1cedd99c1e91064a043eb1`
+
+## 52. 植物僵尸高坚果头裂纹类型
+
+- 原错误：高坚果头使用 `HELMTYPE_WALLNUT`，耐久虽为 2200 但受伤贴图类型错误。
+- 二进制依据：`Zombie::ZombieInitialize` 在 `0x52394D` 对类型 `0x1f` 写入
+  `9 = HELMTYPE_TALLNUT`，并独立写入 2200 点耐久。
+- 实际游戏行为：两档受伤阶段显示普通坚果裂纹，而非高坚果裂纹。
+- 修正：头盔类型改为 `HELMTYPE_TALLNUT`；耐久和初始动画保持不变。
+- 修改文件：`Lawn/Zombie.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`8b8d8a7d332654abea1cedd99c1e91064a043eb1`
+
+## 53. 疯狂戴夫赠送树肥的商店槽位
+
+- 原错误：3200 号台词分支向硬编码索引 29 写入树肥数量。
+- 二进制依据：原版在 `0x43C9DD` 向 `PlayerInfo + 0x230` 写 1005；该偏移对应
+  `mPurchases[28] = STORE_ITEM_TREE_FOOD`。
+- 实际游戏行为：错误源码没有真正增加树肥库存，却污染相邻商品购买数据。
+- 修正：显式索引 `STORE_ITEM_TREE_FOOD`。
+- 修改文件：`Lawn/CutScene.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`8b8d8a7d332654abea1cedd99c1e91064a043eb1`
+
+## 54. 树肥售罄边界
+
+- 原错误：树肥数量只有大于 10 才判定售罄。
+- 二进制依据：`StoreScreen::IsItemSoldOut@0x48A9D0` 在 `0x48AA23` 与 10 比较，
+  随后使用 `setge`。
+- 实际游戏行为：已有 10 份树肥时仍可再买一份，超过官方上限。
+- 修正：条件改为 `>= 10`。
+- 修改文件：`Lawn/Widget/StoreScreen.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`8b8d8a7d332654abea1cedd99c1e91064a043eb1`
+
+## 55. 新档首次冒险前导关条件
+
+- 原错误：条件写成首次冒险、等级 0 且已有存档。
+- 二进制依据：`GameSelector::Update@0x44B2A0` 在 `0x44B357` 检查等级 1，
+  并且仅在 `SaveFileExists()` 返回 false 时进入 `GAMEMODE_INTRO`。
+- 实际游戏行为：真正的新档不会进入前导关，异常的“等级 0 且已有存档”反而
+  会尝试进入。
+- 修正：恢复 `mLevel == 1 && !SaveFileExists()`。
+- 修改文件：`Lawn/Widget/GameSelector.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`8b8d8a7d332654abea1cedd99c1e91064a043eb1`
+
+## 56. `SeedTypeAvailable` 机枪射手条件
+
+- 原错误：把“机枪射手且已购买”同 `HasSeedType` 用“或”连接。
+- 二进制依据：1051 在选卡界面内联为二选一：类型 `0x28` 时只检查机枪射手
+  购买记录，其他类型才调用 `HasSeedType@0x453B20`。
+- 实际游戏行为：通关后 `HasSeedType` 会让未购买的机枪射手也出现在选卡界面。
+- 修正：机枪射手只按购买记录判断，其他种子调用 `HasSeedType`。
+- 修改文件：`LawnApp.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`8b8d8a7d332654abea1cedd99c1e91064a043eb1`
+
+## 57. 智慧树模式铲子显示
+
+- 原错误：`CutScene::ShowShovel` 漏掉智慧树提前返回条件。
+- 二进制依据：原版 `@0x43C140` 在 `0x43C1A8` 比较
+  `0x32 = GAMEMODE_TREE_OF_WISDOM`，命中后直接返回。
+- 实际游戏行为：智慧树界面会显示不应出现的铲子并进入普通铲子交互。
+- 修正：把 `GAMEMODE_TREE_OF_WISDOM` 加入排除列表。
+- 修改文件：`Lawn/CutScene.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`8b8d8a7d332654abea1cedd99c1e91064a043eb1`
+
+## 58. 疯狂戴夫卡槽升级对话的槽数、价格和台词号
+
+- 原错误：显示 `aNumPackets + 1`，把钱包余额当价格，并在第二轮成功后检查
+  不存在于该分支的 1533。
+- 二进制依据：`CutScene::AdvanceCrazyDaveDialog@0x43C950` 使用
+  `aNumPackets + 7`、计算所得价格，并在购买后依次检查 1503 和 1553。
+- 实际游戏行为：确认框少显示 6 个槽位、显示错误金额，第二轮购买后还无法
+  进入 1560 号台词。
+- 修正：分别改为 `+ 7`、`GetMoneyString(aCost)` 和消息号 1553。
+- 修改文件：`Lawn/CutScene.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`8b8d8a7d332654abea1cedd99c1e91064a043eb1`
+
+## 59. 领取奖励淡出阶段的棋盘按钮
+
+- 原错误：`Board::CanInteractWithBoardButtons` 没有排除棋盘淡出状态。
+- 二进制依据：原版 `@0x412490` 于 `0x412509` 比较
+  `mBoardFadeOutCounter` 与 0，`jge` 跳到返回 false。
+- 实际游戏行为：领取奖励后的结算过渡中仍可打开菜单、商店或切换工具。
+- 修正：`mBoardFadeOutCounter >= 0` 时返回 false。
+- 修改文件：`Lawn/Board.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`8b8d8a7d332654abea1cedd99c1e91064a043eb1`
+
+## 60. Upsell 首句疯狂戴夫台词状态
+
+- 原错误：开始 `mCrazyDaveDialogStart` 后没有同步
+  `mCrazyDaveLastTalkIndex`。
+- 二进制依据：`CutScene::UpdateUpsell@0x440D20` 调用 `CrazyDaveTalkIndex` 后，
+  在 `0x440D79`—`0x440D7C` 把同一编号写入 last-talk 字段。
+- 实际游戏行为：每帧都会把首句误认为尚未开始并从头重启，演示无法推进。
+- 修正：首次调用后记录 `mCrazyDaveLastTalkIndex = mCrazyDaveDialogStart`。
+- 修改文件：`Lawn/CutScene.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`8b8d8a7d332654abea1cedd99c1e91064a043eb1`
+
+## 61. `ClearUpsellBoard` 保留疯狂戴夫动画
+
+- 原错误：切换演示棋盘时无条件删除全部 reanimation。
+- 二进制依据：原版 `CutScene::ClearUpsellBoard@0x43DA50` 在 `0x43DB64` 比较
+  `mReanimationType` 与 `0x61 = REANIM_CRAZY_DAVE`，仅对其他类型调用死亡函数。
+- 实际游戏行为：疯狂戴夫本体及眨眼动画被销毁，后续更新可能访问失效对象并
+  导致演示崩溃。
+- 修正：按原版类型语义保留所有 `REANIM_CRAZY_DAVE`。
+- 修改文件：`Lawn/CutScene.cpp`
+- 回归校验：`tools/verify_binary_corrections.ps1`
+- 修改提交号：`8b8d8a7d332654abea1cedd99c1e91064a043eb1`
+
 ## 附：已复核但无需修改的行为
 
 - `Plant::Squish` `0x462b80`：源码中樱桃、辣椒、醒着的毁灭菇/寒冰菇、已就绪土豆雷走 `DoSpecial()`，睡眠植物和普通植物进入压扁状态；与二进制一致。
 - `Zombie::SquishAllInSquare` `0x52e920`：源码中车辆碾压同格时只额外排除地刺/地刺王，然后调用 `Plant::Squish()`；与二进制一致。
 - `Board::UpdateZombieSpawning` `0x413d00`：W9/W19 红字倒计时归零帧会在清 advice、调用 `NextWaveComing()` 并写 `mZombieCountDown = 1` 后继续落入普通 `mZombieCountDown--` 路径；当前反编译源码与二进制一致，不属于反编译源码错误。
+- `Zombie::UpdateZombieDancer` `0x528CA0`：原 D34 记录声称源码在递减
+  `mSummonCounter` 后检查 `== 1`，实际从初始提交
+  `c663d6e1628ae5a34b2da30dbba162571c021527` 起即为 `== 0`，与 1051 二进制
+  一致；该项是文档误报，不需要生产代码修改。
