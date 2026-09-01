@@ -207,7 +207,7 @@ void SeedChooserScreen::CrazyDavePickSeeds()
 	{
 		aSeedArray[aSeedType].mItem = aSeedType;
 		uint aRecFlags = SeedNotRecommendedToPick(aSeedType);
-		if ((aSeedType == SEED_GATLINGPEA && !mApp->mPlayerInfo->mPurchases[STORE_ITEM_PLANT_GATLINGPEA]) || !mApp->SeedTypeAvailable(aSeedType) ||
+		if (aRecFlags || (aSeedType == SEED_GATLINGPEA && !mApp->mPlayerInfo->mPurchases[STORE_ITEM_PLANT_GATLINGPEA]) || !mApp->SeedTypeAvailable(aSeedType) ||
 			SeedNotAllowedToPick(aSeedType) || Plant::IsUpgrade(aSeedType) || aSeedType == SEED_IMITATER || aSeedType == SEED_UMBRELLA || aSeedType == SEED_BLOVER)
 		{
 			aSeedArray[aSeedType].mWeight = 0;

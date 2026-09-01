@@ -239,7 +239,7 @@ public:
 	Projectile*						AddProjectile(int theX, int theY, int theRenderOrder, int theRow, ProjectileType theProjectileType);
 	Coin*							AddCoin(int theX, int theY, CoinType theCoinType, CoinMotion theCoinMotion);
 	void							RefreshSeedPacketFromCursor();
-	ZombieType						PickGraveRisingZombieType(int theZombiePoints);
+	ZombieType						PickGraveRisingZombieType();
 	ZombieType						PickZombieType(int theZombiePoints, int theWaveIndex, ZombiePicker* theZombiePicker);
 	int								PickRowForNewZombie(ZombieType theZombieType);
 	/*inline*/ Zombie*				AddZombie(ZombieType theZombieType, int theFromWave);

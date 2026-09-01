@@ -738,7 +738,7 @@ bool Plant::FindTargetAndFire(int theRow, PlantWeapon thePlantWeapon)
         aHeadReanim->mAnimRate = 35.0f;
         aHeadReanim->SetFramesForLayer("anim_shooting");
 
-        mShootingCounter = 33;
+        mShootingCounter = 35;
         if (mSeedType == SeedType::SEED_REPEATER || mSeedType == SeedType::SEED_SPLITPEA || mSeedType == SeedType::SEED_LEFTPEATER)
         {
             aHeadReanim->mAnimRate = 45.0f;
@@ -865,8 +865,9 @@ bool Plant::FindStarFruitTarget()
             }
             else
             {
+                // Corrected against PvZ 1.0.0.1051 binary: diggers widen the target rect instead of shifting x.
                 if (aZombie->mZombieType == ZombieType::ZOMBIE_DIGGER)
-                    aZombieRect.mX += 10;
+                    aZombieRect.mWidth += 10;
 
                 float aProjectileTime = Distance2D(aCenterStarX, aCenterStarY, aZombieRect.mX + aZombieRect.mWidth / 2, aZombieRect.mY + aZombieRect.mHeight / 2) / 3.33f;
                 int aZombieHitX = aZombie->ZombieTargetLeadX(aProjectileTime) - aZombieRect.mWidth / 2;
@@ -1285,7 +1286,8 @@ void Plant::UpdateSpikeweed()
         }
         else if (mSeedType == SeedType::SEED_SPIKEROCK)
         {
-            if (mStateCountdown == 69 || mStateCountdown == 33)
+            // Corrected against PvZ 1.0.0.1051 binary: spikerock hits at countdown 70 and 32.
+            if (mStateCountdown == 70 || mStateCountdown == 32)
             {
                 DoRowAreaDamage(20, 33U);
             }
@@ -1501,7 +1503,8 @@ void Plant::UpdateSquash()
         {
             PlayBodyReanim("anim_jumpup", ReanimLoopType::REANIM_PLAY_ONCE_AND_HOLD, 20, 24.0f);
             mState = PlantState::STATE_SQUASH_PRE_LAUNCH;
-            mStateCountdown = 30;
+            // Corrected against PvZ 1.0.0.1051 binary: pre-launch countdown is 45 frames.
+            mStateCountdown = 45;
         }
     }
     else if (mState == PlantState::STATE_SQUASH_PRE_LAUNCH)
@@ -1538,7 +1541,7 @@ void Plant::UpdateSquash()
         }
         else if (mState == PlantState::STATE_SQUASH_FALLING)
         {
-            mY = TodAnimateCurve(10, 0, mStateCountdown, aDestY - 120, aDestY, TodCurves::CURVE_EASE_IN_OUT);
+            mY = TodAnimateCurve(10, 0, mStateCountdown, aDestY - 120, aDestY, TodCurves::CURVE_LINEAR);
 
             if (mStateCountdown == 5)
             {
@@ -1617,7 +1620,7 @@ void Plant::UpdateBlover()
         aBodyReanim->mLoopType = ReanimLoopType::REANIM_LOOP;
     }
 
-    if (mState != PlantState::STATE_DOINGSPECIAL && mStateCountdown == 0)
+    if (mState != PlantState::STATE_DOINGSPECIAL && mDoSpecialCountdown == 0)
     {
         DoSpecial();
     }
@@ -4306,7 +4309,7 @@ void Plant::BlowAwayFliers(int theX, int theRow)
         if (!aZombie->IsDeadOrDying())
         {
             Rect aZombieRect = aZombie->GetZombieRect();
-            if (aZombie->IsFlying())
+            if (aZombie->mZombiePhase == ZombiePhase::PHASE_BALLOON_FLYING)
             {
                 aZombie->mBlowingAway = true;
             }
@@ -4639,7 +4642,7 @@ void Plant::Fire(Zombie* theTargetZombie, int theRow, PlantWeapon thePlantWeapon
     {
         int aOffsetX, aOffsetY;
         GetPeaHeadOffset(aOffsetX, aOffsetY);
-        aOriginX = mX + aOffsetX + 27;
+        aOriginX = mX - aOffsetX + 27;
         aOriginY = mY + aOffsetY - 33;
     }
     else if (mSeedType == SeedType::SEED_GATLINGPEA)

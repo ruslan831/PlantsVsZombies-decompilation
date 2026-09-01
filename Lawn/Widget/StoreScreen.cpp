@@ -194,7 +194,7 @@ bool StoreScreen::IsItemSoldOut(StoreItem theStoreItem)
     else if (theStoreItem == STORE_ITEM_FERTILIZER || theStoreItem == STORE_ITEM_BUG_SPRAY)
         return aPlayer->mPurchases[theStoreItem] - PURCHASE_COUNT_OFFSET > 15;
     else if (theStoreItem == STORE_ITEM_TREE_FOOD)
-        return aPlayer->mPurchases[STORE_ITEM_TREE_FOOD] - PURCHASE_COUNT_OFFSET > 10;
+        return aPlayer->mPurchases[STORE_ITEM_TREE_FOOD] - PURCHASE_COUNT_OFFSET >= 10;
     else if (theStoreItem == STORE_ITEM_BONUS_LAWN_MOWER)
         return aPlayer->mPurchases[STORE_ITEM_BONUS_LAWN_MOWER] >= 2;
     else if (IsPottedPlant(theStoreItem))

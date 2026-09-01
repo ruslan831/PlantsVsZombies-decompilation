@@ -694,7 +694,7 @@ void Zombie::ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Z
         aBodyReanim->mFrameBasePose = 0;
         TodScaleRotateTransformMatrix(aAttachEffect->mOffset, 37.0f, 0.0f, 0.2f, -0.8f, 0.8f);
 
-        mHelmType = HelmType::HELMTYPE_WALLNUT;
+        mHelmType = HelmType::HELMTYPE_TALLNUT;
         mHelmHealth = 2200;
         mVariant = false;
         mPosX += 30.0f;
@@ -1095,7 +1095,8 @@ void Zombie::BungeeDropZombie(Zombie* theDroppedZombie, int theGridX, int theGri
 //0x524A70
 void Zombie::PickRandomSpeed()
 {
-    if (mZombiePhase == ZombiePhase::PHASE_DOLPHIN_WALKING_IN_POOL)
+    // Corrected against PvZ 1.0.0.1051 binary: phase 0x3B is snorkel walking in pool.
+    if (mZombiePhase == ZombiePhase::PHASE_SNORKEL_WALKING_IN_POOL)
     {
         mVelX = 0.3f;
     }
@@ -1143,7 +1144,8 @@ void Zombie::PickRandomSpeed()
     }
     else
     {
-        mVelX = RandRangeFloat(0.23f, 0.32f);
+        // Corrected against PvZ 1.0.0.1051 binary: default upper bound is 0.37f.
+        mVelX = RandRangeFloat(0.23f, 0.37f);
         if (mVelX < 0.3f)
         {
             mAnimTicksPerFrame = 12;
@@ -2392,6 +2394,7 @@ void Zombie::UpdateZombieJalapenoHead()
             }
         }
 #endif
+        DieNoLoot();
     }
 }
 
@@ -4701,11 +4704,11 @@ void Zombie::UpdateYuckyFace()
 
         if (aCanGoDown && !aCanGoUp)
         {
-            SetRow(mRow - 1);
+            SetRow(mRow + 1);
         }
         else if (!aCanGoDown && aCanGoUp)
         {
-            SetRow(mRow + 1);
+            SetRow(mRow - 1);
         }
         else if (aCanGoDown && aCanGoUp)
         {
@@ -6373,7 +6376,8 @@ Zombie* Zombie::FindZombieTarget()
         {
             Rect aZombieRect = aZombie->GetZombieRect();
             int aOverlap = GetRectOverlap(aAttackRect, aZombieRect);
-            if (aOverlap >= 20 || (aOverlap > 0 && aZombie->mIsEating))
+            // Corrected against PvZ 1.0.0.1051 binary: eating targets also match at edge overlap 0.
+            if (aOverlap >= 20 || (aOverlap >= 0 && aZombie->mIsEating))
             {
                 return aZombie;
             }
@@ -7416,7 +7420,7 @@ void Zombie::StopZombieSound()
 {
     if (mZombieType == ZombieType::ZOMBIE_DANCER || mZombieType == ZombieType::ZOMBIE_BACKUP_DANCER)
     {
-        bool aStopSound = false;
+        bool aStopSound = true;
 
         if (mBoard)
         {
@@ -7426,7 +7430,7 @@ void Zombie::StopZombieSound()
                 if (aZombie->mHasHead && !aZombie->IsDeadOrDying() && aZombie->IsOnBoard() && 
                     (aZombie->mZombieType == ZombieType::ZOMBIE_DANCER || aZombie->mZombieType == ZombieType::ZOMBIE_BACKUP_DANCER))
                 {
-                    aStopSound = true;
+                    aStopSound = false;
                     break;
                 }
             }
@@ -8227,7 +8231,7 @@ bool Zombie::IsZombotany(ZombieType theZombieType)
         theZombieType == ZombieType::ZOMBIE_SQUASH_HEAD;
 }
 
-//0x5320B0
+//0x532060
 bool Zombie::ZombieTypeCanGoInPool(ZombieType theZombieType)
 {
     return 
@@ -8235,6 +8239,7 @@ bool Zombie::ZombieTypeCanGoInPool(ZombieType theZombieType)
         theZombieType == ZombieType::ZOMBIE_TRAFFIC_CONE || 
         theZombieType == ZombieType::ZOMBIE_PAIL || 
         theZombieType == ZombieType::ZOMBIE_FLAG || 
+        theZombieType == ZombieType::ZOMBIE_BALLOON ||
         theZombieType == ZombieType::ZOMBIE_SNORKEL || 
         theZombieType == ZombieType::ZOMBIE_DOLPHIN_RIDER || 
         theZombieType == ZombieType::ZOMBIE_PEA_HEAD || 

@@ -562,9 +562,9 @@ int Challenge::BeghouledTwistMoveCausesMatch(int theGridX, int theGridY, Beghoul
 	SeedType aSeed4 = theBoardState->mSeedType[theGridX + 1][theGridY + 1];
 
 	theBoardState->mSeedType[theGridX + 1][theGridY] = aSeed1;
-	theBoardState->mSeedType[theGridX][theGridY + 1] = aSeed2;
-	theBoardState->mSeedType[theGridX + 1][theGridY + 1] = aSeed3;
-	theBoardState->mSeedType[theGridX][theGridY] = aSeed4;
+	theBoardState->mSeedType[theGridX + 1][theGridY + 1] = aSeed2;
+	theBoardState->mSeedType[theGridX][theGridY + 1] = aSeed4;
+	theBoardState->mSeedType[theGridX][theGridY] = aSeed3;
 
 	int aHasMatch = BeghouledBoardHasMatch(theBoardState);
 
@@ -674,7 +674,7 @@ void Challenge::BeghouledDragUpdate(int x, int y)
 		int aGridXFrom = mBoard->PixelToGridX(mBeghouledMouseDownX, mBeghouledMouseDownY);
 		int aGridYFrom = mBoard->PixelToGridY(mBeghouledMouseDownX, mBeghouledMouseDownY);
 		int aGridXTo, aGridYTo;
-		if (aDeltaX > aDeltaY)
+		if (abs(aDeltaX) > abs(aDeltaY))
 		{
 			aGridXTo = aGridXFrom + (aDeltaX > 0 ? 1 : -1);
 			aGridYTo = aGridYFrom;
@@ -2088,7 +2088,7 @@ void Challenge::UpdateSlotMachine()
 			else
 			{
 				mBoard->DisplayAdvice(_S("[ADVICE_SLOT_MACHINE_3_OF_A_KIND]"), MESSAGE_STYLE_SLOT_MACHINE, ADVICE_NONE);
-				for (int i = 0; i < 20; i++)
+				for (int i = 0; i < 3; i++)
 				{
 					mBoard->AddCoin(320 + i * 20, 85, COIN_USABLE_SEED_PACKET, COIN_MOTION_COIN)->mUsableSeedType = aPacket1;
 				}
@@ -2124,6 +2124,7 @@ void Challenge::ZombieAtePlant(Zombie* theZombie, Plant* thePlant)
 
 	if (mBoard->mSeedBank->mNumPackets == 4)
 	{
+		mBoard->mSeedBank->mNumPackets = 5;
 		mBoard->mSeedBank->mSeedPackets[4].SetPacketType(SEED_BEGHOULED_BUTTON_CRATER);
 		mBoard->DisplayAdvice(_S("[ADVICE_BEGHOULED_USE_CRATER_1]"), MESSAGE_STYLE_HINT_FAST, ADVICE_BEGHOULED_USE_CRATER_1);
 	}
@@ -2466,7 +2467,7 @@ PlantingReason Challenge::CanPlantAt(int theGridX, int theGridY, SeedType theSee
 			aLimit = 5;
 		}
 
-		if (theSeedType == ZOMBIE_BUNGEE)
+		if (theSeedType == SEED_ZOMBIE_BUNGEE)
 		{
 			return theGridX < aLimit ? PLANTING_OK : PLANTING_NOT_HERE;
 		}
@@ -2757,7 +2758,7 @@ void Challenge::WhackAZombiePlaceGraves(int theGraveCount)
 				continue;
 
 			TodWeightedGridArray* aPick = &aPicks[aPickCount++];
-			aPick->mWeight = mBoard->GetTopPlantAt(aCol, aRow, TOPPLANT_ANY) ? 100000 : 1;
+			aPick->mWeight = mBoard->GetTopPlantAt(aCol, aRow, TOPPLANT_ANY) ? 1 : 100000;
 			aPick->mX = aCol;
 			aPick->mY = aRow;
 		}
@@ -2915,11 +2916,12 @@ void Challenge::WhackAZombieSpawning()
 }
 
 //0x426580
-int Challenge::UpdateZombieSpawning()
+bool Challenge::UpdateZombieSpawning()
 {
 	if (mApp->IsWhackAZombieLevel())
 	{
 		WhackAZombieSpawning();
+		return true;
 	}
 	else return
 		mApp->IsFinalBossLevel() ||
@@ -2965,7 +2967,7 @@ void Challenge::GraveDangerSpawnRandomGrave()
 		{
 			if (mBoard->CanAddGraveStoneAt(aCol, aRow))
 			{
-				aPicks[aPickCount].mWeight = mBoard->GetTopPlantAt(aCol, aRow, TOPPLANT_ANY) ? 100000 : 1;
+				aPicks[aPickCount].mWeight = mBoard->GetTopPlantAt(aCol, aRow, TOPPLANT_ANY) ? 1 : 100000;
 				aPicks[aPickCount].mX = aCol;
 				aPicks[aPickCount].mY = aRow;
 				aPickCount++;
@@ -3015,7 +3017,8 @@ void Challenge::SpawnZombieWave()
 	if (mApp->IsSurvivalMode() && mBoard->mBackground == BACKGROUND_2_NIGHT && mBoard->mCurrentWave == mBoard->mNumWaves - 1)
 	{
 		int aNumGraves = mBoard->GetGraveStonesCount();
-		if ((mApp->IsSurvivalNormal(mApp->mGameMode) && aNumGraves < 8) || aNumGraves < 12)
+		int aGraveLimit = mApp->IsSurvivalNormal(mApp->mGameMode) ? 8 : 12;
+		if (aNumGraves < aGraveLimit)
 		{
 			GraveDangerSpawnRandomGrave();
 		}
@@ -3562,6 +3565,7 @@ void Challenge::BeghouledPacketClicked(SeedPacket* theSeedPacket)
 				mBoard->AddPlant(aPlant->mPlantCol, aPlant->mRow, SEED_REPEATER, SEED_NONE);
 			}
 		}
+		theSeedPacket->SetActivate(false);
 	}
 	else if (theSeedPacket->mPacketType == SEED_FUMESHROOM && !mBoard->mChallenge->mBeghouledPurcasedUpgrade[(int)BeghouledUpgrade::BEGHOULED_UPGRADE_FUMESHROOM])
 	{
@@ -3576,6 +3580,7 @@ void Challenge::BeghouledPacketClicked(SeedPacket* theSeedPacket)
 				mBoard->AddPlant(aPlant->mPlantCol, aPlant->mRow, SEED_FUMESHROOM, SEED_NONE);
 			}
 		}
+		theSeedPacket->SetActivate(false);
 	}
 	else if (theSeedPacket->mPacketType == SEED_TALLNUT && !mBoard->mChallenge->mBeghouledPurcasedUpgrade[(int)BeghouledUpgrade::BEGHOULED_UPGRADE_TALLNUT])
 	{
@@ -3590,6 +3595,7 @@ void Challenge::BeghouledPacketClicked(SeedPacket* theSeedPacket)
 				mBoard->AddPlant(aPlant->mPlantCol, aPlant->mRow, SEED_TALLNUT, SEED_NONE);
 			}
 		}
+		theSeedPacket->SetActivate(false);
 	}
 	else if (theSeedPacket->mPacketType == SEED_BEGHOULED_BUTTON_SHUFFLE)
 	{
@@ -3764,7 +3770,7 @@ void Challenge::ZombiquariumUpdate()
 	{
 		mBoard->TutorialArrowRemove();
 		mBoard->ClearAdvice(ADVICE_ZOMBIQUARIUM_CLICK_TROPHY);
-		mBoard->mTutorialState = TUTORIAL_OFF;
+		mBoard->mTutorialState = TUTORIAL_ZOMBIQUARIUM_BOUGHT_SNORKEL;
 	}
 
 	GridItem* aGridItem = nullptr;
@@ -3787,7 +3793,7 @@ void Challenge::ShovelAddWallnuts()
 {
 	for (int aCol = 0; aCol < MAX_GRID_SIZE_X; aCol++)
 	{
-		for (int aRow = 0; aRow < MAX_GRID_SIZE_Y; aRow++)
+		for (int aRow = 0; aRow < MAX_GRID_SIZE_Y - 1; aRow++)
 		{
 			mBoard->AddPlant(aCol, aRow, SEED_WALLNUT, SEED_NONE);
 		}
@@ -4022,8 +4028,8 @@ void Challenge::ScaryPotterPopulate()
 			ScaryPotterPlacePot(SCARYPOT_SEED, ZOMBIE_INVALID, SEED_TORCHWOOD, 4, aGridArray, aGridArrayCount);
 			ScaryPotterPlacePot(SCARYPOT_ZOMBIE, ZOMBIE_NORMAL, SEED_NONE, 7, aGridArray, aGridArrayCount);
 			ScaryPotterPlacePot(SCARYPOT_ZOMBIE, ZOMBIE_POLEVAULTER, SEED_NONE, 5, aGridArray, aGridArrayCount);
-			ScaryPotterPlacePot(SCARYPOT_ZOMBIE, ZOMBIE_FOOTBALL, SEED_NONE, 6, aGridArray, aGridArrayCount);
-			ScaryPotterPlacePot(SCARYPOT_ZOMBIE, ZOMBIE_JACK_IN_THE_BOX, SEED_NONE, 6, aGridArray, aGridArrayCount);
+			ScaryPotterPlacePot(SCARYPOT_ZOMBIE, ZOMBIE_FOOTBALL, SEED_NONE, 2, aGridArray, aGridArrayCount);
+			ScaryPotterPlacePot(SCARYPOT_ZOMBIE, ZOMBIE_JACK_IN_THE_BOX, SEED_NONE, 1, aGridArray, aGridArrayCount);
 			ScaryPotterChangePotType(GRIDITEM_STATE_SCARY_POT_LEAF, 2);
 			break;
 		case GAMEMODE_SCARY_POTTER_7:
@@ -4195,7 +4201,7 @@ void Challenge::PuzzlePhaseComplete(int theGridX, int theGridY)
 		}
 		else if (aHit < 30)
 		{
-			aCoinType = mApp->mZenGarden->CanDropChocolate() ? COIN_CHOCOLATE : COIN_AWARD_MONEY_BAG;
+			aCoinType = mApp->mZenGarden->CanDropChocolate() ? COIN_AWARD_CHOCOLATE : COIN_AWARD_MONEY_BAG;
 		}
 		else
 		{
@@ -4374,7 +4380,7 @@ void Challenge::IZombiePlaceZombie(ZombieType theZombieType, int theGridX, int t
 	if (theZombieType == ZOMBIE_BUNGEE)
 	{
 		aZombie->mTargetCol = theGridX;
-		aZombie->SetRow(theGridX);
+		aZombie->SetRow(theGridY);
 		aZombie->mPosX = mBoard->GridToPixelX(theGridX, theGridY);
 		aZombie->mPosY = aZombie->GetPosYBasedOnRow(theGridY);
 		aZombie->mRenderOrder = Board::MakeRenderOrder(RENDER_LAYER_GRAVE_STONE, theGridY, 7);
@@ -5010,7 +5016,7 @@ void Challenge::SquirrelStart()
 		aSquirrel->mGridItemState = GRIDITEM_STATE_SQUIRREL_WAITING;
 		aSquirrel->mGridX = aGrid->mX;
 		aSquirrel->mGridY = aGrid->mY;
-		aSquirrel->mGridItemCounter = RandRangeInt(100, 400);
+		aSquirrel->mGridItemCounter = RandRangeInt(100, 500);
 		aSquirrel->mRenderOrder = mBoard->MakeRenderOrder(RENDER_LAYER_GRAVE_STONE, aSquirrel->mGridY, 1);
 	}
 
@@ -5034,7 +5040,7 @@ void Challenge::SquirrelStart()
 //0x42BCB0
 void Challenge::SquirrelChew(GridItem* theSquirrel)
 {
-	theSquirrel->mGridItemCounter = RandRangeInt(100, 400);
+	theSquirrel->mGridItemCounter = RandRangeInt(100, 500);
 
 	Plant* aPlant = mBoard->GetTopPlantAt(theSquirrel->mGridX, theSquirrel->mGridY, TOPPLANT_EATING_ORDER);
 	if (aPlant)
@@ -5093,11 +5099,18 @@ void Challenge::SquirrelFound(GridItem* theSquirrel)
 		{
 			TodWeightedGridArray* aGrid = TodPickFromWeightedGridArray(aPicks, aPickCount);
 
-			theSquirrel->mGridItemState =
-				aGrid->mX < theSquirrel->mGridX ? GRIDITEM_STATE_SQUIRREL_RUNNING_LEFT :
-				aGrid->mX >= theSquirrel->mGridX ? GRIDITEM_STATE_SQUIRREL_RUNNING_RIGHT :
-				aGrid->mY < theSquirrel->mGridY ? GRIDITEM_STATE_SQUIRREL_RUNNING_UP : GRIDITEM_STATE_SQUIRREL_RUNNING_DOWN;
+			if (aGrid->mX != theSquirrel->mGridX)
+			{
+				theSquirrel->mGridItemState = aGrid->mX < theSquirrel->mGridX ?
+					GRIDITEM_STATE_SQUIRREL_RUNNING_LEFT : GRIDITEM_STATE_SQUIRREL_RUNNING_RIGHT;
+			}
+			else
+			{
+				theSquirrel->mGridItemState = aGrid->mY < theSquirrel->mGridY ?
+					GRIDITEM_STATE_SQUIRREL_RUNNING_UP : GRIDITEM_STATE_SQUIRREL_RUNNING_DOWN;
+			}
 
+			theSquirrel->mGridItemCounter = 50;
 			theSquirrel->mGridX = aGrid->mX;
 			theSquirrel->mGridY = aGrid->mY;
 			theSquirrel->mRenderOrder = Board::MakeRenderOrder(RENDER_LAYER_GRAVE_STONE, aGrid->mY, 1);
@@ -5152,7 +5165,7 @@ void Challenge::SquirrelUpdateOne(GridItem* theSquirrel)
 	if (aState >= GRIDITEM_STATE_SQUIRREL_PEEKING && aState <= GRIDITEM_STATE_SQUIRREL_RUNNING_RIGHT && aCounter == 0)
 	{
 		aState = GRIDITEM_STATE_SQUIRREL_WAITING;
-		aCounter = RandRangeInt(100, 400);
+		aCounter = RandRangeInt(100, 500);
 	}
 	if (aState == GRIDITEM_STATE_SQUIRREL_CAUGHT && aCounter == 0)
 	{

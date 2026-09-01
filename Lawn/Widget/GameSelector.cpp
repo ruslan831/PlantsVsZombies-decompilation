@@ -705,7 +705,7 @@ void GameSelector::Update()
 				mApp->PreNewGame(GameMode::GAMEMODE_CHALLENGE_ICE, false);
 				return;
 			}
-			if (mApp->IsFirstTimeAdventureMode() && mLevel == 0 && mApp->SaveFileExists())
+			if (mApp->IsFirstTimeAdventureMode() && mLevel == 1 && !mApp->SaveFileExists())
 			{
 				mApp->PreNewGame(GameMode::GAMEMODE_INTRO, false);
 				return;

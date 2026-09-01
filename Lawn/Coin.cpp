@@ -1168,10 +1168,15 @@ void Coin::Collect()
         }
         else if (mApp->IsScaryPotterLevel())
         {
-            if (mType == CoinType::COIN_TROPHY || mType == CoinType::COIN_AWARD_MONEY_BAG)
+            if (mType == CoinType::COIN_TROPHY)
             {
                 mApp->PlayFoley(FoleyType::FOLEY_COIN);
                 FanOutCoins(CoinType::COIN_GOLD, 5);
+            }
+            else if (mType == CoinType::COIN_AWARD_MONEY_BAG)
+            {
+                mApp->PlayFoley(FoleyType::FOLEY_COIN);
+                FanOutCoins(CoinType::COIN_GOLD, 2);
             }
         }
         else if (mApp->IsAdventureMode() && mBoard->mLevel == 50)

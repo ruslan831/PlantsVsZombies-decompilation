@@ -361,3 +361,11 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Local editor / language server files
+.clangd
+compile_commands.json
+
+# Local tooling workspace
+.serena/
+.cache/
